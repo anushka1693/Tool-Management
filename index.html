@@ -31,32 +31,39 @@
 
 <!-- SIDEBAR -->
 <div class="w-60 bg-white p-4 shadow h-screen">
-<div class="relative mb-4">
-  
-  <button onclick="toggleAddMenu()" 
-          class="btn-primary w-full flex justify-between items-center px-4 py-2">
-    <span>+ Add Tool</span>
-    <span>▼</span>
-  </button>
 
-  <div id="addToolMenu" class="hidden absolute left-0 w-full bg-white shadow rounded mt-1 z-10">
+  <div class="relative mb-4">
     
-    <div onclick="selectToolType('new')" class="p-2 hover:bg-gray-100 cursor-pointer">
-      New Tool
-    </div>
+    <button onclick="toggleAddMenu()" 
+      class="btn-primary w-full flex justify-between items-center px-4 py-2 rounded">
+      <span>+ Add Tool</span>
+      <span>▼</span>
+    </button>
 
-    <div onclick="selectToolType('existing')" class="p-2 hover:bg-gray-100 cursor-pointer">
-      Existing Tool
-    </div>
+    <div id="addToolMenu" 
+      class="hidden absolute left-0 w-full bg-white border rounded shadow mt-1 z-10">
 
-    <div onclick="selectToolType('ai')" class="p-2 hover:bg-gray-100 cursor-pointer">
-      AI Tool
+      <div onclick="selectToolType('new')" 
+        class="p-2 hover:bg-gray-100 cursor-pointer border-b">
+        New Tool
+      </div>
+
+      <div onclick="selectToolType('existing')" 
+        class="p-2 hover:bg-gray-100 cursor-pointer border-b">
+        Existing Tool
+      </div>
+
+      <div onclick="selectToolType('ai')" 
+        class="p-2 hover:bg-gray-100 cursor-pointer">
+        AI Tool
+      </div>
+
     </div>
 
   </div>
 
-</div>
   <div>Dashboard</div>
+
 </div>
 
 <!-- MAIN -->
@@ -66,7 +73,7 @@
 <div id="toolDetailsSection" class="hidden bg-white p-4 rounded shadow mb-4 relative">
 
   <button onclick="closeToolForm()" 
-          class="absolute top-2 right-3 text-xl font-bold text-gray-500 hover:text-black">
+    class="absolute top-2 right-3 text-xl font-bold text-gray-500 hover:text-black">
     ×
   </button>
 
@@ -86,33 +93,50 @@
 <!-- DASHBOARD -->
 <div id="dashboardSection">
 
-<div class="flex gap-2 mb-4">
+  <!-- FILTER -->
+  <div class="mb-4 flex gap-2">
 
-<!-- FILTER -->
-<div class="mb-3 flex gap-2">
-<button onclick="setFilter('all')" class="filter-btn">All</button>
-<button onclick="setFilter('progress')" class="filter-btn bg-blue-300">In Progress</button>
-<button onclick="setFilter('completed')" class="filter-btn bg-green-300">Completed</button>
-<button onclick="setFilter('new')" class="filter-btn bg-gray-400">Not Started</button>
+    <button onclick="setFilter('all')" 
+      class="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300">
+      All
+    </button>
+
+    <button onclick="setFilter('progress')" 
+      class="px-4 py-2 rounded bg-blue-200 hover:bg-blue-300">
+      In Progress
+    </button>
+
+    <button onclick="setFilter('completed')" 
+      class="px-4 py-2 rounded bg-green-200 hover:bg-green-300">
+      Completed
+    </button>
+
+    <button onclick="setFilter('new')" 
+      class="px-4 py-2 rounded bg-gray-400 text-white hover:bg-gray-500">
+      Not Started
+    </button>
+
+  </div>
+
+  <!-- TABLE -->
+  <table class="w-full bg-white rounded shadow">
+    <thead>
+      <tr class="border-b">
+        <th class="p-2 text-left">Tool</th>
+        <th class="p-2 text-left">Type</th>
+        <th class="p-2 text-left">Step</th>
+        <th class="p-2 text-left">Progress</th>
+        <th class="p-2 text-left">%</th>
+        <th class="p-2 text-left">Action</th>
+      </tr>
+    </thead>
+    <tbody id="table"></tbody>
+  </table>
+
 </div>
 
-<table class="w-full bg-white rounded shadow">
-<thead>
-<tr class="border-b">
-<th class="p-2 text-left">Tool</th>
-<th class="p-2 text-left">Type</th>
-<th class="p-2 text-left">Step</th>
-<th class="p-2 text-left">Progress</th>
-<th class="p-2 text-left">%</th>
-<th class="p-2 text-left">Action</th>
-</tr>
-</thead>
-<tbody id="table"></tbody>
-</table>
-
-</div>
-</div>
-</div>
+</div> <!-- MAIN -->
+</div> <!-- FLEX -->
 
 <!-- JS -->
 <script src="js/app.js"></script>
