@@ -3,8 +3,8 @@ let selectedToolType = "new";
 let filter = "all";
 
 const stepsList = [
-"Tool Decision","Demo","Vendor Questionnaire + NDA","IT Clearance","Partner Approval",
-"Pilot","DT Clearance","Tool Memo","QC Clearance","MSA","Rollout"
+  "Tool Decision","Demo","Vendor Questionnaire + NDA","IT Clearance","Partner Approval",
+  "Pilot","DT Clearance","Tool Memo","QC Clearance","MSA","Rollout"
 ];
 
 // OPEN FORM
@@ -50,6 +50,7 @@ function saveToolDetails() {
 
   closeToolForm();
 
+  // clear inputs
   document.getElementById("toolName").value = "";
   document.getElementById("companyName").value = "";
   document.getElementById("requestorName").value = "";
@@ -63,6 +64,16 @@ function saveToolDetails() {
 // FILTER
 function setFilter(f) {
   filter = f;
+
+  // highlight active button
+  document.querySelectorAll(".filter-btn").forEach(btn => {
+    btn.classList.remove("ring-2", "ring-[#800000]");
+  });
+
+  if (event?.target) {
+    event.target.classList.add("ring-2", "ring-[#800000]");
+  }
+
   render();
 }
 
@@ -124,19 +135,28 @@ function render() {
     }).join("");
 }
 
-function toggleAddMenu() {
-  document.getElementById("addToolMenu").classList.toggle("hidden");
-}
+// ✅ DROPDOWN (FIXED GLOBAL FUNCTIONS)
 
-function selectToolType(type) {
+window.toggleAddMenu = function () {
+  document.getElementById("addToolMenu").classList.toggle("hidden");
+};
+
+window.selectToolType = function (type) {
   selectedToolType = type;
 
-  // open form (your existing function)
   addTool();
 
-  // close dropdown
   document.getElementById("addToolMenu").classList.add("hidden");
-}
+};
+
+// ✅ CLOSE DROPDOWN ON OUTSIDE CLICK
+document.addEventListener("click", function (e) {
+  const menu = document.getElementById("addToolMenu");
+
+  if (!e.target.closest(".relative")) {
+    menu.classList.add("hidden");
+  }
+});
 
 // INITIAL LOAD
 render();
