@@ -2,16 +2,23 @@ let tools = JSON.parse(localStorage.getItem("tools")) || [];
 let filter = "all";
 
 const stepsList = [
-  "Tool Decision","Demo","Vendor Questionnaire + NDA","IT Clearance","Partner Approval",
-  "Pilot","DT Clearance","Tool Memo","QC Clearance","MSA","Rollout"
+"Tool Decision","Demo","Vendor Questionnaire + NDA","IT Clearance","Partner Approval",
+"Pilot","DT Clearance","Tool Memo","QC Clearance","MSA","Rollout"
 ];
 
-// ✅ UPDATED addTool (opens form instead of prompt)
+// OPEN FORM
 function addTool() {
   document.getElementById("toolDetailsSection").classList.remove("hidden");
+  document.getElementById("dashboardSection").style.display = "none";
 }
 
-// ✅ NEW save function (core logic)
+// CLOSE FORM
+function closeToolForm() {
+  document.getElementById("toolDetailsSection").classList.add("hidden");
+  document.getElementById("dashboardSection").style.display = "block";
+}
+
+// SAVE TOOL
 function saveToolDetails() {
 
   const name = document.getElementById("toolName").value;
@@ -38,13 +45,10 @@ function saveToolDetails() {
     audit: []
   });
 
-  // Save to localStorage
   localStorage.setItem("tools", JSON.stringify(tools));
 
-  // Hide form
-  document.getElementById("toolDetailsSection").classList.add("hidden");
+  closeToolForm();
 
-  // Clear inputs
   document.getElementById("toolName").value = "";
   document.getElementById("companyName").value = "";
   document.getElementById("requestorName").value = "";
@@ -55,25 +59,25 @@ function saveToolDetails() {
   alert("Tool added successfully!");
 }
 
-// ✅ FILTER FUNCTION
+// FILTER
 function setFilter(f) {
   filter = f;
   render();
 }
 
-// ✅ STATUS COLOR
+// STATUS
 function getStatusClass(step) {
   if (step === 0) return "bg-gray-400";
   if (step < 10) return "bg-[#800000]";
   return "bg-green-600";
 }
 
-// ✅ PROGRESS %
+// PROGRESS
 function getProgress(step) {
   return Math.round((step / 10) * 100);
 }
 
-// ✅ RENDER TABLE
+// RENDER TABLE
 function render() {
 
   let filtered = tools.filter(t => {
@@ -119,5 +123,5 @@ function render() {
     }).join("");
 }
 
-// ✅ INITIAL RENDER
+// INITIAL LOAD
 render();
