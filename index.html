@@ -17,15 +17,15 @@
 <!-- HEADER -->
 <div class="bg-[#800000] text-white p-4 flex justify-between">
   <div class="font-bold text-lg">KNAV Tool Clearance Hub</div>
-    <div class="text-right">
-      <div><b id="userName">Loading...</b></div>
-      <div class="text-sm">
-        <span id="userDesignation"></span> |
-        <span id="userPractice"></span> |
-        <span id="userRole"></span>
-      </div>
-      <button onclick="logout()" class="text-xs underline">Logout</button>
+  <div class="text-right">
+    <div><b id="userName">Loading...</b></div>
+    <div class="text-sm">
+      <span id="userDesignation"></span> |
+      <span id="userPractice"></span> |
+      <span id="userRole"></span>
     </div>
+    <button onclick="logout()" class="text-xs underline">Logout</button>
+  </div>
 </div>
 
 <div class="flex">
@@ -41,7 +41,14 @@
 <!-- MAIN -->
 <div class="flex-1 p-6">
 
-<div id="toolDetailsSection" class="hidden bg-white p-4 rounded shadow mb-4">
+<!-- ✅ TOOL DETAILS FORM -->
+<div id="toolDetailsSection" class="hidden bg-white p-4 rounded shadow mb-4 relative">
+
+  <!-- ❌ CLOSE BUTTON -->
+  <button onclick="closeToolForm()" 
+          class="absolute top-2 right-3 text-xl font-bold text-gray-500 hover:text-black">
+    ×
+  </button>
 
   <h2 class="text-xl font-bold mb-3">Tool Details</h2>
 
@@ -53,12 +60,13 @@
 
   <input id="practiceArea" class="border p-2 w-full mb-2" placeholder="Practice Area">
 
-  <button onclick="saveToolDetails()" class="btn-primary mt-2">
+  <button onclick="saveToolDetails()" class="btn-primary mt-2 w-full">
     Save Details
   </button>
 
 </div>
 
+<!-- EXISTING CONTENT (UNCHANGED) -->
 <h2 class="text-xl font-bold mb-3">What are you looking for?</h2>
 
 <div class="flex gap-2 mb-4">
@@ -140,10 +148,6 @@
     loadUser();
   };
 </script>
-  
+
 </body>
 </html>
-
-<script>
-  window.onload = loadUser;
-</script>
