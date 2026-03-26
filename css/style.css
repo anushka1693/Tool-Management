@@ -71,3 +71,35 @@ body {
   padding: 20px;
   width: 60%;
 }
+
+/* =========================
+   SECTION WORKFLOW STYLING
+========================= */
+
+.section {
+  transition: all 0.3s ease;
+  margin-bottom: 16px;
+}
+
+/* Future sections (greyed) */
+.disabled-section {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Active section */
+.active-section {
+  opacity: 1;
+  pointer-events: auto;
+  border-left: 4px solid #800000;
+  padding-left: 10px;
+  background-color: #ffffff;
+}
+
+/* Completed section */
+.completed-section {
+  opacity: 0.9;
+  border-left: 4px solid green;
+  padding-left: 10px;
+  background-color: #f9f9f9;
+}
