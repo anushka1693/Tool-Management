@@ -18,7 +18,7 @@ function addTool() {
   document.getElementById("toolDetailsSection").classList.remove("hidden");
   document.getElementById("dashboardSection").style.display = "none";
 
-  showSection(0);
+  updateSections(0);
 }
 
 function closeToolForm() {
@@ -54,6 +54,9 @@ function saveToolDetails() {
       type,
       step: 0
     });
+
+    // ✅ IMPORTANT FIX
+    currentToolIndex = tools.length - 1;
   } 
   // UPDATE EXISTING
   else {
@@ -64,9 +67,6 @@ function saveToolDetails() {
   }
 
   localStorage.setItem("tools", JSON.stringify(tools));
-
-  closeToolForm();
-  render();
 
   alert("Saved successfully!");
 }
@@ -170,24 +170,40 @@ function openTool(index) {
   document.getElementById("requestorName").value = tool.requestor || "";
   document.getElementById("practiceArea").value = tool.practice || "";
 
-  showSection(tool.step);
+  updateSections(tool.step);
 }
 
 // =======================
-// SECTION CONTROL
+// SECTION CONTROL (NEW LOGIC)
 // =======================
 
-function showSection(step) {
+function updateSections(step) {
 
-  document.getElementById("section1")?.classList.add("hidden");
-  document.getElementById("section2").classList.add("hidden");
-  document.getElementById("section3").classList.add("hidden");
-  document.getElementById("section4").classList.add("hidden");
+  const sections = [
+    document.getElementById("section1"),
+    document.getElementById("section2"),
+    document.getElementById("section3"),
+    document.getElementById("section4")
+  ];
 
-  if (step === 0) document.getElementById("section1")?.classList.remove("hidden");
-  if (step === 1) document.getElementById("section2").classList.remove("hidden");
-  if (step === 2) document.getElementById("section3").classList.remove("hidden");
-  if (step === 3) document.getElementById("section4").classList.remove("hidden");
+  sections.forEach((sec, index) => {
+
+    sec.classList.remove("active-section", "disabled-section", "completed-section");
+
+    if (index < step) {
+      sec.classList.add("completed-section");
+    }
+    else if (index === step) {
+      sec.classList.add("active-section");
+
+      // scroll to active section
+      sec.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    else {
+      sec.classList.add("disabled-section");
+    }
+
+  });
 }
 
 // =======================
@@ -196,7 +212,10 @@ function showSection(step) {
 
 function nextStep() {
 
-  if (currentToolIndex === null) return;
+  if (currentToolIndex === null) {
+    alert("Please save the tool first");
+    return;
+  }
 
   if (tools[currentToolIndex].step < 10) {
     tools[currentToolIndex].step++;
@@ -204,7 +223,7 @@ function nextStep() {
 
   localStorage.setItem("tools", JSON.stringify(tools));
 
-  showSection(tools[currentToolIndex].step);
+  updateSections(tools[currentToolIndex].step);
   render();
 }
 
@@ -224,7 +243,6 @@ window.selectToolType = function (type) {
   document.getElementById("addToolMenu").classList.add("hidden");
 };
 
-// close dropdown outside click
 document.addEventListener("click", function (e) {
   const menu = document.getElementById("addToolMenu");
 
