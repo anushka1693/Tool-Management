@@ -9,7 +9,6 @@
 <script src="https://alcdn.msauth.net/browser/2.38.0/js/msal-browser.min.js"></script>
 
 <link rel="stylesheet" href="css/style.css">
-
 </head>
 
 <body class="bg-gray-100">
@@ -41,10 +40,9 @@
 <!-- MAIN -->
 <div class="flex-1 p-6">
 
-<!-- ✅ TOOL DETAILS FORM -->
+<!-- TOOL DETAILS -->
 <div id="toolDetailsSection" class="hidden bg-white p-4 rounded shadow mb-4 relative">
 
-  <!-- ❌ CLOSE BUTTON -->
   <button onclick="closeToolForm()" 
           class="absolute top-2 right-3 text-xl font-bold text-gray-500 hover:text-black">
     ×
@@ -53,11 +51,8 @@
   <h2 class="text-xl font-bold mb-3">Tool Details</h2>
 
   <input id="toolName" class="border p-2 w-full mb-2" placeholder="Tool Name">
-
   <input id="companyName" class="border p-2 w-full mb-2" placeholder="Company Name">
-
   <input id="requestorName" class="border p-2 w-full mb-2" placeholder="Requestor Name">
-
   <input id="practiceArea" class="border p-2 w-full mb-2" placeholder="Practice Area">
 
   <button onclick="saveToolDetails()" class="btn-primary mt-2 w-full">
@@ -66,7 +61,10 @@
 
 </div>
 
-<!-- EXISTING CONTENT (UNCHANGED) -->
+<!-- DASHBOARD -->
+<div id="dashboardSection">
+
+<h2 class="text-xl font-bold mb-3">What are you looking for?</h2>
 
 <div class="flex gap-2 mb-4">
   <select id="mode" class="border p-2 flex-1">
@@ -74,6 +72,11 @@
     <option value="existing">Existing Tool</option>
     <option value="ai">AI Tool</option>
   </select>
+
+  <button onclick="addTool()" class="btn-primary px-4">
+    Start Request
+  </button>
+</div>
 
 <!-- FILTER -->
 <div class="mb-3 flex gap-2">
@@ -99,37 +102,9 @@
 
 </div>
 </div>
-
-<!-- MODAL -->
-<div id="modal" class="hidden modal-bg">
-<div class="modal-box">
-
-<div class="modal-left" id="steps"></div>
-<div class="modal-center" id="center"></div>
-
-<div class="modal-right">
-<button onclick="renderDocs()" class="mb-2 bg-gray-200 px-2">Documents</button>
-<div id="docs"></div>
-
-<h3 class="mt-4 font-bold">Audit</h3>
-<div id="audit"></div>
 </div>
 
-<button onclick="closeModal()" class="modal-close">Close</button>
-
-</div>
-</div>
-
-<!-- PREVIEW -->
-<div id="preview" class="hidden modal-bg">
-<div class="preview-box">
-<h3 id="previewTitle"></h3>
-<div class="border p-10 text-center">Document Preview</div>
-<button onclick="closePreview()" class="btn-danger mt-2">Close</button>
-</div>
-</div>
-
-<!-- JS FILES -->
+<!-- JS -->
 <script src="js/app.js"></script>
 <script src="js/modal.js"></script>
 <script src="js/steps.js"></script>
@@ -138,9 +113,9 @@
 <script src="js/auth.js"></script>
 
 <script>
-  window.onload = function () {
-    loadUser();
-  };
+window.onload = function () {
+  loadUser();
+};
 </script>
 
 </body>
