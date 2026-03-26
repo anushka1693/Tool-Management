@@ -1,4 +1,5 @@
 let tools = JSON.parse(localStorage.getItem("tools")) || [];
+let selectedToolType = "new";
 let filter = "all";
 
 const stepsList = [
@@ -31,7 +32,7 @@ function saveToolDetails() {
     return;
   }
 
-  const type = document.getElementById("mode").value;
+  const type = selectedToolType;
 
   tools.push({
     name,
@@ -121,6 +122,20 @@ function render() {
       </tr>
       `;
     }).join("");
+}
+
+function toggleAddMenu() {
+  document.getElementById("addToolMenu").classList.toggle("hidden");
+}
+
+function selectToolType(type) {
+  selectedToolType = type;
+
+  // open form (your existing function)
+  addTool();
+
+  // close dropdown
+  document.getElementById("addToolMenu").classList.add("hidden");
 }
 
 // INITIAL LOAD
