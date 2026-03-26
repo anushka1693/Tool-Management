@@ -33,7 +33,6 @@
 <div class="w-60 bg-white p-4 shadow h-screen">
 
   <div class="relative mb-4">
-    
     <button onclick="toggleAddMenu()" 
       class="btn-primary w-full flex justify-between items-center px-4 py-2 rounded">
       <span>+ Add Tool</span>
@@ -43,23 +42,19 @@
     <div id="addToolMenu" 
       class="hidden absolute left-0 w-full bg-white border rounded shadow mt-1 z-10">
 
-      <div onclick="selectToolType('new')" 
-        class="p-2 hover:bg-gray-100 cursor-pointer border-b">
+      <div onclick="selectToolType('new')" class="p-2 hover:bg-gray-100 cursor-pointer border-b">
         New Tool development request
       </div>
 
-      <div onclick="selectToolType('existing')" 
-        class="p-2 hover:bg-gray-100 cursor-pointer border-b">
-      Request Tool Clearance
+      <div onclick="selectToolType('existing')" class="p-2 hover:bg-gray-100 cursor-pointer border-b">
+        Request Tool Clearance
       </div>
 
-      <div onclick="selectToolType('ai')" 
-        class="p-2 hover:bg-gray-100 cursor-pointer">
+      <div onclick="selectToolType('ai')" class="p-2 hover:bg-gray-100 cursor-pointer">
         AI Tool
       </div>
 
     </div>
-
   </div>
 
   <div>Dashboard</div>
@@ -70,7 +65,7 @@
 <div class="flex-1 p-6">
 
 <!-- TOOL DETAILS -->
-<div id="toolDetailsSection" class="hidden bg-white p-4 rounded shadow mb-4 relative">
+<div id="toolDetailsSection" class="hidden bg-white p-4 rounded shadow mb-4 relative max-h-[80vh] overflow-y-auto">
 
   <button onclick="closeToolForm()" 
     class="absolute top-2 right-3 text-xl font-bold text-gray-500 hover:text-black">
@@ -78,50 +73,60 @@
   </button>
 
   <!-- SECTION 1 -->
-  <h2 class="text-xl font-bold mb-3">Section 1: Tool Details</h2>
+  <div id="section1" class="section active-section mb-4">
 
-  <input id="toolName" class="border p-2 w-full mb-2" placeholder="Tool Name">
-  <input id="companyName" class="border p-2 w-full mb-2" placeholder="Company Name">
-  <input id="requestorName" class="border p-2 w-full mb-2" placeholder="Requestor Name">
-  <input id="practiceArea" class="border p-2 w-full mb-4" placeholder="Practice Area">
+    <h2 class="text-xl font-bold mb-3">Section 1: Tool Details</h2>
+
+    <input id="toolName" class="border p-2 w-full mb-2" placeholder="Tool Name">
+    <input id="companyName" class="border p-2 w-full mb-2" placeholder="Company Name">
+    <input id="requestorName" class="border p-2 w-full mb-2" placeholder="Requestor Name">
+    <input id="practiceArea" class="border p-2 w-full mb-4" placeholder="Practice Area">
+
+  </div>
 
   <!-- SECTION 2 -->
-  <div id="section2" class="hidden bg-gray-50 p-3 rounded mb-4">
-    <h3 class="font-bold mb-2">Section 2: </h3>
+  <div id="section2" class="section disabled-section bg-gray-50 p-3 rounded mb-4">
+
+    <h3 class="font-bold mb-2">Section 2: Demo</h3>
 
     <input id="demoDate" type="date" class="border p-2 w-full mb-2">
     <input id="demoAttendees" placeholder="Demo Attended By" class="border p-2 w-full mb-2">
     <input id="demoLink" placeholder="Recording Link" class="border p-2 w-full">
+
   </div>
 
   <!-- SECTION 3 -->
-  <div id="section3" class="hidden bg-gray-50 p-3 rounded mb-4">
+  <div id="section3" class="section disabled-section bg-gray-50 p-3 rounded mb-4">
+
     <h3 class="font-bold mb-2">Section 3: Vendor Questionnaire</h3>
 
-    <textarea class="border p-2 w-full mb-2" placeholder="Questionnaire"></textarea>
+    <textarea id="vendorQuestionnaire" class="border p-2 w-full mb-2" placeholder="Questionnaire"></textarea>
 
-    <input type="file" class="border p-2 w-full">
+    <input id="ndaUpload" type="file" class="border p-2 w-full">
+
   </div>
 
   <!-- SECTION 4 -->
-  <div id="section4" class="hidden bg-gray-50 p-3 rounded mb-4">
+  <div id="section4" class="section disabled-section bg-gray-50 p-3 rounded mb-4">
+
     <h3 class="font-bold mb-2">Section 4: IT Clearance</h3>
 
     <table class="w-full text-sm border">
-  <thead class="bg-gray-200">
-    <tr>
-      <th class="p-2">Section</th>
-      <th class="p-2">Question</th>
-      <th class="p-2">Answer</th>
-      <th class="p-2">Evidence</th>
-      <th class="p-2">Owner</th>
-      <th class="p-2">Status</th>
-    </tr>
-  </thead>
-  <tbody id="itChecklist"></tbody>
-</table>
+      <thead class="bg-gray-200">
+        <tr>
+          <th class="p-2">Section</th>
+          <th class="p-2">Question</th>
+          <th class="p-2">Answer</th>
+          <th class="p-2">Evidence</th>
+          <th class="p-2">Owner</th>
+          <th class="p-2">Status</th>
+        </tr>
+      </thead>
+      <tbody id="itChecklist"></tbody>
+    </table>
+
   </div>
-    
+
   <!-- ACTION BUTTONS -->
   <div class="flex gap-2 mt-4">
 
@@ -141,29 +146,25 @@
 <div id="dashboardSection">
 
   <!-- FILTER -->
-<div class="mb-4 flex gap-2">
+  <div class="mb-4 flex gap-2">
 
-  <button onclick="setFilter('all')" 
-    class="filter-btn px-4 py-2 rounded bg-gray-200 hover:bg-gray-300">
-    All
-  </button>
+    <button onclick="setFilter('all')" class="filter-btn px-4 py-2 rounded bg-gray-200 hover:bg-gray-300">
+      All
+    </button>
 
-  <button onclick="setFilter('progress')" 
-    class="filter-btn px-4 py-2 rounded bg-blue-200 hover:bg-blue-300">
-    In Progress
-  </button>
+    <button onclick="setFilter('progress')" class="filter-btn px-4 py-2 rounded bg-blue-200 hover:bg-blue-300">
+      In Progress
+    </button>
 
-  <button onclick="setFilter('completed')" 
-    class="filter-btn px-4 py-2 rounded bg-green-200 hover:bg-green-300">
-    Completed
-  </button>
+    <button onclick="setFilter('completed')" class="filter-btn px-4 py-2 rounded bg-green-200 hover:bg-green-300">
+      Completed
+    </button>
 
-  <button onclick="setFilter('new')" 
-    class="filter-btn px-4 py-2 rounded bg-gray-400 text-white hover:bg-gray-500">
-    Not Started
-  </button>
+    <button onclick="setFilter('new')" class="filter-btn px-4 py-2 rounded bg-gray-400 text-white hover:bg-gray-500">
+      Not Started
+    </button>
 
-</div>
+  </div>
 
   <!-- TABLE -->
   <table class="w-full bg-white rounded shadow">
@@ -182,8 +183,8 @@
 
 </div>
 
-</div> <!-- MAIN -->
-</div> <!-- FLEX -->
+</div>
+</div>
 
 <!-- JS -->
 <script src="js/app.js"></script>
