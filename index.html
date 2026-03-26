@@ -29,7 +29,7 @@
 
 <div class="flex">
 
-<!-- SIDEBAR -->
+<!-- LEFT MAIN SIDEBAR -->
 <div class="w-60 bg-white p-4 shadow h-screen">
 
   <div class="relative mb-4">
@@ -65,78 +65,103 @@
 <div class="flex-1 p-6">
 
 <!-- TOOL DETAILS -->
-<div id="toolDetailsSection" class="hidden bg-white p-4 rounded shadow mb-4 relative max-h-[80vh] overflow-y-auto">
+<div id="toolDetailsSection" class="hidden bg-white p-4 rounded shadow relative max-h-[80vh] overflow-y-auto">
 
   <button onclick="closeToolForm()" 
     class="absolute top-2 right-3 text-xl font-bold text-gray-500 hover:text-black">
     ×
   </button>
 
-  <!-- SECTION 1 -->
-  <div id="section1" class="section active-section mb-4">
+  <div class="flex">
 
-    <h2 class="text-xl font-bold mb-3">Section 1: Tool Details</h2>
+    <!-- 🔹 LEFT WORKFLOW TRACKER -->
+    <div class="w-1/4 pr-4 border-r">
 
-    <input id="toolName" class="border p-2 w-full mb-2" placeholder="Tool Name">
-    <input id="companyName" class="border p-2 w-full mb-2" placeholder="Company Name">
-    <input id="requestorName" class="border p-2 w-full mb-2" placeholder="Requestor Name">
-    <input id="practiceArea" class="border p-2 w-full mb-4" placeholder="Practice Area">
+      <h3 class="font-bold mb-3">Workflow</h3>
 
-  </div>
+      <div id="stepTracker" class="space-y-2 text-sm">
 
-  <!-- SECTION 2 -->
-  <div id="section2" class="section disabled-section bg-gray-50 p-3 rounded mb-4">
+        <div id="step-0" class="step-item">● Tool Details</div>
+        <div id="step-1" class="step-item">● Demo</div>
+        <div id="step-2" class="step-item">● Vendor Questionnaire</div>
+        <div id="step-3" class="step-item">● IT Clearance</div>
 
-    <h3 class="font-bold mb-2">Section 2: Demo</h3>
+      </div>
 
-    <input id="demoDate" type="date" class="border p-2 w-full mb-2">
-    <input id="demoAttendees" placeholder="Demo Attended By" class="border p-2 w-full mb-2">
-    <input id="demoLink" placeholder="Recording Link" class="border p-2 w-full">
+    </div>
 
-  </div>
+    <!-- 🔹 RIGHT FORM -->
+    <div class="w-3/4 pl-4">
 
-  <!-- SECTION 3 -->
-  <div id="section3" class="section disabled-section bg-gray-50 p-3 rounded mb-4">
+      <!-- SECTION 1 -->
+      <div id="section1" class="section mb-6">
 
-    <h3 class="font-bold mb-2">Section 3: Vendor Questionnaire</h3>
+        <h2 class="text-xl font-bold mb-3">Section 1: Tool Details</h2>
 
-    <textarea id="vendorQuestionnaire" class="border p-2 w-full mb-2" placeholder="Questionnaire"></textarea>
+        <input id="toolName" class="border p-2 w-full mb-2" placeholder="Tool Name">
+        <input id="companyName" class="border p-2 w-full mb-2" placeholder="Company Name">
+        <input id="requestorName" class="border p-2 w-full mb-2" placeholder="Requestor Name">
+        <input id="practiceArea" class="border p-2 w-full mb-4" placeholder="Practice Area">
 
-    <input id="ndaUpload" type="file" class="border p-2 w-full">
+      </div>
 
-  </div>
+      <!-- SECTION 2 -->
+      <div id="section2" class="section mb-6 bg-gray-50 p-3 rounded">
 
-  <!-- SECTION 4 -->
-  <div id="section4" class="section disabled-section bg-gray-50 p-3 rounded mb-4">
+        <h3 class="font-bold mb-2">Section 2: Demo</h3>
 
-    <h3 class="font-bold mb-2">Section 4: IT Clearance</h3>
+        <input id="demoDate" type="date" class="border p-2 w-full mb-2">
+        <input id="demoAttendees" placeholder="Demo Attended By" class="border p-2 w-full mb-2">
+        <input id="demoLink" placeholder="Recording Link" class="border p-2 w-full">
 
-    <table class="w-full text-sm border">
-      <thead class="bg-gray-200">
-        <tr>
-          <th class="p-2">Section</th>
-          <th class="p-2">Question</th>
-          <th class="p-2">Answer</th>
-          <th class="p-2">Evidence</th>
-          <th class="p-2">Owner</th>
-          <th class="p-2">Status</th>
-        </tr>
-      </thead>
-      <tbody id="itChecklist"></tbody>
-    </table>
+      </div>
 
-  </div>
+      <!-- SECTION 3 -->
+      <div id="section3" class="section mb-6 bg-gray-50 p-3 rounded">
 
-  <!-- ACTION BUTTONS -->
-  <div class="flex gap-2 mt-4">
+        <h3 class="font-bold mb-2">Section 3: Vendor Questionnaire</h3>
 
-    <button onclick="saveToolDetails()" class="btn-primary flex-1">
-      Save
-    </button>
+        <textarea id="vendorQuestionnaire" class="border p-2 w-full mb-2" placeholder="Questionnaire"></textarea>
 
-    <button onclick="nextStep()" class="bg-green-600 text-white px-4 py-2 rounded">
-      Next Step →
-    </button>
+        <input id="ndaUpload" type="file" class="border p-2 w-full">
+
+      </div>
+
+      <!-- SECTION 4 -->
+      <div id="section4" class="section mb-6 bg-gray-50 p-3 rounded">
+
+        <h3 class="font-bold mb-2">Section 4: IT Clearance</h3>
+
+        <table class="w-full text-sm border">
+          <thead class="bg-gray-200">
+            <tr>
+              <th class="p-2">Section</th>
+              <th class="p-2">Question</th>
+              <th class="p-2">Answer</th>
+              <th class="p-2">Evidence</th>
+              <th class="p-2">Owner</th>
+              <th class="p-2">Status</th>
+            </tr>
+          </thead>
+          <tbody id="itChecklist"></tbody>
+        </table>
+
+      </div>
+
+      <!-- ACTION BUTTONS -->
+      <div class="flex gap-2 mt-4">
+
+        <button onclick="saveToolDetails()" class="btn-primary flex-1">
+          Save
+        </button>
+
+        <button onclick="nextStep()" class="bg-green-600 text-white px-4 py-2 rounded">
+          Next Step →
+        </button>
+
+      </div>
+
+    </div>
 
   </div>
 
@@ -145,7 +170,6 @@
 <!-- DASHBOARD -->
 <div id="dashboardSection">
 
-  <!-- FILTER -->
   <div class="mb-4 flex gap-2">
 
     <button onclick="setFilter('all')" class="filter-btn px-4 py-2 rounded bg-gray-200 hover:bg-gray-300">
@@ -166,7 +190,6 @@
 
   </div>
 
-  <!-- TABLE -->
   <table class="w-full bg-white rounded shadow">
     <thead>
       <tr class="border-b">
