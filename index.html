@@ -31,9 +31,31 @@
 
 <!-- SIDEBAR -->
 <div class="w-60 bg-white p-4 shadow h-screen">
-  <button id="btnAddTool" onclick="addTool()" class="btn-primary mb-4">
-    + Add New Tool
+<div class="relative mb-4">
+  
+  <button onclick="toggleAddMenu()" 
+          class="btn-primary w-full flex justify-between items-center px-4 py-2">
+    <span>+ Add Tool</span>
+    <span>▼</span>
   </button>
+
+  <div id="addToolMenu" class="hidden absolute left-0 w-full bg-white shadow rounded mt-1 z-10">
+    
+    <div onclick="selectToolType('new')" class="p-2 hover:bg-gray-100 cursor-pointer">
+      New Tool
+    </div>
+
+    <div onclick="selectToolType('existing')" class="p-2 hover:bg-gray-100 cursor-pointer">
+      Existing Tool
+    </div>
+
+    <div onclick="selectToolType('ai')" class="p-2 hover:bg-gray-100 cursor-pointer">
+      AI Tool
+    </div>
+
+  </div>
+
+</div>
   <div>Dashboard</div>
 </div>
 
@@ -65,12 +87,6 @@
 <div id="dashboardSection">
 
 <div class="flex gap-2 mb-4">
-  <select id="mode" class="border p-2 flex-1">
-    <option value="new">New Tool</option>
-    <option value="existing">Existing Tool</option>
-    <option value="ai">AI Tool</option>
-  </select>
-</div>
 
 <!-- FILTER -->
 <div class="mb-3 flex gap-2">
