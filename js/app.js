@@ -1,25 +1,35 @@
 let tools = JSON.parse(localStorage.getItem("tools")) || [];
 let selectedToolType = "new";
 let filter = "all";
+let currentToolIndex = null;
 
 const stepsList = [
   "Tool Decision","Demo","Vendor Questionnaire + NDA","IT Clearance","Partner Approval",
   "Pilot","DT Clearance","Tool Memo","QC Clearance","MSA","Rollout"
 ];
 
-// OPEN FORM
+// =======================
+// OPEN / CLOSE FORM
+// =======================
+
 function addTool() {
+  currentToolIndex = null;
+
   document.getElementById("toolDetailsSection").classList.remove("hidden");
   document.getElementById("dashboardSection").style.display = "none";
+
+  showSection(0);
 }
 
-// CLOSE FORM
 function closeToolForm() {
   document.getElementById("toolDetailsSection").classList.add("hidden");
   document.getElementById("dashboardSection").style.display = "block";
 }
 
+// =======================
 // SAVE TOOL
+// =======================
+
 function saveToolDetails() {
 
   const name = document.getElementById("toolName").value;
@@ -34,38 +44,40 @@ function saveToolDetails() {
 
   const type = selectedToolType;
 
-  tools.push({
-    name,
-    company,
-    requestor,
-    practice,
-    type,
-    step: 0,
-    flow: null,
-    documents: [],
-    audit: []
-  });
+  // NEW TOOL
+  if (currentToolIndex === null) {
+    tools.push({
+      name,
+      company,
+      requestor,
+      practice,
+      type,
+      step: 0
+    });
+  } 
+  // UPDATE EXISTING
+  else {
+    tools[currentToolIndex].name = name;
+    tools[currentToolIndex].company = company;
+    tools[currentToolIndex].requestor = requestor;
+    tools[currentToolIndex].practice = practice;
+  }
 
   localStorage.setItem("tools", JSON.stringify(tools));
 
   closeToolForm();
-
-  // clear inputs
-  document.getElementById("toolName").value = "";
-  document.getElementById("companyName").value = "";
-  document.getElementById("requestorName").value = "";
-  document.getElementById("practiceArea").value = "";
-
   render();
 
-  alert("Tool added successfully!");
+  alert("Saved successfully!");
 }
 
+// =======================
 // FILTER
+// =======================
+
 function setFilter(f) {
   filter = f;
 
-  // highlight active button
   document.querySelectorAll(".filter-btn").forEach(btn => {
     btn.classList.remove("ring-2", "ring-[#800000]");
   });
@@ -77,19 +89,24 @@ function setFilter(f) {
   render();
 }
 
-// STATUS
+// =======================
+// STATUS + PROGRESS
+// =======================
+
 function getStatusClass(step) {
   if (step === 0) return "bg-gray-400";
   if (step < 10) return "bg-[#800000]";
   return "bg-green-600";
 }
 
-// PROGRESS
 function getProgress(step) {
   return Math.round((step / 10) * 100);
 }
 
+// =======================
 // RENDER TABLE
+// =======================
+
 function render() {
 
   let filtered = tools.filter(t => {
@@ -135,7 +152,65 @@ function render() {
     }).join("");
 }
 
-// ✅ DROPDOWN (FIXED GLOBAL FUNCTIONS)
+// =======================
+// OPEN TOOL (VIEW)
+// =======================
+
+function openTool(index) {
+
+  currentToolIndex = index;
+  const tool = tools[index];
+
+  document.getElementById("toolDetailsSection").classList.remove("hidden");
+  document.getElementById("dashboardSection").style.display = "none";
+
+  // pre-fill
+  document.getElementById("toolName").value = tool.name || "";
+  document.getElementById("companyName").value = tool.company || "";
+  document.getElementById("requestorName").value = tool.requestor || "";
+  document.getElementById("practiceArea").value = tool.practice || "";
+
+  showSection(tool.step);
+}
+
+// =======================
+// SECTION CONTROL
+// =======================
+
+function showSection(step) {
+
+  document.getElementById("section1")?.classList.add("hidden");
+  document.getElementById("section2").classList.add("hidden");
+  document.getElementById("section3").classList.add("hidden");
+  document.getElementById("section4").classList.add("hidden");
+
+  if (step === 0) document.getElementById("section1")?.classList.remove("hidden");
+  if (step === 1) document.getElementById("section2").classList.remove("hidden");
+  if (step === 2) document.getElementById("section3").classList.remove("hidden");
+  if (step === 3) document.getElementById("section4").classList.remove("hidden");
+}
+
+// =======================
+// NEXT STEP
+// =======================
+
+function nextStep() {
+
+  if (currentToolIndex === null) return;
+
+  if (tools[currentToolIndex].step < 10) {
+    tools[currentToolIndex].step++;
+  }
+
+  localStorage.setItem("tools", JSON.stringify(tools));
+
+  showSection(tools[currentToolIndex].step);
+  render();
+}
+
+// =======================
+// DROPDOWN
+// =======================
 
 window.toggleAddMenu = function () {
   document.getElementById("addToolMenu").classList.toggle("hidden");
@@ -149,7 +224,7 @@ window.selectToolType = function (type) {
   document.getElementById("addToolMenu").classList.add("hidden");
 };
 
-// ✅ CLOSE DROPDOWN ON OUTSIDE CLICK
+// close dropdown outside click
 document.addEventListener("click", function (e) {
   const menu = document.getElementById("addToolMenu");
 
@@ -158,5 +233,56 @@ document.addEventListener("click", function (e) {
   }
 });
 
-// INITIAL LOAD
+// =======================
+// IT CHECKLIST
+// =======================
+
+const itQuestions = [
+  { section: "Access Control", q: "Does the tool support RBAC?" },
+  { section: "Access Control", q: "Is least privilege enforced?" },
+  { section: "Authentication", q: "Is MFA enforced?" },
+  { section: "Authentication", q: "Is SSO enabled?" },
+  { section: "Security", q: "Has VAPT been performed?" },
+  { section: "Security", q: "Are logs monitored?" }
+];
+
+function renderITChecklist() {
+
+  document.getElementById("itChecklist").innerHTML =
+    itQuestions.map(item => `
+      <tr class="border-b">
+        <td class="p-2">${item.section}</td>
+        <td class="p-2">${item.q}</td>
+
+        <td class="p-2">
+          <select class="border p-1 w-full">
+            <option>Yes</option>
+            <option>No</option>
+            <option>N/A</option>
+          </select>
+        </td>
+
+        <td class="p-2">
+          <input type="file">
+        </td>
+
+        <td class="p-2">
+          <input class="border p-1 w-full">
+        </td>
+
+        <td class="p-2">
+          <select class="border p-1 w-full">
+            <option>Open</option>
+            <option>Closed</option>
+          </select>
+        </td>
+      </tr>
+    `).join("");
+}
+
+// =======================
+// INIT
+// =======================
+
 render();
+renderITChecklist();
