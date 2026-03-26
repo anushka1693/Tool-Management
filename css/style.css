@@ -1,0 +1,73 @@
+body {
+  font-family: Cambria, serif;
+  font-size: 10pt;
+}
+
+.btn-primary {
+  background: #800000;
+  color: white;
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+.btn-danger {
+  background: red;
+  color: white;
+  padding: 6px 12px;
+}
+
+.filter-btn {
+  padding: 4px 10px;
+  background: #ddd;
+}
+
+.modal-bg {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-box {
+  background: white;
+  width: 90%;
+  height: 90%;
+  display: flex;
+  border-radius: 10px;
+  position: relative;
+}
+
+.modal-left {
+  width: 25%;
+  border-right: 1px solid #ddd;
+  padding: 15px;
+  overflow-y: auto;
+}
+
+.modal-center {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+}
+
+.modal-right {
+  width: 25%;
+  border-left: 1px solid #ddd;
+  padding: 15px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  color: red;
+}
+
+.preview-box {
+  background: white;
+  padding: 20px;
+  width: 60%;
+}

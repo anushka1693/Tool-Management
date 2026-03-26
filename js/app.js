@@ -1,0 +1,82 @@
+let tools = JSON.parse(localStorage.getItem("tools")) || [];
+let filter = "all";
+
+const stepsList = [
+"Tool Decision","Demo","Vendor Questionnaire + NDA","IT Clearance","Partner Approval",
+"Pilot","DT Clearance","Tool Memo","QC Clearance","MSA","Rollout"
+];
+
+function addTool() {
+  const name = prompt("Enter tool name");
+  if (!name) return;
+
+  const type = document.getElementById("mode").value;
+
+  tools.push({
+    name,
+    type,
+    step: 0,
+    flow: null,
+    documents: [],
+    audit: []
+  });
+
+  render();
+}
+
+tools.push({...});
+localStorage.setItem("tools", JSON.stringify(tools));
+
+function setFilter(f) {
+  filter = f;
+  render();
+}
+
+function getStatusClass(step) {
+  if (step === 0) return "bg-gray-400";
+  if (step < 10) return "bg-[#800000]";
+  return "bg-green-600";
+}
+
+function getProgress(step) {
+  return Math.round((step / 10) * 100);
+}
+
+function render() {
+  let filtered = tools.filter(t => {
+    if (filter === "all") return true;
+    if (filter === "completed") return t.step === 10;
+    if (filter === "progress") return t.step > 0 && t.step < 10;
+    if (filter === "new") return t.step === 0;
+  });
+
+  document.getElementById("table").innerHTML =
+    filtered.map((t, i) => {
+      let percent = getProgress(t.step);
+
+      return `
+      <tr class="border-b">
+      <td class="p-2">${t.name}</td>
+      <td class="p-2">${t.type}</td>
+      <td class="p-2">
+      <span class="${getStatusClass(t.step)} text-white px-2 py-1 rounded">
+      ${stepsList[t.step]}
+      </span>
+      </td>
+      <td class="p-2">
+      <div class="w-full bg-gray-200 h-3 rounded">
+      <div class="bg-[#800000] h-3 rounded" style="width:${percent}%"></div>
+      </div>
+      </td>
+      <td class="p-2">${percent}%</td>
+      <td class="p-2">
+      <button onclick="openTool(${i})" class="btn-primary px-2 py-1">View</button>
+      </td>
+      </tr>
+      `;
+    }).join("");
+}
+
+render();
+
+localStorage.setItem("tools", JSON.stringify(tools));
