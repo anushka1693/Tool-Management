@@ -154,7 +154,7 @@ function showSection(step) {
   if (current) current.style.display = "block";
 
   updateWorkflowUI(step);
-  updateProgressUI(step);
+  updateMiniDonuts(step);
 }
 
 // =======================
@@ -203,40 +203,33 @@ function updateWorkflowUI(step) {
 
     el.classList.remove("workflow-active", "workflow-complete");
 
-    if (i < step) {
-      el.classList.add("workflow-complete");
-    } else if (i === step) {
-      el.classList.add("workflow-active");
-    }
+    if (i < step) el.classList.add("workflow-complete");
+    else if (i === step) el.classList.add("workflow-active");
   }
 }
 
 // =======================
-// 🔵 DONUT PROGRESS
+// MINI DONUTS
 // =======================
 
-function updateProgressUI(step) {
+function updateMiniDonuts(step) {
 
-  const totalSteps = 11;
-  const completed = step;
-  const pending = totalSteps - step - 1;
-  const reviewed = Math.floor(step / 2);
+  for (let i = 0; i <= 10; i++) {
 
-  let percent = Math.round((completed / (totalSteps - 1)) * 100);
+    let donut = document.getElementById("donut-" + i);
+    if (!donut) continue;
 
-  const circle = document.getElementById("progressCircle");
-  const radius = 45;
-  const circumference = 2 * Math.PI * radius;
+    let percent = 0;
 
-  const offset = circumference - (percent / 100) * circumference;
+    if (i < step) percent = 100;
+    else if (i === step) percent = 50;
+    else percent = 0;
 
-  if (circle) circle.style.strokeDashoffset = offset;
+    donut.innerText = percent + "%";
 
-  document.getElementById("progressPercent").innerText = percent + "%";
-
-  document.getElementById("pendingCount").innerText = pending;
-  document.getElementById("completedCount").innerText = completed;
-  document.getElementById("reviewedCount").innerText = reviewed;
+    donut.style.background =
+      `conic-gradient(#800000 ${percent}%, #e5e5e5 ${percent}%)`;
+  }
 }
 
 // =======================
@@ -266,18 +259,12 @@ function setFilter(f) {
 // IT CHECKLIST
 // =======================
 
-const itQuestions = [ /* keep your existing list */ ];
-
 function renderITChecklist() {
   document.getElementById("itChecklist").innerHTML =
-    itQuestions.map(item => `
+    Array.from({ length: 20 }).map((_, i) => `
       <tr class="border-b">
-        <td class="p-2">${item.section}</td>
-        <td class="p-2">${item.q}</td>
-        <td class="p-2"><select class="border w-full"><option>Yes</option><option>No</option><option>N/A</option></select></td>
-        <td class="p-2"><input type="file"></td>
-        <td class="p-2"><input class="border w-full"></td>
-        <td class="p-2"><select class="border w-full"><option>Open</option><option>Closed</option></select></td>
+        <td class="p-2">IT Question ${i+1}</td>
+        <td class="p-2"><select class="border w-full"><option>Yes</option><option>No</option></select></td>
       </tr>
     `).join("");
 }
@@ -286,18 +273,12 @@ function renderITChecklist() {
 // DT CHECKLIST
 // =======================
 
-const dtQuestions = [ /* keep your existing list */ ];
-
 function renderDTChecklist() {
   document.getElementById("dtChecklist").innerHTML =
-    dtQuestions.map(item => `
+    Array.from({ length: 15 }).map((_, i) => `
       <tr class="border-b">
-        <td class="p-2">${item.section}</td>
-        <td class="p-2">${item.q}</td>
-        <td class="p-2"><select class="border w-full"><option>Yes</option><option>No</option><option>N/A</option></select></td>
-        <td class="p-2"><input type="file"></td>
-        <td class="p-2"><input class="border w-full"></td>
-        <td class="p-2"><select class="border w-full"><option>Open</option><option>Closed</option></select></td>
+        <td class="p-2">DT Question ${i+1}</td>
+        <td class="p-2"><select class="border w-full"><option>Yes</option><option>No</option></select></td>
       </tr>
     `).join("");
 }
@@ -309,3 +290,4 @@ function renderDTChecklist() {
 render();
 renderITChecklist();
 renderDTChecklist();
+updateMiniDonuts(0);
