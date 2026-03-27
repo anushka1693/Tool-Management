@@ -192,7 +192,7 @@ function goToStep(step) {
 }
 
 // =======================
-// WORKFLOW UI
+// WORKFLOW UI (FIXED)
 // =======================
 
 function updateWorkflowUI(step) {
@@ -201,23 +201,25 @@ function updateWorkflowUI(step) {
     let el = document.getElementById("step-" + i);
     if (!el) continue;
 
-    el.classList.remove("workflow-active", "workflow-complete");
+    el.classList.remove("active", "completed", "inprogress");
 
-    if (i < step) el.classList.add("workflow-complete");
-    else if (i === step) el.classList.add("workflow-active");
+    if (i < step) {
+      el.classList.add("completed");
+    } else if (i === step) {
+      el.classList.add("active", "inprogress");
+    }
   }
 }
 
 // =======================
-// MINI DONUTS
+// MINI DONUTS (FIXED)
 // =======================
 
 function updateMiniDonuts(step) {
 
-  for (let i = 0; i <= 10; i++) {
+  const donuts = document.querySelectorAll(".donut");
 
-    let donut = document.getElementById("donut-" + i);
-    if (!donut) continue;
+  donuts.forEach((donut, i) => {
 
     let percent = 0;
 
@@ -229,7 +231,9 @@ function updateMiniDonuts(step) {
 
     donut.style.background =
       `conic-gradient(#800000 ${percent}%, #e5e5e5 ${percent}%)`;
-  }
+
+    donut.style.transition = "all 0.4s ease";
+  });
 }
 
 // =======================
@@ -264,7 +268,12 @@ function renderITChecklist() {
     Array.from({ length: 20 }).map((_, i) => `
       <tr class="border-b">
         <td class="p-2">IT Question ${i+1}</td>
-        <td class="p-2"><select class="border w-full"><option>Yes</option><option>No</option></select></td>
+        <td class="p-2">
+          <select class="border w-full">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        </td>
       </tr>
     `).join("");
 }
@@ -278,7 +287,12 @@ function renderDTChecklist() {
     Array.from({ length: 15 }).map((_, i) => `
       <tr class="border-b">
         <td class="p-2">DT Question ${i+1}</td>
-        <td class="p-2"><select class="border w-full"><option>Yes</option><option>No</option></select></td>
+        <td class="p-2">
+          <select class="border w-full">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        </td>
       </tr>
     `).join("");
 }
