@@ -145,15 +145,16 @@ function openTool(index) {
 
 function showSection(step) {
 
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= 11; i++) {
     let el = document.getElementById("section" + i);
     if (el) el.style.display = "none";
   }
 
-  let current = document.getElementById("section" + step);
+  let current = document.getElementById("section" + (step + 1));
   if (current) current.style.display = "block";
 
   updateWorkflowUI(step);
+  updateProgressUI(step);
 }
 
 // =======================
@@ -191,7 +192,7 @@ function goToStep(step) {
 }
 
 // =======================
-// WORKFLOW UI UPDATE
+// WORKFLOW UI
 // =======================
 
 function updateWorkflowUI(step) {
@@ -200,14 +201,42 @@ function updateWorkflowUI(step) {
     let el = document.getElementById("step-" + i);
     if (!el) continue;
 
-    el.classList.remove("text-green-600","text-red-800","font-bold");
+    el.classList.remove("workflow-active", "workflow-complete");
 
     if (i < step) {
-      el.classList.add("text-green-600");
+      el.classList.add("workflow-complete");
     } else if (i === step) {
-      el.classList.add("text-red-800","font-bold");
+      el.classList.add("workflow-active");
     }
   }
+}
+
+// =======================
+// 🔵 DONUT PROGRESS
+// =======================
+
+function updateProgressUI(step) {
+
+  const totalSteps = 11;
+  const completed = step;
+  const pending = totalSteps - step - 1;
+  const reviewed = Math.floor(step / 2);
+
+  let percent = Math.round((completed / (totalSteps - 1)) * 100);
+
+  const circle = document.getElementById("progressCircle");
+  const radius = 45;
+  const circumference = 2 * Math.PI * radius;
+
+  const offset = circumference - (percent / 100) * circumference;
+
+  if (circle) circle.style.strokeDashoffset = offset;
+
+  document.getElementById("progressPercent").innerText = percent + "%";
+
+  document.getElementById("pendingCount").innerText = pending;
+  document.getElementById("completedCount").innerText = completed;
+  document.getElementById("reviewedCount").innerText = reviewed;
 }
 
 // =======================
@@ -237,35 +266,7 @@ function setFilter(f) {
 // IT CHECKLIST
 // =======================
 
-const itQuestions = [
-  {section:"Access Control", q:"Does the tool support role-based access control (RBAC)?"},
-  {section:"Access Control", q:"Is least privilege access enforced?"},
-  {section:"Access Controls", q:"Are user roles formally defined?"},
-  {section:"Access Controls", q:"Is there periodic user access review (quarterly)?"},
-  {section:"Access Controls", q:"Can access be revoked immediately upon termination?"},
-  {section:"Access Controls", q:"Does the system support SSO (Azure AD)?"},
-  {section:"Authentication", q:"Is SSO (Azure AD) enabled?"},
-  {section:"Authentication", q:"Is MFA enforced?"},
-  {section:"Authentication & Identity", q:"Is authentication handled via enterprise identity provider?"},
-  {section:"Authentication & Identity", q:"Are passwords stored securely (hashed + salted)?"},
-  {section:"Authentication & Identity", q:"Are there controls for failed login attempts / lockout?"},
-  {section:"Authentication & Identity", q:"Is session timeout configured?"},
-  {section:"Change Management", q:"Is there a formal change management process?"},
-  {section:"Change Management", q:"Are deployments approved before production?"},
-  {section:"Change Management", q:"Is version control used (Git)?"},
-  {section:"Change Management", q:"Are rollback mechanisms available?"},
-  {section:"Infrastructure", q:"Is data encrypted at rest and in transit?"},
-  {section:"Infrastructure & Hosting", q:"Where is the tool hosted? (Azure / AWS / SaaS)"},
-  {section:"Infrastructure & Hosting", q:"Is data encrypted at rest?"},
-  {section:"Infrastructure & Hosting", q:"Is data encrypted in transit (HTTPS)?"},
-  {section:"Infrastructure & Hosting", q:"Are backups enabled?"},
-  {section:"Infrastructure & Hosting", q:"What is the RPO / RTO?"},
-  {section:"Security", q:"Has VAPT been performed?"},
-  {section:"Security & Vulnerability", q:"Has the tool undergone VAPT / penetration testing?"},
-  {section:"Security & Vulnerability", q:"Are vulnerabilities tracked and remediated?"},
-  {section:"Security & Vulnerability", q:"Is antivirus / endpoint protection used?"},
-  {section:"Security & Vulnerability", q:"Are logs monitored for suspicious activity?"}
-];
+const itQuestions = [ /* keep your existing list */ ];
 
 function renderITChecklist() {
   document.getElementById("itChecklist").innerHTML =
@@ -285,32 +286,7 @@ function renderITChecklist() {
 // DT CHECKLIST
 // =======================
 
-const dtQuestions = [
-  {section:"Architecture", q:"Is the tool scalable?"},
-  {section:"Architecture", q:"Does it support API-based integration?"},
-  {section:"Architecture", q:"Is the architecture documented?"},
-  {section:"Automation", q:"Can workflows be automated?"},
-  {section:"Automation", q:"Can approvals be tracked digitally?"},
-  {section:"Automation", q:"Does it support Power Automate / APIs?"},
-  {section:"Business Fit", q:"What business problem does this tool solve?"},
-  {section:"Business Fit", q:"Is this tool replacing an existing system?"},
-  {section:"Business Fit", q:"Is there duplication with existing tools?"},
-  {section:"Data Flow", q:"Is data classified (PII/confidential)?"},
-  {section:"Data Flow", q:"What data is captured?"},
-  {section:"Data Flow", q:"Where is data stored?"},
-  {section:"Data Flow", q:"Is there data classification (PII / confidential)?"},
-  {section:"Integration", q:"Does it integrate with enterprise systems?"},
-  {section:"Integration", q:"Does the tool integrate with Azure AD / SharePoint / ERP systems?"},
-  {section:"Integration", q:"Are APIs secure (OAuth / tokens)?"},
-  {section:"Master Checklist", q:"All approvals completed"},
-  {section:"Master Checklist", q:"Audit logs available"},
-  {section:"Master Checklist", q:"Access controls verified"},
-  {section:"Master Checklist", q:"Change management documented"},
-  {section:"Master Checklist", q:"Risk assessment completed"},
-  {section:"Master Checklist", q:"Data protection validated"},
-  {section:"Master Checklist", q:"Contracts signed"},
-  {section:"Master Checklist", q:"Tool memo prepared"}
-];
+const dtQuestions = [ /* keep your existing list */ ];
 
 function renderDTChecklist() {
   document.getElementById("dtChecklist").innerHTML =
