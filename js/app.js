@@ -4,8 +4,7 @@ let filter = "all";
 let currentToolIndex = null;
 
 const stepsList = [
-  "Tool Decision","Demo","Vendor Questionnaire + NDA","IT Clearance","Partner Approval",
-  "Pilot","DT Clearance","Tool Memo","QC Clearance","MSA","Rollout"
+  "Tool Details","Demo","Vendor Questionnaire","IT Clearance"
 ];
 
 // =======================
@@ -17,13 +16,15 @@ function addTool() {
 
   document.getElementById("toolDetailsSection").classList.remove("hidden");
   document.getElementById("dashboardSection").style.display = "none";
+  document.getElementById("workflowSidebar").classList.remove("hidden");
 
-  updateSections(0);
+  showSection(0);
 }
 
 function closeToolForm() {
   document.getElementById("toolDetailsSection").classList.add("hidden");
   document.getElementById("dashboardSection").style.display = "block";
+  document.getElementById("workflowSidebar").classList.add("hidden");
 }
 
 // =======================
@@ -44,7 +45,6 @@ function saveToolDetails() {
 
   const type = selectedToolType;
 
-  // NEW TOOL
   if (currentToolIndex === null) {
     tools.push({
       name,
@@ -55,11 +55,8 @@ function saveToolDetails() {
       step: 0
     });
 
-    // ✅ IMPORTANT FIX
     currentToolIndex = tools.length - 1;
-  } 
-  // UPDATE EXISTING
-  else {
+  } else {
     tools[currentToolIndex].name = name;
     tools[currentToolIndex].company = company;
     tools[currentToolIndex].requestor = requestor;
@@ -77,64 +74,37 @@ function saveToolDetails() {
 
 function setFilter(f) {
   filter = f;
-
-  document.querySelectorAll(".filter-btn").forEach(btn => {
-    btn.classList.remove("ring-2", "ring-[#800000]");
-  });
-
-  if (event?.target) {
-    event.target.classList.add("ring-2", "ring-[#800000]");
-  }
-
   render();
 }
 
 // =======================
-// STATUS + PROGRESS
-// =======================
-
-function getStatusClass(step) {
-  if (step === 0) return "bg-gray-400";
-  if (step < 10) return "bg-[#800000]";
-  return "bg-green-600";
-}
-
-function getProgress(step) {
-  return Math.round((step / 10) * 100);
-}
-
-// =======================
-// RENDER TABLE
+// TABLE RENDER
 // =======================
 
 function render() {
 
   let filtered = tools.filter(t => {
     if (filter === "all") return true;
-    if (filter === "completed") return t.step === 10;
-    if (filter === "progress") return t.step > 0 && t.step < 10;
+    if (filter === "completed") return t.step === 3;
+    if (filter === "progress") return t.step > 0 && t.step < 3;
     if (filter === "new") return t.step === 0;
   });
 
   document.getElementById("table").innerHTML =
     filtered.map((t, i) => {
 
-      let percent = getProgress(t.step);
+      let percent = Math.round((t.step / 3) * 100);
 
       return `
       <tr class="border-b">
         <td class="p-2">
-          <div><b>${t.name}</b></div>
-          <div class="text-xs text-gray-500">${t.company || ""}</div>
+          <b>${t.name}</b><br>
+          <span class="text-xs text-gray-500">${t.company || ""}</span>
         </td>
 
         <td class="p-2">${t.type}</td>
 
-        <td class="p-2">
-          <span class="${getStatusClass(t.step)} text-white px-2 py-1 rounded">
-            ${stepsList[t.step]}
-          </span>
-        </td>
+        <td class="p-2">${stepsList[t.step]}</td>
 
         <td class="p-2">
           <div class="w-full bg-gray-200 h-3 rounded">
@@ -153,7 +123,7 @@ function render() {
 }
 
 // =======================
-// OPEN TOOL (VIEW)
+// OPEN TOOL
 // =======================
 
 function openTool(index) {
@@ -163,46 +133,46 @@ function openTool(index) {
 
   document.getElementById("toolDetailsSection").classList.remove("hidden");
   document.getElementById("dashboardSection").style.display = "none";
+  document.getElementById("workflowSidebar").classList.remove("hidden");
 
-  // pre-fill
   document.getElementById("toolName").value = tool.name || "";
   document.getElementById("companyName").value = tool.company || "";
   document.getElementById("requestorName").value = tool.requestor || "";
   document.getElementById("practiceArea").value = tool.practice || "";
 
-  updateSections(tool.step);
+  showSection(tool.step);
 }
 
 // =======================
-// SECTION CONTROL (NEW LOGIC)
+// SECTION CONTROL (MAIN LOGIC)
 // =======================
 
-function updateSections(step) {
+function showSection(step) {
 
-  const sections = [
-    document.getElementById("section1"),
-    document.getElementById("section2"),
-    document.getElementById("section3"),
-    document.getElementById("section4")
-  ];
+  // hide all
+  document.querySelectorAll(".section").forEach(sec => {
+    sec.classList.add("hidden");
+  });
 
-  sections.forEach((sec, index) => {
+  // show selected
+  document.getElementById("section" + (step + 1)).classList.remove("hidden");
 
-    sec.classList.remove("active-section", "disabled-section", "completed-section");
+  // update sidebar UI
+  document.querySelectorAll("[id^='step-']").forEach((el, index) => {
+
+    let circle = el.querySelector("div");
+
+    circle.classList.remove("bg-green-600", "bg-gray-400", "bg-[#800000]");
 
     if (index < step) {
-      sec.classList.add("completed-section");
+      circle.classList.add("bg-green-600");
     }
     else if (index === step) {
-      sec.classList.add("active-section");
-
-      // scroll to active section
-      sec.scrollIntoView({ behavior: "smooth", block: "start" });
+      circle.classList.add("bg-[#800000]");
     }
     else {
-      sec.classList.add("disabled-section");
+      circle.classList.add("bg-gray-400");
     }
-
   });
 }
 
@@ -213,18 +183,35 @@ function updateSections(step) {
 function nextStep() {
 
   if (currentToolIndex === null) {
-    alert("Please save the tool first");
-    return;
+    saveToolDetails();
   }
 
-  if (tools[currentToolIndex].step < 10) {
+  if (tools[currentToolIndex].step < 3) {
     tools[currentToolIndex].step++;
   }
 
   localStorage.setItem("tools", JSON.stringify(tools));
 
-  updateSections(tools[currentToolIndex].step);
+  showSection(tools[currentToolIndex].step);
   render();
+}
+
+// =======================
+// CLICK STEP
+// =======================
+
+function goToStep(step) {
+
+  if (currentToolIndex === null) {
+    alert("Please open a tool first");
+    return;
+  }
+
+  tools[currentToolIndex].step = step;
+
+  localStorage.setItem("tools", JSON.stringify(tools));
+
+  showSection(step);
 }
 
 // =======================
@@ -237,70 +224,12 @@ window.toggleAddMenu = function () {
 
 window.selectToolType = function (type) {
   selectedToolType = type;
-
   addTool();
-
   document.getElementById("addToolMenu").classList.add("hidden");
 };
-
-document.addEventListener("click", function (e) {
-  const menu = document.getElementById("addToolMenu");
-
-  if (!e.target.closest(".relative")) {
-    menu.classList.add("hidden");
-  }
-});
-
-// =======================
-// IT CHECKLIST
-// =======================
-
-const itQuestions = [
-  { section: "Access Control", q: "Does the tool support RBAC?" },
-  { section: "Access Control", q: "Is least privilege enforced?" },
-  { section: "Authentication", q: "Is MFA enforced?" },
-  { section: "Authentication", q: "Is SSO enabled?" },
-  { section: "Security", q: "Has VAPT been performed?" },
-  { section: "Security", q: "Are logs monitored?" }
-];
-
-function renderITChecklist() {
-
-  document.getElementById("itChecklist").innerHTML =
-    itQuestions.map(item => `
-      <tr class="border-b">
-        <td class="p-2">${item.section}</td>
-        <td class="p-2">${item.q}</td>
-
-        <td class="p-2">
-          <select class="border p-1 w-full">
-            <option>Yes</option>
-            <option>No</option>
-            <option>N/A</option>
-          </select>
-        </td>
-
-        <td class="p-2">
-          <input type="file">
-        </td>
-
-        <td class="p-2">
-          <input class="border p-1 w-full">
-        </td>
-
-        <td class="p-2">
-          <select class="border p-1 w-full">
-            <option>Open</option>
-            <option>Closed</option>
-          </select>
-        </td>
-      </tr>
-    `).join("");
-}
 
 // =======================
 // INIT
 // =======================
 
 render();
-renderITChecklist();
