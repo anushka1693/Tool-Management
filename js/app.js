@@ -260,23 +260,75 @@ function setFilter(f) {
 }
 
 // =======================
-// IT CHECKLIST
+// IT CHECKLIST DATA
 // =======================
 
-function renderITChecklist() {
-  document.getElementById("itChecklist").innerHTML =
-    Array.from({ length: 20 }).map((_, i) => `
-      <tr class="border-b">
-        <td class="p-2">IT Question ${i+1}</td>
-        <td class="p-2">
-          <select class="border w-full">
-            <option>Yes</option>
-            <option>No</option>
-          </select>
-        </td>
-      </tr>
-    `).join("");
+const itChecklistData = [
+  { section: "Access Control", team: "IT", question: "Does the tool support role-based access control (RBAC)?" },
+  { section: "Access Control", team: "IT", question: "Is least privilege access enforced?" },
+  { section: "Access Controls", team: "IT", question: "Are user roles formally defined?" },
+  { section: "Access Controls", team: "IT", question: "Is there periodic user access review (quarterly)?" },
+  { section: "Access Controls", team: "IT", question: "Can access be revoked immediately upon termination?" },
+  { section: "Access Controls", team: "IT", question: "Does the system support SSO (Azure AD)?" },
+  { section: "Authentication", team: "IT", question: "Is SSO (Azure AD) enabled?" },
+  { section: "Authentication", team: "IT", question: "Is MFA enforced?" },
+  { section: "Authentication & Identity", team: "IT", question: "Is authentication handled via enterprise identity provider?" },
+  { section: "Authentication & Identity", team: "IT", question: "Are passwords stored securely (hashed + salted)?" },
+  { section: "Authentication & Identity", team: "IT", question: "Are there controls for failed login attempts / lockout?" },
+  { section: "Authentication & Identity", team: "IT", question: "Is session timeout configured?" },
+  { section: "Change Management", team: "IT", question: "Is there a formal change management process?" },
+  { section: "Change Management", team: "IT", question: "Are deployments approved before production?" },
+  { section: "Change Management", team: "IT", question: "Is version control used (Git)?" },
+  { section: "Change Management", team: "IT", question: "Are rollback mechanisms available?" },
+  { section: "Infrastructure", team: "IT", question: "Is data encrypted at rest and in transit?" },
+  { section: "Infrastructure & Hosting", team: "IT", question: "Where is the tool hosted? (Azure / AWS / SaaS)" },
+  { section: "Infrastructure & Hosting", team: "IT", question: "Is data encrypted at rest?" },
+  { section: "Infrastructure & Hosting", team: "IT", question: "Is data encrypted in transit (HTTPS)?" },
+  { section: "Infrastructure & Hosting", team: "IT", question: "Are backups enabled?" },
+  { section: "Infrastructure & Hosting", team: "IT", question: "What is the RPO / RTO?" },
+  { section: "Security", team: "IT", question: "Has VAPT been performed?" },
+  { section: "Security & Vulnerability", team: "IT", question: "Has the tool undergone VAPT / penetration testing?" },
+  { section: "Security & Vulnerability", team: "IT", question: "Are vulnerabilities tracked and remediated?" },
+  { section: "Security & Vulnerability", team: "IT", question: "Is antivirus / endpoint protection used?" },
+  { section: "Security & Vulnerability", team: "IT", question: "Are logs monitored for suspicious activity?" }
+];
+
+// =======================
+// FUNCTION TO LOAD IT CHECKLIST
+// =======================
+
+function loadITChecklist() {
+  const tbody = document.getElementById("itChecklist");
+  tbody.innerHTML = ""; // Clear existing rows
+
+  itChecklistData.forEach((item, index) => {
+    const tr = document.createElement("tr");
+    tr.classList.add(index % 2 === 0 ? "bg-white" : "bg-gray-50"); // Zebra stripes
+
+    tr.innerHTML = `
+      <td class="p-2 border">${item.section}</td>
+      <td class="p-2 border">${item.team}</td>
+      <td class="p-2 border">${item.question}</td>
+      <td class="p-2 border"><input type="text" placeholder="Answer" class="w-full border rounded p-1"></td>
+      <td class="p-2 border"><input type="file" class="w-full"></td>
+      <td class="p-2 border"><input type="text" placeholder="Owner" class="w-full border rounded p-1"></td>
+      <td class="p-2 border">
+        <select class="w-full border rounded p-1">
+          <option value="">Select Status</option>
+          <option value="pending">Pending</option>
+          <option value="in-progress">In Progress</option>
+          <option value="completed">Completed</option>
+        </select>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
 }
+
+// =======================
+// CALL IT ON PAGE LOAD
+// =======================
+window.addEventListener('DOMContentLoaded', loadITChecklist);
 
 // =======================
 // DT CHECKLIST
@@ -301,7 +353,7 @@ function renderDTChecklist() {
 // INIT
 // =======================
 
-render();
-renderITChecklist();
-renderDTChecklist();
-updateMiniDonuts(0);
+render();             // Dashboard table
+loadITChecklist();    // Populate IT Checklist
+renderDTChecklist();  // DT Checklist (placeholder for now)
+updateMiniDonuts(0);  // Workflow donuts
