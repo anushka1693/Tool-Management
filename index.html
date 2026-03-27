@@ -56,29 +56,70 @@
   </div>
 
   
-  <!-- WORKFLOW SIDEBAR -->
-  <div id="workflowSidebar" class="hidden">
+<!-- WORKFLOW SIDEBAR -->
+<div id="workflowSidebar" class="hidden">
 
-  <div id="progressContainer" class="mb-6 relative">
+  <h3 class="font-bold mb-3">Workflow</h3>
 
-    <div class="w-28 h-28 mx-auto relative">
-      <svg class="w-full h-full transform -rotate-90">
-        <circle cx="50%" cy="50%" r="45" stroke="#e5e7eb" stroke-width="10" fill="none"/>
-        <circle id="progressCircle"
-          cx="50%" cy="50%" r="45"
-          stroke="#1f77b4"
-          stroke-width="10"
-          fill="none"
-          stroke-dasharray="282"
-          stroke-dashoffset="282"
-          stroke-linecap="round"/>
-      </svg>
+  <div class="space-y-3 text-sm">
 
-      <div id="progressPercent"
-        class="absolute inset-0 flex items-center justify-center text-sm font-bold">
-        0%
-      </div>
+    <div id="step-0" onclick="goToStep(0)" class="workflow-item">
+      <div class="donut" data-progress="10"></div>
+      <span>Tool Details</span>
     </div>
+
+    <div id="step-1" onclick="goToStep(1)" class="workflow-item">
+      <div class="donut" data-progress="0"></div>
+      <span>Demo</span>
+    </div>
+
+    <div id="step-2" onclick="goToStep(2)" class="workflow-item">
+      <div class="donut" data-progress="0"></div>
+      <span>Vendor Questionnaire</span>
+    </div>
+
+    <div id="step-3" onclick="goToStep(3)" class="workflow-item">
+      <div class="donut" data-progress="0"></div>
+      <span>IT Clearance</span>
+    </div>
+
+    <div id="step-4" onclick="goToStep(4)" class="workflow-item">
+      <div class="donut" data-progress="0"></div>
+      <span>Partner Clearance</span>
+    </div>
+
+    <div id="step-5" onclick="goToStep(5)" class="workflow-item">
+      <div class="donut" data-progress="0"></div>
+      <span>Pilot</span>
+    </div>
+
+    <div id="step-6" onclick="goToStep(6)" class="workflow-item">
+      <div class="donut" data-progress="0"></div>
+      <span>DT Clearance</span>
+    </div>
+
+    <div id="step-7" onclick="goToStep(7)" class="workflow-item">
+      <div class="donut" data-progress="0"></div>
+      <span>Tool Memo</span>
+    </div>
+
+    <div id="step-8" onclick="goToStep(8)" class="workflow-item">
+      <div class="donut" data-progress="0"></div>
+      <span>QC Clearance</span>
+    </div>
+
+    <div id="step-9" onclick="goToStep(9)" class="workflow-item">
+      <div class="donut" data-progress="0"></div>
+      <span>MSA</span>
+    </div>
+
+    <div id="step-10" onclick="goToStep(10)" class="workflow-item">
+      <div class="donut" data-progress="0"></div>
+      <span>Rollout</span>
+    </div>
+
+  </div>
+</div>
 
     <!-- TOOLTIP -->
     <div id="progressTooltip"
