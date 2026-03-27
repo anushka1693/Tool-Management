@@ -3,12 +3,15 @@ let selectedToolType = "new";
 let filter = "all";
 let currentToolIndex = null;
 
+// ✅ ALL 11 STEPS
 const stepsList = [
-  "Tool Details","Demo","Vendor Questionnaire","IT Clearance"
+  "Tool Details","Demo","Vendor Questionnaire","IT Clearance",
+  "Partner Clearance","Pilot","DT Clearance","Tool Memo",
+  "QC Clearance","MSA","Rollout"
 ];
 
 // =======================
-// OPEN / CLOSE FORM
+// OPEN / CLOSE
 // =======================
 
 function addTool() {
@@ -43,28 +46,22 @@ function saveToolDetails() {
     return;
   }
 
-  const type = selectedToolType;
-
   if (currentToolIndex === null) {
     tools.push({
-      name,
-      company,
-      requestor,
-      practice,
-      type,
+      name, company, requestor, practice,
+      type: selectedToolType,
       step: 0
     });
 
     currentToolIndex = tools.length - 1;
   } else {
-    tools[currentToolIndex].name = name;
-    tools[currentToolIndex].company = company;
-    tools[currentToolIndex].requestor = requestor;
-    tools[currentToolIndex].practice = practice;
+    tools[currentToolIndex] = {
+      ...tools[currentToolIndex],
+      name, company, requestor, practice
+    };
   }
 
   localStorage.setItem("tools", JSON.stringify(tools));
-
   alert("Saved successfully!");
 }
 
@@ -85,15 +82,15 @@ function render() {
 
   let filtered = tools.filter(t => {
     if (filter === "all") return true;
-    if (filter === "completed") return t.step === 3;
-    if (filter === "progress") return t.step > 0 && t.step < 3;
+    if (filter === "completed") return t.step === 10;
+    if (filter === "progress") return t.step > 0 && t.step < 10;
     if (filter === "new") return t.step === 0;
   });
 
   document.getElementById("table").innerHTML =
     filtered.map((t, i) => {
 
-      let percent = Math.round((t.step / 3) * 100);
+      let percent = Math.round((t.step / 10) * 100);
 
       return `
       <tr class="border-b">
@@ -144,34 +141,39 @@ function openTool(index) {
 }
 
 // =======================
-// SECTION CONTROL (MAIN LOGIC)
+// SECTION CONTROL
 // =======================
 
 function showSection(step) {
 
-  // hide all
-  document.querySelectorAll(".section").forEach(sec => {
+  document.querySelectorAll("[id^='section']").forEach(sec => {
     sec.classList.add("hidden");
   });
 
-  // show selected
-  document.getElementById("section" + (step + 1)).classList.remove("hidden");
+  let target = document.getElementById("section" + (step + 1));
+  if (target) target.classList.remove("hidden");
 
-  // update sidebar UI
+  updateWorkflowUI(step);
+}
+
+// =======================
+// WORKFLOW UI
+// =======================
+
+function updateWorkflowUI(step) {
+
   document.querySelectorAll("[id^='step-']").forEach((el, index) => {
 
-    let circle = el.querySelector("div");
-
-    circle.classList.remove("bg-green-600", "bg-gray-400", "bg-[#800000]");
+    el.classList.remove("text-green-600", "text-[#800000]", "text-gray-400");
 
     if (index < step) {
-      circle.classList.add("bg-green-600");
+      el.classList.add("text-green-600");
     }
     else if (index === step) {
-      circle.classList.add("bg-[#800000]");
+      el.classList.add("text-[#800000]");
     }
     else {
-      circle.classList.add("bg-gray-400");
+      el.classList.add("text-gray-400");
     }
   });
 }
@@ -186,7 +188,7 @@ function nextStep() {
     saveToolDetails();
   }
 
-  if (tools[currentToolIndex].step < 3) {
+  if (tools[currentToolIndex].step < 10) {
     tools[currentToolIndex].step++;
   }
 
@@ -203,7 +205,7 @@ function nextStep() {
 function goToStep(step) {
 
   if (currentToolIndex === null) {
-    alert("Please open a tool first");
+    alert("Open a tool first");
     return;
   }
 
@@ -229,7 +231,55 @@ window.selectToolType = function (type) {
 };
 
 // =======================
+// CHECKLIST DATA
+// =======================
+
+const itQuestions = [
+  { section:"Access Control", q:"Does the tool support RBAC?" },
+  { section:"Authentication", q:"Is MFA enforced?" },
+  { section:"Security", q:"Has VAPT been performed?" }
+];
+
+const dtQuestions = [
+  { section:"Architecture", q:"Is the tool scalable?" },
+  { section:"Integration", q:"Does it integrate with systems?" }
+];
+
+// =======================
+// CHECKLIST RENDER
+// =======================
+
+function renderChecklist(data, elementId) {
+  document.getElementById(elementId).innerHTML =
+    data.map(item => `
+      <tr>
+        <td class="p-2">${item.section}</td>
+        <td class="p-2">${item.q}</td>
+
+        <td class="p-2">
+          <select class="border w-full">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        </td>
+
+        <td class="p-2"><input type="file"></td>
+        <td class="p-2"><input class="border w-full"></td>
+
+        <td class="p-2">
+          <select class="border w-full">
+            <option>Open</option>
+            <option>Closed</option>
+          </select>
+        </td>
+      </tr>
+    `).join("");
+}
+
+// =======================
 // INIT
 // =======================
 
 render();
+renderChecklist(itQuestions, "itChecklist");
+renderChecklist(dtQuestions, "dtChecklist");
