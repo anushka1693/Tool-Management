@@ -49,37 +49,29 @@
     </div>
   </div>
 
-  <!-- DASHBOARD BUTTON -->
+  <!-- DASHBOARD -->
   <div onclick="closeToolForm()" class="font-semibold cursor-pointer mb-4">
     Dashboard
   </div>
 
-  <!-- 🔥 WORKFLOW (VISIBLE ONLY WHEN TOOL OPEN) -->
+  <!-- 🔥 WORKFLOW -->
   <div id="workflowSidebar" class="hidden">
 
     <h3 class="font-bold mb-3">Workflow</h3>
 
     <div class="space-y-3 text-sm">
 
-      <div id="step-0" onclick="goToStep(0)" class="flex items-center gap-2 cursor-pointer">
-        <div class="w-3 h-3 rounded-full bg-gray-400"></div>
-        Tool Details
-      </div>
-
-      <div id="step-1" onclick="goToStep(1)" class="flex items-center gap-2 cursor-pointer">
-        <div class="w-3 h-3 rounded-full bg-gray-400"></div>
-        Demo
-      </div>
-
-      <div id="step-2" onclick="goToStep(2)" class="flex items-center gap-2 cursor-pointer">
-        <div class="w-3 h-3 rounded-full bg-gray-400"></div>
-        Vendor Questionnaire
-      </div>
-
-      <div id="step-3" onclick="goToStep(3)" class="flex items-center gap-2 cursor-pointer">
-        <div class="w-3 h-3 rounded-full bg-gray-400"></div>
-        IT Clearance
-      </div>
+      <div id="step-0" onclick="goToStep(0)" class="workflow-item">Tool Details</div>
+      <div id="step-1" onclick="goToStep(1)" class="workflow-item">Demo</div>
+      <div id="step-2" onclick="goToStep(2)" class="workflow-item">Vendor Questionnaire</div>
+      <div id="step-3" onclick="goToStep(3)" class="workflow-item">IT Clearance</div>
+      <div id="step-4" class="workflow-item">Partner Clearance</div>
+      <div id="step-5" class="workflow-item">Pilot</div>
+      <div id="step-6" onclick="goToStep(6)" class="workflow-item">DT Clearance</div>
+      <div id="step-7" class="workflow-item">Tool Memo</div>
+      <div id="step-8" class="workflow-item">QC Clearance</div>
+      <div id="step-9" class="workflow-item">MSA</div>
+      <div id="step-10" class="workflow-item">Rollout</div>
 
     </div>
   </div>
@@ -90,7 +82,7 @@
 <div class="flex-1 p-6">
 
 <!-- ================= TOOL FORM ================= -->
-<div id="toolDetailsSection" class="hidden bg-white p-6 rounded shadow">
+<div id="toolDetailsSection" class="hidden bg-white p-6 rounded shadow max-h-[85vh] overflow-y-auto">
 
   <h2 class="text-xl font-bold mb-4">Tool Workflow</h2>
 
@@ -121,7 +113,7 @@
     <input type="file" class="border p-2 w-full">
   </div>
 
-  <!-- SECTION 4 -->
+  <!-- SECTION 4: IT -->
   <div id="section4" class="mb-6">
     <h3 class="font-bold mb-2">Section 4: IT Clearance</h3>
 
@@ -137,6 +129,25 @@
         </tr>
       </thead>
       <tbody id="itChecklist"></tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 6: DT -->
+  <div id="section6" class="mb-6">
+    <h3 class="font-bold mb-2">Section 6: DT Clearance</h3>
+
+    <table class="w-full text-sm border">
+      <thead class="bg-gray-200">
+        <tr>
+          <th class="p-2">Section</th>
+          <th class="p-2">Question</th>
+          <th class="p-2">Answer</th>
+          <th class="p-2">Evidence</th>
+          <th class="p-2">Owner</th>
+          <th class="p-2">Status</th>
+        </tr>
+      </thead>
+      <tbody id="dtChecklist"></tbody>
     </table>
   </div>
 
