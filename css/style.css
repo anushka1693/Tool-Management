@@ -191,3 +191,38 @@ input, select, textarea {
 #toolDetailsSection {
   scroll-behavior: smooth;
 }
+
+/* 🔵 Progress Donut */
+#progressContainer:hover #progressTooltip {
+  display: block;
+}
+
+#progressCircle {
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+/* workflow dots */
+.workflow-item {
+  position: relative;
+  padding-left: 18px;
+  cursor: pointer;
+}
+
+.workflow-item::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ccc;
+  position: absolute;
+  left: 0;
+  top: 6px;
+}
+
+.workflow-active::before {
+  background: #800000;
+}
+
+.workflow-complete::before {
+  background: green;
+}
