@@ -6,6 +6,7 @@
 
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="css/style.css">
+
 </head>
 
 <body class="bg-gray-100">
@@ -54,8 +55,52 @@
     Dashboard
   </div>
 
-  <!-- 🔥 WORKFLOW -->
+  
+  <!-- WORKFLOW SIDEBAR -->
   <div id="workflowSidebar" class="hidden">
+
+  <div id="progressContainer" class="mb-6 relative">
+
+    <div class="w-28 h-28 mx-auto relative">
+      <svg class="w-full h-full transform -rotate-90">
+        <circle cx="50%" cy="50%" r="45" stroke="#e5e7eb" stroke-width="10" fill="none"/>
+        <circle id="progressCircle"
+          cx="50%" cy="50%" r="45"
+          stroke="#1f77b4"
+          stroke-width="10"
+          fill="none"
+          stroke-dasharray="282"
+          stroke-dashoffset="282"
+          stroke-linecap="round"/>
+      </svg>
+
+      <div id="progressPercent"
+        class="absolute inset-0 flex items-center justify-center text-sm font-bold">
+        0%
+      </div>
+    </div>
+
+    <!-- TOOLTIP -->
+    <div id="progressTooltip"
+      class="hidden absolute left-full ml-4 top-0 bg-white shadow-lg rounded p-3 text-xs w-48 z-20">
+
+      <div class="flex justify-between">
+        <span>Outstanding</span>
+        <span id="pendingCount">0</span>
+      </div>
+
+      <div class="flex justify-between text-blue-600">
+        <span>Prepared</span>
+        <span id="completedCount">0</span>
+      </div>
+
+      <div class="flex justify-between text-green-600">
+        <span>Reviewed</span>
+        <span id="reviewedCount">0</span>
+      </div>
+
+    </div>
+  </div>
 
     <h3 class="font-bold mb-3">Workflow</h3>
 
@@ -65,13 +110,13 @@
       <div id="step-1" onclick="goToStep(1)" class="workflow-item">Demo</div>
       <div id="step-2" onclick="goToStep(2)" class="workflow-item">Vendor Questionnaire</div>
       <div id="step-3" onclick="goToStep(3)" class="workflow-item">IT Clearance</div>
-      <div id="step-4" class="workflow-item">Partner Clearance</div>
-      <div id="step-5" class="workflow-item">Pilot</div>
+      <div id="step-4" onclick="goToStep(4)" class="workflow-item">Partner Clearance</div>
+      <div id="step-5" onclick="goToStep(5)" class="workflow-item">Pilot</div>
       <div id="step-6" onclick="goToStep(6)" class="workflow-item">DT Clearance</div>
-      <div id="step-7" class="workflow-item">Tool Memo</div>
-      <div id="step-8" class="workflow-item">QC Clearance</div>
-      <div id="step-9" class="workflow-item">MSA</div>
-      <div id="step-10" class="workflow-item">Rollout</div>
+      <div id="step-7" onclick="goToStep(7)" class="workflow-item">Tool Memo</div>
+      <div id="step-8" onclick="goToStep(8)" class="workflow-item">QC Clearance</div>
+      <div id="step-9" onclick="goToStep(9)" class="workflow-item">MSA</div>
+      <div id="step-10" onclick="goToStep(10)" class="workflow-item">Rollout</div>
 
     </div>
   </div>
@@ -113,7 +158,7 @@
     <input type="file" class="border p-2 w-full">
   </div>
 
-  <!-- SECTION 4: IT -->
+  <!-- SECTION 4 -->
   <div id="section4" class="mb-6">
     <h3 class="font-bold mb-2">Section 4: IT Clearance</h3>
 
@@ -132,9 +177,19 @@
     </table>
   </div>
 
-  <!-- SECTION 6: DT -->
+  <!-- SECTION 5 -->
+  <div id="section5" class="mb-6">
+    <h3 class="font-bold mb-2">Section 5: Partner Clearance</h3>
+  </div>
+
+  <!-- SECTION 6 -->
   <div id="section6" class="mb-6">
-    <h3 class="font-bold mb-2">Section 6: DT Clearance</h3>
+    <h3 class="font-bold mb-2">Section 6: Pilot</h3>
+  </div>
+
+  <!-- SECTION 7 -->
+  <div id="section7" class="mb-6">
+    <h3 class="font-bold mb-2">Section 7: DT Clearance</h3>
 
     <table class="w-full text-sm border">
       <thead class="bg-gray-200">
@@ -149,6 +204,26 @@
       </thead>
       <tbody id="dtChecklist"></tbody>
     </table>
+  </div>
+
+  <!-- SECTION 8 -->
+  <div id="section8" class="mb-6">
+    <h3 class="font-bold mb-2">Section 8: Tool Memo</h3>
+  </div>
+
+  <!-- SECTION 9 -->
+  <div id="section9" class="mb-6">
+    <h3 class="font-bold mb-2">Section 9: QC Clearance</h3>
+  </div>
+
+  <!-- SECTION 10 -->
+  <div id="section10" class="mb-6">
+    <h3 class="font-bold mb-2">Section 10: MSA</h3>
+  </div>
+
+  <!-- SECTION 11 -->
+  <div id="section11" class="mb-6">
+    <h3 class="font-bold mb-2">Section 11: Rollout</h3>
   </div>
 
   <!-- BUTTONS -->
