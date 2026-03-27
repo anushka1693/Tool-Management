@@ -334,26 +334,63 @@ window.addEventListener('DOMContentLoaded', loadITChecklist);
 // DT CHECKLIST
 // =======================
 
-function renderDTChecklist() {
-  document.getElementById("dtChecklist").innerHTML =
-    Array.from({ length: 15 }).map((_, i) => `
-      <tr class="border-b">
-        <td class="p-2">DT Question ${i+1}</td>
-        <td class="p-2">
-          <select class="border w-full">
-            <option>Yes</option>
-            <option>No</option>
-          </select>
-        </td>
-      </tr>
-    `).join("");
-}
+const dtChecklistData = [
+  { section: "Architecture", team: "DT", question: "Is the tool scalable?" },
+  { section: "Architecture", team: "DT", question: "Does it support API-based integration?" },
+  { section: "Architecture", team: "DT", question: "Is the architecture documented?" },
+  { section: "Automation", team: "DT", question: "Can workflows be automated?" },
+  { section: "Automation", team: "DT", question: "Can approvals be tracked digitally?" },
+  { section: "Automation", team: "DT", question: "Does it support Power Automate / APIs?" },
+  { section: "Business Fit", team: "DT", question: "What business problem does this tool solve?" },
+  { section: "Business Fit", team: "DT", question: "Is this tool replacing an existing system?" },
+  { section: "Business Fit", team: "DT", question: "Is there duplication with existing tools?" },
+  { section: "Data Flow", team: "DT", question: "Is data classified (PII/confidential)?" },
+  { section: "Data Flow", team: "DT", question: "What data is captured?" },
+  { section: "Data Flow", team: "DT", question: "Where is data stored?" },
+  { section: "Data Flow", team: "DT", question: "Is there data classification (PII / confidential)?" },
+  { section: "Integration", team: "DT", question: "Does it integrate with enterprise systems?" },
+  { section: "Integration", team: "DT", question: "Does the tool integrate with:\nAzure AD\nSharePoint\nERP / CRM systems" },
+  { section: "Integration", team: "DT", question: "Are APIs secure (OAuth / tokens)?" },
+  { section: "Master Checklist", team: "DT", question: "All approvals completed (IT / DT / QC)" },
+  { section: "Master Checklist", team: "DT", question: "Audit logs available" },
+  { section: "Master Checklist", team: "DT", question: "Access controls verified" },
+  { section: "Master Checklist", team: "DT", question: "Change management documented" },
+  { section: "Master Checklist", team: "DT", question: "Risk assessment completed" },
+  { section: "Master Checklist", team: "DT", question: "Data protection validated" },
+  { section: "Master Checklist", team: "DT", question: "Contracts (MSA / NDA) signed" },
+  { section: "Master Checklist", team: "DT", question: "Tool memo prepared" }
+];
 
+// =======================
+// RENDER DT CHECKLIST
+// =======================
+
+function renderDTChecklist() {
+  const tbody = document.getElementById("dtChecklist");
+  tbody.innerHTML = dtChecklistData.map(item => `
+    <tr class="border-b">
+      <td class="p-2">${item.section}</td>
+      <td class="p-2">${item.team}</td>
+      <td class="p-2">${item.question}</td>
+      <td class="p-2"><input type="text" placeholder="Answer" class="w-full border rounded p-1"></td>
+      <td class="p-2"><input type="file" class="w-full"></td>
+      <td class="p-2"><input type="text" placeholder="Owner" class="w-full border rounded p-1"></td>
+      <td class="p-2">
+        <select class="w-full border rounded p-1">
+          <option value="">Select Status</option>
+          <option value="pending">Pending</option>
+          <option value="in-progress">In Progress</option>
+          <option value="completed">Completed</option>
+        </select>
+      </td>
+    </tr>
+  `).join("");
+}
 // =======================
 // INIT
 // =======================
 
 render();             // Dashboard table
 loadITChecklist();    // Populate IT Checklist
-renderDTChecklist();  // DT Checklist (placeholder for now)
+renderDTChecklist();  // DT Checklist 
 updateMiniDonuts(0);  // Workflow donuts
