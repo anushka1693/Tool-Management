@@ -13,7 +13,7 @@ let currentToolIndex = null;
 
 const stepsList = [
   "Tool Details","Demo","Vendor Questionnaire","IT Clearance",
-  "Partner Approval","Pilot","DT Clearance", "AI Tool", "Tool Memo",
+  "Partner Approval","Pilot","DT Clearance", "AI Clearance", "Tool Memo",
   "QC Clearance","MSA","Rollout"
 ];
 
