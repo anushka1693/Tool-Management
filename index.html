@@ -131,21 +131,26 @@
       </div>
 
       <div id="step-7" onclick="goToStep(7)" class="workflow-item">
+  <div class="donut" data-progress="0"></div>
+  <span>AI Tool</span>
+</div>
+
+      <div id="step-8" onclick="goToStep(8)" class="workflow-item">
         <div class="donut" data-progress="0"></div>
         <span>Tool Memo</span>
       </div>
 
-      <div id="step-8" onclick="goToStep(8)" class="workflow-item">
+      <div id="step-9" onclick="goToStep(9)" class="workflow-item">
         <div class="donut" data-progress="0"></div>
         <span>QC Clearance</span>
       </div>
 
-      <div id="step-9" onclick="goToStep(9)" class="workflow-item">
+      <div id="step-10" onclick="goToStep(10)" class="workflow-item">
         <div class="donut" data-progress="0"></div>
         <span>MSA</span>
       </div>
 
-      <div id="step-10" onclick="goToStep(10)" class="workflow-item">
+      <div id="step-11" onclick="goToStep(11)" class="workflow-item">
         <div class="donut" data-progress="0"></div>
         <span>Rollout</span>
       </div>
@@ -182,7 +187,6 @@
       <input id="demoLink" class="border p-2 w-full" placeholder="Recording Link">
     </div>
 
-    <!-- SECTION 3 -->
     <!-- SECTION 3 -->
 <div id="section3" class="section mb-6">
   <h3 class="font-bold mb-2">Section 3: Vendor Questionnaire</h3>
@@ -329,22 +333,44 @@
     </div>
 
     <!-- SECTION 8 -->
-    <div id="section8" class="section mb-6">
-      <h3 class="font-bold mb-2">Section 8: Tool Memo</h3>
-    </div>
+<div id="section8" class="section mb-6">
+  <h3 class="font-bold mb-2">Section 8: AI Tool</h3>
+
+  <label class="block mb-1">Does the tool use AI?</label>
+  <select class="border p-2 w-full mb-3">
+    <option>Yes</option>
+    <option>No</option>
+  </select>
+
+  <label class="block mb-1">AI Model Type</label>
+  <input class="border p-2 w-full mb-3" placeholder="e.g. GPT / ML / LLM">
+
+  <label class="block mb-1">AI Risk Level</label>
+  <select class="border p-2 w-full">
+    <option>Low</option>
+    <option>Medium</option>
+    <option>High</option>
+  </select>
+
+</div>
 
     <!-- SECTION 9 -->
     <div id="section9" class="section mb-6">
-      <h3 class="font-bold mb-2">Section 9: QC Clearance</h3>
+      <h3 class="font-bold mb-2">Section 8: Tool Memo</h3>
     </div>
 
     <!-- SECTION 10 -->
     <div id="section10" class="section mb-6">
-      <h3 class="font-bold mb-2">Section 10: MSA</h3>
+      <h3 class="font-bold mb-2">Section 9: QC Clearance</h3>
     </div>
 
     <!-- SECTION 11 -->
     <div id="section11" class="section mb-6">
+      <h3 class="font-bold mb-2">Section 10: MSA</h3>
+    </div>
+
+    <!-- SECTION 12 -->
+    <div id="section12" class="section mb-6">
       <h3 class="font-bold mb-2">Section 11: Rollout</h3>
     </div>
 
