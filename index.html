@@ -427,22 +427,35 @@
       menu.classList.add('hidden');
     }
   }
+  
+    function selectToolType(type) {
 
-  function selectToolType(type) {
-    // Close menu
-    document.getElementById('addToolMenu').classList.add('hidden');
+  document.getElementById('addToolMenu').classList.add('hidden');
 
-    if(type === 'new') {
-      // Show workflow sidebar and first section
+  const vendor = document.getElementById("step-2");
+  const msa = document.getElementById("step-9");
+
+  if(type === 'new') {
+
+      // hide Vendor Questionnaire and MSA
+      vendor.style.display = "none";
+      msa.style.display = "none";
+
       document.getElementById('workflowSidebar').classList.remove('hidden');
       goToStep(0);
-    } else if(type === 'existing') {
-      // You can adjust to show existing clearance flow here
-      alert('Existing tool clearance selected');
-    } else if(type === 'ai') {
-      alert('AI Tool selected');
-    }
+
+  } 
+  else if(type === 'existing') {
+
+      // show Vendor Questionnaire and MSA
+      vendor.style.display = "flex";
+      msa.style.display = "flex";
+
+      document.getElementById('workflowSidebar').classList.remove('hidden');
+      goToStep(0);
+
   }
+}
 
   function closeToolForm() {
     // Hide workflow sidebar and form, show dashboard
