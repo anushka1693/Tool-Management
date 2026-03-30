@@ -153,6 +153,10 @@ function showSection(step) {
   let current = document.getElementById("section" + (step + 1));
   if (current) current.style.display = "block";
 
+  if (step === 7) { // assuming AI Clearance is step 7
+    loadAIChecklist();
+  }
+
   updateWorkflowUI(step);
   updateMiniDonuts(step);
 }
@@ -455,5 +459,6 @@ function renderDTChecklist() {
 
 render();             // Dashboard table
 loadITChecklist();    // Populate IT Checklist
-renderDTChecklist();  // DT Checklist 
+renderDTChecklist();  // DT Checklist
+loadAIChecklist();
 updateMiniDonuts(0);  // Workflow donuts
