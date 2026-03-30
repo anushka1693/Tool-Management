@@ -89,72 +89,70 @@
   </div>
 
   <!-- WORKFLOW SIDEBAR -->
-  <div id="workflowSidebar" class="hidden flex-grow overflow-y-auto">
+  <div class="space-y-3 text-sm">
 
-    <h3 class="font-bold mb-3">Workflow</h3>
-
-    <div class="space-y-3 text-sm">
-
-      <div id="step-0" onclick="goToStep(0)" class="workflow-item">
-        <div class="donut" data-progress="10"></div>
-        <span>Tool Details</span>
-      </div>
-
-      <div id="step-1" onclick="goToStep(1)" class="workflow-item">
-        <div class="donut" data-progress="0"></div>
-        <span>Demo</span>
-      </div>
-
-      <div id="step-2" onclick="goToStep(2)" class="workflow-item">
-        <div class="donut" data-progress="0"></div>
-        <span>Vendor Questionnaire</span>
-      </div>
-
-      <div id="step-3" onclick="goToStep(3)" class="workflow-item">
-        <div class="donut" data-progress="0"></div>
-        <span>IT Clearance</span>
-      </div>
-
-      <div id="step-4" onclick="goToStep(4)" class="workflow-item">
-        <div class="donut" data-progress="0"></div>
-        <span>Partner Clearance</span>
-      </div>
-
-      <div id="step-5" onclick="goToStep(5)" class="workflow-item">
-        <div class="donut" data-progress="0"></div>
-        <span>Pilot</span>
-      </div>
-
-      <div id="step-6" onclick="goToStep(6)" class="workflow-item">
-        <div class="donut" data-progress="0"></div>
-        <span>DT Clearance</span>
-      </div>
-
-      <div id="step-7" onclick="goToStep(7)" class="workflow-item">
-        <div class="donut" data-progress="0"></div>
-        <span>Tool Memo</span>
-      </div>
-
-      <div id="step-8" onclick="goToStep(8)" class="workflow-item">
-        <div class="donut" data-progress="0"></div>
-        <span>QC Clearance</span>
-      </div>
-
-      <div id="step-9" onclick="goToStep(9)" class="workflow-item">
-        <div class="donut" data-progress="0"></div>
-        <span>MSA</span>
-      </div>
-
-      <div id="step-10" onclick="goToStep(10)" class="workflow-item">
-        <div class="donut" data-progress="0"></div>
-        <span>Rollout</span>
-      </div>
-
-    </div>
-  </div>
-
+<div id="step-0" onclick="goToStep(0)" class="workflow-item">
+  <div class="donut" data-progress="10"></div>
+  <span>Tool Details</span>
 </div>
 
+<div id="step-1" onclick="goToStep(1)" class="workflow-item">
+  <div class="donut" data-progress="0"></div>
+  <span>Demo</span>
+</div>
+
+<div id="step-2" onclick="goToStep(2)" class="workflow-item">
+  <div class="donut" data-progress="0"></div>
+  <span>Vendor Questionnaire</span>
+</div>
+
+<div id="step-3" onclick="goToStep(3)" class="workflow-item">
+  <div class="donut" data-progress="0"></div>
+  <span>IT Clearance</span>
+</div>
+
+<div id="step-4" onclick="goToStep(4)" class="workflow-item">
+  <div class="donut" data-progress="0"></div>
+  <span>Partner Clearance</span>
+</div>
+
+<div id="step-5" onclick="goToStep(5)" class="workflow-item">
+  <div class="donut" data-progress="0"></div>
+  <span>Pilot</span>
+</div>
+
+<div id="step-6" onclick="goToStep(6)" class="workflow-item">
+  <div class="donut" data-progress="0"></div>
+  <span>DT Clearance</span>
+</div>
+
+<div id="step-7" onclick="goToStep(7)" class="workflow-item">
+  <div class="donut" data-progress="0"></div>
+  <span>AI Tool</span>
+</div>
+
+<div id="step-8" onclick="goToStep(8)" class="workflow-item">
+  <div class="donut" data-progress="0"></div>
+  <span>Tool Memo</span>
+</div>
+
+<div id="step-9" onclick="goToStep(9)" class="workflow-item">
+  <div class="donut" data-progress="0"></div>
+  <span>QC Clearance</span>
+</div>
+
+<div id="step-10" onclick="goToStep(10)" class="workflow-item">
+  <div class="donut" data-progress="0"></div>
+  <span>MSA</span>
+</div>
+
+<div id="step-11" onclick="goToStep(11)" class="workflow-item">
+  <div class="donut" data-progress="0"></div>
+  <span>Rollout</span>
+</div>
+
+</div>
+  
 <!-- ================= MAIN ================= -->
 <div class="flex-1 p-6 overflow-auto">
 
@@ -309,45 +307,54 @@
     </div>
 
     <!-- SECTION 7 -->
-    <div id="section7" class="section mb-6">
-      <h3 class="font-bold mb-2">Section 7: DT Clearance</h3>
+<div id="section7" class="section mb-6">
+  <h3 class="font-bold mb-2">Section 7: DT Clearance</h3>
 
-      <table class="w-full text-sm border">
-        <thead class="bg-gray-200">
-          <tr>
-            <th class="p-2">Section</th>
-             <th class="p-2">Team</th>
-            <th class="p-2">Question</th>
-            <th class="p-2">Answer</th>
-            <th class="p-2">Evidence</th>
-            <th class="p-2">Owner</th>
-            <th class="p-2">Status</th>
-          </tr>
-        </thead>
-        <tbody id="dtChecklist"></tbody>
-      </table>
-    </div>
+  <table class="w-full text-sm border">
+    <thead class="bg-gray-200">
+      <tr>
+        <th class="p-2">Section</th>
+        <th class="p-2">Team</th>
+        <th class="p-2">Question</th>
+        <th class="p-2">Answer</th>
+        <th class="p-2">Evidence</th>
+        <th class="p-2">Owner</th>
+        <th class="p-2">Status</th>
+      </tr>
+    </thead>
+    <tbody id="dtChecklist"></tbody>
+  </table>
+</div>
 
-    <!-- SECTION 8 -->
-    <div id="section8" class="section mb-6">
-      <h3 class="font-bold mb-2">Section 8: Tool Memo</h3>
-    </div>
+<!-- SECTION 8 -->
+<div id="section8" class="section mb-6">
+  <h3 class="font-bold mb-2">Section 8: AI Tool</h3>
 
-    <!-- SECTION 9 -->
-    <div id="section9" class="section mb-6">
-      <h3 class="font-bold mb-2">Section 9: QC Clearance</h3>
-    </div>
+  <input class="border p-2 w-full mb-2" placeholder="AI Model Used">
+  <input class="border p-2 w-full mb-2" placeholder="AI Training Data">
+  <input class="border p-2 w-full mb-2" placeholder="AI Risk Level">
+</div>
 
-    <!-- SECTION 10 -->
-    <div id="section10" class="section mb-6">
-      <h3 class="font-bold mb-2">Section 10: MSA</h3>
-    </div>
+<!-- SECTION 9 -->
+<div id="section9" class="section mb-6">
+  <h3 class="font-bold mb-2">Section 9: Tool Memo</h3>
+</div>
 
-    <!-- SECTION 11 -->
-    <div id="section11" class="section mb-6">
-      <h3 class="font-bold mb-2">Section 11: Rollout</h3>
-    </div>
+<!-- SECTION 10 -->
+<div id="section10" class="section mb-6">
+  <h3 class="font-bold mb-2">Section 10: QC Clearance</h3>
+</div>
 
+<!-- SECTION 11 -->
+<div id="section11" class="section mb-6">
+  <h3 class="font-bold mb-2">Section 11: MSA</h3>
+</div>
+
+<!-- SECTION 12 -->
+<div id="section12" class="section mb-6">
+  <h3 class="font-bold mb-2">Section 12: Rollout</h3>
+</div>
+    
     <!-- BUTTONS -->
     <div class="flex gap-2">
       <button onclick="saveToolDetails()" class="btn-primary flex-1">Save</button>
@@ -475,7 +482,7 @@
     if (!activeSection) return;
 
     const currentIndex = parseInt(activeSection.id.replace('section', ''), 10);
-    if (currentIndex < 11) {
+    if (currentIndex < 12) {
       goToStep(currentIndex); // goToStep expects zero-based index, sections are 1-based
     }
   }
