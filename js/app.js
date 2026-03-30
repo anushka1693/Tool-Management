@@ -394,6 +394,67 @@ const aiChecklistData = [
 ];
 
 // =======================
+// QC CHECKLIST DATA
+// =======================
+
+const qcChecklistData = [
+  { section: "Audit Trail", team: "QC", question: "Are logs timestamped and user-specific?" },
+  { section: "Audit Trail", team: "QC", question: "Does the system maintain audit logs?" },
+  { section: "Audit Trail", team: "QC", question: "Are logs: Immutable / Timestamped / User-specific?" },
+  { section: "Audit Trail", team: "QC", question: "Can logs be exported?" },
+
+  { section: "Compliance", team: "QC", question: "Is the tool SOC compliant?" },
+  { section: "Compliance", team: "QC", question: "Is the tool compliant with: SOC 1 / SOC 2 / ITGC?" },
+  { section: "Compliance", team: "QC", question: "Are control owners defined?" },
+
+  { section: "Data Retention", team: "QC", question: "What is the data retention policy?" },
+  { section: "Data Retention", team: "QC", question: "Can data be archived?" },
+  { section: "Data Retention", team: "QC", question: "Is deletion controlled?" },
+
+  { section: "Evidence & Documentation", team: "QC", question: "Are approvals documented?" },
+  { section: "Evidence & Documentation", team: "QC", question: "Are documents version-controlled?" },
+  { section: "Evidence & Documentation", team: "QC", question: "Is there evidence of: IT / DT / Partner approval?" },
+
+  { section: "Final Review", team: "QC", question: "All approvals completed?" },
+  { section: "Final Review", team: "QC", question: "Documents (NDA/MSA) signed?" },
+
+  { section: "Risk", team: "QC", question: "Is risk assessment completed?" },
+
+  { section: "Risk Assessment", team: "QC", question: "Has a risk assessment been performed?" },
+  { section: "Risk Assessment", team: "QC", question: "Is there a risk rating (Low / Medium / High)?" },
+  { section: "Risk Assessment", team: "QC", question: "Are mitigation steps documented?" }
+];
+
+// =======================
+// FUNCTION TO LOAD QC CHECKLIST
+// =======================
+
+function loadQCChecklist() {
+  const tbody = document.getElementById("qcChecklist");
+  if (!tbody) return;
+
+  tbody.innerHTML = qcChecklistData.map(item => `
+    <tr class="border-b">
+      <td class="p-2">${item.section}</td>
+      <td class="p-2">${item.team}</td>
+      <td class="p-2">${item.question}</td>
+      <td class="p-2"><input type="text" placeholder="Answer" class="w-full border rounded p-1"></td>
+      <td class="p-2"><input type="file" class="w-full"></td>
+      <td class="p-2"><input type="text" placeholder="Owner" class="w-full border rounded p-1"></td>
+      <td class="p-2">
+        <select class="w-full border rounded p-1">
+          <option value="">Select Status</option>
+          <option value="pending">Pending</option>
+          <option value="in-progress">In Progress</option>
+          <option value="completed">Completed</option>
+        </select>
+      </td>
+    </tr>
+  `).join("");
+}
+
+
+// =======================
 // FUNCTION TO LOAD AI CHECKLIST
 // =======================
 
@@ -461,4 +522,5 @@ render();             // Dashboard table
 loadITChecklist();    // Populate IT Checklist
 renderDTChecklist();  // DT Checklist
 loadAIChecklist();
+loadQCChecklist();
 updateMiniDonuts(0);  // Workflow donuts
