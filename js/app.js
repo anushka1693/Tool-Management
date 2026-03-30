@@ -13,7 +13,7 @@ let currentToolIndex = null;
 
 const stepsList = [
   "Tool Details","Demo","Vendor Questionnaire","IT Clearance",
-  "Partner Approval","Pilot","DT Clearance","Tool Memo",
+  "Partner Approval","Pilot","DT Clearance", "AI Tool", "Tool Memo",
   "QC Clearance","MSA","Rollout"
 ];
 
@@ -145,7 +145,7 @@ function openTool(index) {
 
 function showSection(step) {
 
-  for (let i = 1; i <= 11; i++) {
+  for (let i = 1; i <= 12; i++) {
     let el = document.getElementById("section" + i);
     if (el) el.style.display = "none";
   }
@@ -165,7 +165,7 @@ function nextStep() {
 
   if (currentToolIndex === null) return;
 
-  if (tools[currentToolIndex].step < 10) {
+  if (tools[currentToolIndex].step < 11) {
     tools[currentToolIndex].step++;
   }
 
@@ -197,7 +197,7 @@ function goToStep(step) {
 
 function updateWorkflowUI(step) {
 
-  for (let i = 0; i <= 10; i++) {
+  for (let i = 0; i <= 11; i++) {
     let el = document.getElementById("step-" + i);
     if (!el) continue;
 
