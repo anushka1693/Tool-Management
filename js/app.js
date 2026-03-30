@@ -195,19 +195,32 @@ function goToStep(step) {
 // WORKFLOW UI (FIXED)
 // =======================
 
-function updateWorkflowUI(step) {
+  function updateWorkflowUI(step) {
+
+  const tool = tools[currentToolIndex];
+  const type = tool?.type || "new";
 
   for (let i = 0; i <= 10; i++) {
+
     let el = document.getElementById("step-" + i);
     if (!el) continue;
 
-    el.classList.remove("active", "completed", "inprogress");
+    // Hide Vendor Questionnaire & MSA for NEW tool request
+    if (type === "new" && (i === 2 || i === 9)) {
+      el.style.display = "none";
+      continue;
+    } else {
+      el.style.display = "block";
+    }
+
+    el.classList.remove("active","completed","inprogress");
 
     if (i < step) {
       el.classList.add("completed");
     } else if (i === step) {
-      el.classList.add("active", "inprogress");
+      el.classList.add("active","inprogress");
     }
+
   }
 }
 
