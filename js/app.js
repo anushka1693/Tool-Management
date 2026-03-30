@@ -362,6 +362,69 @@ const dtChecklistData = [
 ];
 
 // =======================
+// AI CHECKLIST DATA
+// =======================
+
+const aiChecklistData = [
+  { section: "AI Governance", team: "AI", question: "Is the model explainable?" },
+  { section: "AI Governance", team: "AI", question: "Is client data protected?" },
+  { section: "AI Governance", team: "AI", question: "Is human oversight implemented?" },
+
+  { section: "Bias & Ethics", team: "AI", question: "Has bias testing been performed?" },
+  { section: "Bias & Ethics", team: "AI", question: "Are outputs monitored for fairness?" },
+
+  { section: "Data Usage", team: "AI", question: "What data is used for training?" },
+  { section: "Data Usage", team: "AI", question: "Is client data used?" },
+  { section: "Data Usage", team: "AI", question: "Is data anonymized?" },
+
+  { section: "Governance", team: "AI", question: "Is there human oversight?" },
+  { section: "Governance", team: "AI", question: "Are AI decisions reviewed?" },
+  { section: "Governance", team: "AI", question: "Is there an approval workflow?" },
+
+  { section: "Model Transparency", team: "AI", question: "Is the AI model explainable?" },
+  { section: "Model Transparency", team: "AI", question: "Are outputs auditable?" },
+
+  { section: "Security", team: "AI", question: "Is prompt data stored?" },
+  { section: "Security", team: "AI", question: "Is there risk of data leakage (LLM risk)?" },
+  { section: "Security", team: "AI", question: "Are inputs/outputs logged?" }
+];
+
+// =======================
+// FUNCTION TO LOAD AI CHECKLIST
+// =======================
+
+function loadAIChecklist() {
+  const tbody = document.getElementById("aiChecklist");
+  if (!tbody) return;
+
+  tbody.innerHTML = "";
+
+  aiChecklistData.forEach((item, index) => {
+    const tr = document.createElement("tr");
+    tr.classList.add(index % 2 === 0 ? "bg-white" : "bg-gray-50");
+
+    tr.innerHTML = `
+      <td class="p-2 border">${item.section}</td>
+      <td class="p-2 border">${item.team}</td>
+      <td class="p-2 border">${item.question}</td>
+      <td class="p-2 border"><input type="text" placeholder="Answer" class="w-full border rounded p-1"></td>
+      <td class="p-2 border"><input type="file" class="w-full"></td>
+      <td class="p-2 border"><input type="text" placeholder="Owner" class="w-full border rounded p-1"></td>
+      <td class="p-2 border">
+        <select class="w-full border rounded p-1">
+          <option value="">Select Status</option>
+          <option value="pending">Pending</option>
+          <option value="in-progress">In Progress</option>
+          <option value="completed">Completed</option>
+        </select>
+      </td>
+    `;
+
+    tbody.appendChild(tr);
+  });
+}
+
+// =======================
 // RENDER DT CHECKLIST
 // =======================
 
