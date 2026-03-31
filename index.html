@@ -481,6 +481,32 @@
 <script>
   // Helper functions to toggle sections based on workflow clicks
 
+  function goToStep(step) {
+    // Remove active from all workflow items
+    document.querySelectorAll('.workflow-item').forEach(item => {
+      item.classList.remove('active');
+    });
+    // Add active to clicked workflow item
+    const selectedStep = document.getElementById('step-' + step);
+    if (selectedStep) selectedStep.classList.add('active');
+
+    // Hide all sections
+    document.querySelectorAll('.section').forEach(sec => {
+      sec.classList.remove('active');
+    });
+
+    // Show the selected section
+    const selectedSection = document.getElementById('section' + (step + 1));
+    if (selectedSection) selectedSection.classList.add('active');
+
+    // Show the form and hide dashboard when step is selected
+    document.getElementById('toolDetailsSection').classList.remove('hidden');
+    document.getElementById('dashboardSection').classList.add('hidden');
+
+    // Show workflow sidebar if hidden
+    document.getElementById('workflowSidebar').classList.remove('hidden');
+  }
+
   function toggleAddMenu() {
     const menu = document.getElementById('addToolMenu');
     if (menu.classList.contains('hidden')) {
