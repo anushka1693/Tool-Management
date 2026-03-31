@@ -585,4 +585,5 @@ loadITChecklist();    // Populate IT Checklist
 renderDTChecklist();  // DT Checklist
 loadAIChecklist();
 loadQCChecklist();
+loadPilotSection();
 updateMiniDonuts(0);  // Workflow donuts
