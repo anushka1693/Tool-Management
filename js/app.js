@@ -25,16 +25,17 @@ function addTool() {
   currentToolIndex = null;
 
   document.getElementById("toolDetailsSection").classList.remove("hidden");
-  document.getElementById("dashboardSection").style.display = "none";
+  document.getElementById("dashboardSection").classList.add("hidden");
   document.getElementById("workflowSidebar").classList.remove("hidden");
 
   showSection(0);
 }
 
 function closeToolForm() {
+
   document.getElementById("toolDetailsSection").classList.add("hidden");
-  document.getElementById("dashboardSection").style.display = "block";
   document.getElementById("workflowSidebar").classList.add("hidden");
+  document.getElementById("dashboardSection").classList.remove("hidden");
 
   render(); // ← add this line
 }
@@ -131,7 +132,7 @@ function openTool(index) {
   const tool = tools[index];
 
   document.getElementById("toolDetailsSection").classList.remove("hidden");
-  document.getElementById("dashboardSection").style.display = "none";
+  document.getElementById("dashboardSection").classList.add("hidden");
   document.getElementById("workflowSidebar").classList.remove("hidden");
 
   document.getElementById("toolName").value = tool.name || "";
