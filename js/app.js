@@ -529,3 +529,17 @@ renderDTChecklist();  // DT Checklist
 loadAIChecklist();
 loadQCChecklist();
 updateMiniDonuts(0);  // Workflow donuts
+
+// Auto refresh dashboard when it becomes visible
+const dashboardObserver = new MutationObserver(() => {
+  const dashboard = document.getElementById("dashboardSection");
+  if (dashboard && dashboard.style.display === "block") {
+    render();
+  }
+});
+
+dashboardObserver.observe(document.body, {
+  attributes: true,
+  subtree: true,
+  attributeFilter: ["style", "class"]
+});
