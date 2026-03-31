@@ -18,6 +18,61 @@ const stepsList = [
 ];
 
 // =======================
+// PILOT TEST CASES
+// =======================
+
+let testCaseCount = 0;
+
+function addTestCase() {
+  testCaseCount++;
+
+  const container = document.getElementById('testCasesContainer');
+  if (!container) return;
+
+  const div = document.createElement('div');
+  div.className = "border p-4 rounded bg-gray-50";
+
+  div.innerHTML = `
+    <h4 class="font-semibold mb-3">Test Case ${testCaseCount}</h4>
+
+    <input type="text" 
+      class="w-full border p-2 mb-2" 
+      placeholder="Pilot Team Member Names">
+
+    <div class="mb-2">
+      <label class="text-sm font-medium">Raw Data Used</label>
+      <input type="file" class="w-full text-sm border p-1">
+    </div>
+
+    <div class="mb-2">
+      <label class="text-sm font-medium">Output Files</label>
+      <input type="file" class="w-full text-sm border p-1">
+    </div>
+
+    <textarea class="w-full border p-2 mb-2" 
+      placeholder="Recommendation / Feedback"></textarea>
+
+    <textarea class="w-full border p-2" 
+      placeholder="Other Comments"></textarea>
+  `;
+
+  container.appendChild(div);
+}
+
+function loadPilotSection() {
+  const container = document.getElementById('testCasesContainer');
+  if (!container) return;
+
+  // prevent duplicate loading
+  if (container.children.length > 0) return;
+
+  for (let i = 0; i < 3; i++) {
+    addTestCase();
+  }
+}
+
+
+// =======================
 // OPEN / CLOSE FORM
 // =======================
 
@@ -152,6 +207,10 @@ function showSection(step) {
 
   let current = document.getElementById("section" + (step + 1));
   if (current) current.style.display = "block";
+
+  if (step === 5) {
+    loadPilotSection();
+  }
 
   if (step === 7) { // assuming AI Clearance is step 7
     loadAIChecklist();
