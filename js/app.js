@@ -25,20 +25,18 @@ function addTool() {
   currentToolIndex = null;
 
   document.getElementById("toolDetailsSection").classList.remove("hidden");
-  document.getElementById("dashboardSection").classList.add("hidden");
+  document.getElementById("dashboardSection").style.display = "none";
   document.getElementById("workflowSidebar").classList.remove("hidden");
 
   showSection(0);
 }
 
 function closeToolForm() {
-
   document.getElementById("toolDetailsSection").classList.add("hidden");
+  document.getElementById("dashboardSection").style.display = "block";
   document.getElementById("workflowSidebar").classList.add("hidden");
-  document.getElementById("dashboardSection").classList.remove("hidden");
-
-  render(); // ← add this line
 }
+
 // =======================
 // SAVE TOOL
 // =======================
@@ -86,8 +84,6 @@ function saveToolDetails() {
 
 function render() {
 
-  tools = JSON.parse(localStorage.getItem("tools")) || [];
-
   let filtered = tools.filter(t => {
     if (filter === "all") return true;
     if (filter === "completed") return t.step === 10;
@@ -132,7 +128,7 @@ function openTool(index) {
   const tool = tools[index];
 
   document.getElementById("toolDetailsSection").classList.remove("hidden");
-  document.getElementById("dashboardSection").classList.add("hidden");
+  document.getElementById("dashboardSection").style.display = "none";
   document.getElementById("workflowSidebar").classList.remove("hidden");
 
   document.getElementById("toolName").value = tool.name || "";
@@ -157,8 +153,12 @@ function showSection(step) {
   let current = document.getElementById("section" + (step + 1));
   if (current) current.style.display = "block";
 
-  if (step === 7) loadAIChecklist();
-  if (step === 9) loadQCChecklist();
+  if (step === 7) { // assuming AI Clearance is step 7
+    loadAIChecklist();
+
+   if (step === 9) loadQCChecklist();
+
+  }
 
   updateWorkflowUI(step);
   updateMiniDonuts(step);
