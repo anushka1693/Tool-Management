@@ -35,8 +35,9 @@ function closeToolForm() {
   document.getElementById("toolDetailsSection").classList.add("hidden");
   document.getElementById("dashboardSection").style.display = "block";
   document.getElementById("workflowSidebar").classList.add("hidden");
-}
 
+  render(); // ← add this line
+}
 // =======================
 // SAVE TOOL
 // =======================
@@ -153,11 +154,9 @@ function showSection(step) {
   let current = document.getElementById("section" + (step + 1));
   if (current) current.style.display = "block";
 
-  if (step === 7) { // assuming AI Clearance is step 7
-    loadAIChecklist();
-
-   if (step === 9) loadQCChecklist();
-
+  if (step === 7) loadAIChecklist();
+  if (step === 9) loadQCChecklist();
+  
   }
 
   updateWorkflowUI(step);
