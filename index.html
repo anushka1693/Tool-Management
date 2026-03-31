@@ -250,38 +250,69 @@
   </div>
 
   <!-- NDA Subsection -->
-  <div id="ndaSection">
-    <h4 class="font-semibold mb-2">NDA Section</h4>
-    <table id="ndaChecklistTable" class="table-auto w-full border-collapse border">
-      <thead>
-        <tr>
-          <th class="border p-2">Document</th>
-          <th class="border p-2">Upload</th>
-          <th class="border p-2">Owner</th>
-          <th class="border p-2">Status</th>
-        </tr>
-      </thead>
-      <tbody><tbody>
-  <tr>
-    <td class="border p-2">NDA Signed</td>
-    <td class="border p-2">
-      <input type="file" class="w-full text-sm">
-    </td>
-    <td class="border p-2">
-      <input type="text" class="w-full border p-2" placeholder="Owner name">
-    </td>
-    <td class="border p-2">
-      <select class="w-full border p-2">
-        <option value="Pending">Pending</option>
-        <option value="Completed">Completed</option>
-      </select>
-    </td>
-  </tr>
-</tbody>
-    </table>
-  </div>
-</div>
+<div id="ndaSection">
+  <h4 class="font-semibold mb-2">NDA Section</h4>
 
+  <table id="ndaChecklistTable" class="table-auto w-full border-collapse border">
+
+    <thead>
+      <tr>
+        <th class="border p-2">Document</th>
+        <th class="border p-2">Date of Signature</th>
+        <th class="border p-2">Validity</th>
+        <th class="border p-2">Format of NDA</th>
+        <th class="border p-2">Signed NDA</th>
+        <th class="border p-2">Signer Company</th>
+        <th class="border p-2">Owner</th>
+        <th class="border p-2">Status</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+
+        <td class="border p-2">NDA</td>
+
+        <td class="border p-2">
+          <input type="date" class="w-full border p-2">
+        </td>
+
+        <td class="border p-2 flex gap-1 items-center">
+          <input type="date" class="border p-1 w-1/2">
+          <span class="text-xs">to</span>
+          <input type="date" class="border p-1 w-1/2">
+        </td>
+
+        <td class="border p-2">
+          <input type="file" class="w-full text-sm">
+        </td>
+
+        <td class="border p-2">
+          <input type="file" class="w-full text-sm">
+        </td>
+
+        <td class="border p-2">
+          <input type="text" class="w-full border p-2" placeholder="Signer Company">
+        </td>
+
+        <td class="border p-2">
+          <input type="text" class="w-full border p-2" placeholder="Owner name">
+        </td>
+
+        <td class="border p-2">
+          <select class="w-full border p-2">
+            <option value="Pending">Pending</option>
+            <option value="Completed">Completed</option>
+            <option value="Not Applicable">Not Applicable</option>
+          </select>
+        </td>
+
+      </tr>
+    </tbody>
+
+  </table>
+</div>
+  
     <!-- SECTION 4 -->
     <div id="section4" class="section mb-6">
       <h3 class="font-bold mb-2">Section 4: IT Clearance</h3>
