@@ -156,8 +156,6 @@ function showSection(step) {
 
   if (step === 7) loadAIChecklist();
   if (step === 9) loadQCChecklist();
-  
-  }
 
   updateWorkflowUI(step);
   updateMiniDonuts(step);
