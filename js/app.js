@@ -35,6 +35,8 @@ function closeToolForm() {
   document.getElementById("toolDetailsSection").classList.add("hidden");
   document.getElementById("dashboardSection").style.display = "block";
   document.getElementById("workflowSidebar").classList.add("hidden");
+
+  render();
 }
 
 // =======================
