@@ -85,6 +85,8 @@ function saveToolDetails() {
 
 function render() {
 
+  tools = JSON.parse(localStorage.getItem("tools")) || [];
+
   let filtered = tools.filter(t => {
     if (filter === "all") return true;
     if (filter === "completed") return t.step === 10;
