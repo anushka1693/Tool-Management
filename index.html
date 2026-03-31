@@ -1,526 +1,529 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>KNAV Tool Clearance Hub</title>
+// =======================
+// GLOBAL STATE
+// =======================
 
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="css/style.css">
+let tools = JSON.parse(localStorage.getItem("tools")) || [];
+let selectedToolType = "new";
+let filter = "all";
+let currentToolIndex = null;
 
-<style>
-  /* Hide all sections initially */
-  .section {
-    display: none;
+// =======================
+// WORKFLOW STEPS
+// =======================
+
+const stepsList = [
+  "Tool Details","Demo","Vendor Questionnaire","IT Clearance",
+  "Partner Approval","Pilot","DT Clearance", "AI Clearance", "Tool Memo",
+  "QC Clearance","MSA","Rollout"
+];
+
+// =======================
+// OPEN / CLOSE FORM
+// =======================
+
+function addTool() {
+  currentToolIndex = null;
+
+  document.getElementById("toolDetailsSection").classList.remove("hidden");
+  document.getElementById("dashboardSection").style.display = "none";
+  document.getElementById("workflowSidebar").classList.remove("hidden");
+
+  showSection(0);
+}
+
+function closeToolForm() {
+  document.getElementById("toolDetailsSection").classList.add("hidden");
+  document.getElementById("dashboardSection").style.display = "block";
+  document.getElementById("workflowSidebar").classList.add("hidden");
+}
+
+// =======================
+// SAVE TOOL
+// =======================
+
+function saveToolDetails() {
+
+  const name = document.getElementById("toolName").value;
+  const company = document.getElementById("companyName").value;
+  const requestor = document.getElementById("requestorName").value;
+  const practice = document.getElementById("practiceArea").value;
+
+  if (!name) {
+    alert("Tool Name is required");
+    return;
   }
 
-  /* Show active section */
-  .section.active {
-    display: block;
+  if (currentToolIndex === null) {
+    tools.push({
+      name,
+      company,
+      requestor,
+      practice,
+      type: selectedToolType,
+      step: 0
+    });
+  } else {
+    tools[currentToolIndex] = {
+      ...tools[currentToolIndex],
+      name,
+      company,
+      requestor,
+      practice
+    };
   }
 
-  /* Workflow item styling */
-  .workflow-item {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.25rem 0.5rem;
-    border-left: 4px solid transparent;
-  }
+  localStorage.setItem("tools", JSON.stringify(tools));
 
-  /* Highlight active workflow step */
-  .workflow-item.active {
-    font-weight: bold;
-    border-left-color: #800000;
-    background-color: #f3f4f6; /* light gray */
-  }
+  render();
+  alert("Saved successfully!");
+}
 
-  /* Donut placeholder styling (adjust as needed) */
-  .donut {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: #ccc; /* placeholder */
-  }
-</style>
+// =======================
+// RENDER TABLE
+// =======================
 
-</head>
+function render() {
 
-<body class="bg-gray-100">
+  let filtered = tools.filter(t => {
+    if (filter === "all") return true;
+    if (filter === "completed") return t.step === 10;
+    if (filter === "progress") return t.step > 0 && t.step < 10;
+    if (filter === "new") return t.step === 0;
+  });
 
-<!-- HEADER -->
-<div class="bg-[#800000] text-white p-4 flex justify-between">
-  <div class="font-bold text-lg">KNAV Tool Clearance Hub</div>
-  <div class="text-right">
-    <div><b id="userName">Loading...</b></div>
-    <button onclick="logout()" class="text-xs underline">Logout</button>
-  </div>
-</div>
+  document.getElementById("table").innerHTML =
+    filtered.map((t, i) => {
 
-<div class="flex min-h-screen">
+      let percent = Math.round((t.step / 10) * 100);
 
-<!-- ================= LEFT SIDEBAR ================= -->
-<div class="w-60 bg-white p-4 shadow h-screen flex flex-col">
+      return `
+      <tr class="border-b">
+        <td class="p-2"><b>${t.name}</b></td>
+        <td class="p-2">${t.type}</td>
+        <td class="p-2">${stepsList[t.step]}</td>
 
-  <!-- ADD TOOL -->
-  <div class="relative mb-4">
-    <button onclick="toggleAddMenu()" 
-      class="btn-primary w-full flex justify-between items-center px-4 py-2 rounded">
-      <span>+ Add Tool</span>
-      <span>▼</span>
-    </button>
+        <td class="p-2">
+          <div class="w-full bg-gray-200 h-3 rounded">
+            <div class="bg-[#800000] h-3 rounded" style="width:${percent}%"></div>
+          </div>
+        </td>
 
-    <div id="addToolMenu" 
-      class="hidden absolute left-0 w-full bg-white border rounded shadow mt-1 z-10">
+        <td class="p-2">${percent}%</td>
 
-      <div onclick="selectToolType('new')" class="p-2 hover:bg-gray-100 border-b cursor-pointer">
-        New Tool development request
-      </div>
-
-      <div onclick="selectToolType('existing')" class="p-2 hover:bg-gray-100 border-b cursor-pointer">
-        Request Tool Clearance
-      </div>
-    </div>
-  </div>
-
-  <!-- DASHBOARD -->
-  <div onclick="closeToolForm()" class="font-semibold cursor-pointer mb-4">
-    Dashboard
-  </div>
-
-  <!-- WORKFLOW SIDEBAR -->
-  <div id="workflowSidebar" class="hidden flex-grow overflow-y-auto">
-
-    <h3 class="font-bold mb-3">Workflow</h3>
-
-    <div class="space-y-3 text-sm">
-
-      <div id="step-0" onclick="goToStep(0)" class="workflow-item">
-        <div class="donut" data-progress="10"></div>
-        <span>Tool Details</span>
-      </div>
-
-      <div id="step-1" onclick="goToStep(1)" class="workflow-item">
-        <div class="donut" data-progress="0"></div>
-        <span>Demo</span>
-      </div>
-
-      <div id="step-2" onclick="goToStep(2)" class="workflow-item">
-        <div class="donut" data-progress="0"></div>
-        <span>Vendor Questionnaire</span>
-      </div>
-
-      <div id="step-3" onclick="goToStep(3)" class="workflow-item">
-        <div class="donut" data-progress="0"></div>
-        <span>IT Clearance</span>
-      </div>
-
-      <div id="step-4" onclick="goToStep(4)" class="workflow-item">
-        <div class="donut" data-progress="0"></div>
-        <span>Partner Clearance</span>
-      </div>
-
-      <div id="step-5" onclick="goToStep(5)" class="workflow-item">
-        <div class="donut" data-progress="0"></div>
-        <span>Pilot</span>
-      </div>
-
-      <div id="step-6" onclick="goToStep(6)" class="workflow-item">
-        <div class="donut" data-progress="0"></div>
-        <span>DT Clearance</span>
-      </div>
-
-      <div id="step-7" onclick="goToStep(7)" class="workflow-item">
-  <div class="donut" data-progress="0"></div>
-  <span>AI Clearance</span>
-</div>
-
-      <div id="step-8" onclick="goToStep(8)" class="workflow-item">
-        <div class="donut" data-progress="0"></div>
-        <span>Tool Memo</span>
-      </div>
-
-      <div id="step-9" onclick="goToStep(9)" class="workflow-item">
-        <div class="donut" data-progress="0"></div>
-        <span>QC Clearance</span>
-      </div>
-
-      <div id="step-10" onclick="goToStep(10)" class="workflow-item">
-        <div class="donut" data-progress="0"></div>
-        <span>MSA</span>
-      </div>
-
-      <div id="step-11" onclick="goToStep(11)" class="workflow-item">
-        <div class="donut" data-progress="0"></div>
-        <span>Rollout</span>
-      </div>
-
-    </div>
-  </div>
-
-</div>
-
-<!-- ================= MAIN ================= -->
-<div class="flex-1 p-6 overflow-auto">
-
-  <!-- ================= TOOL FORM ================= -->
-  <div id="toolDetailsSection" class="hidden bg-white p-6 rounded shadow max-h-[85vh] overflow-y-auto">
-
-    <h2 class="text-xl font-bold mb-4">Tool Workflow</h2>
-
-    <!-- SECTION 1 -->
-    <div id="section1" class="section mb-6 active">
-      <h3 class="font-bold mb-2">Section 1: Tool Details</h3>
-
-      <input id="toolName" class="border p-2 w-full mb-2" placeholder="Tool Name">
-      <input id="companyName" class="border p-2 w-full mb-2" placeholder="Company Name">
-      <input id="requestorName" class="border p-2 w-full mb-2" placeholder="Requestor Name">
-      <input id="practiceArea" class="border p-2 w-full mb-2" placeholder="Practice Area">
-    </div>
-
-    <!-- SECTION 2 -->
-    <div id="section2" class="section mb-6">
-      <h3 class="font-bold mb-2">Section 2: Demo</h3>
-
-      <input type="date" id="demoDate" class="border p-2 w-full mb-2">
-      <input id="demoAttendees" class="border p-2 w-full mb-2" placeholder="Demo Attended By">
-      <input id="demoLink" class="border p-2 w-full" placeholder="Recording Link">
-    </div>
-
-    <!-- SECTION 3 -->
-<div id="section3" class="section mb-6">
-  <h3 class="font-bold mb-2">Section 3: Vendor Questionnaire</h3>
-
-  <!-- Questionnaire Subsection -->
-  <div id="questionnaireSection" class="mb-4">
-    <h4 class="font-semibold mb-2">Questionnaire Section</h4>
-    <table id="vendorQuestionnaireTable" class="table-auto w-full border-collapse border">
-      <thead>
-        <tr>
-          <th class="border p-2">Question</th>
-          <th class="border p-2">Answer</th>
-          <th class="border p-2">Evidence Upload</th>
-          <th class="border p-2">Owner</th>
-          <th class="border p-2">Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tbody>
-  <tr>
-    <td class="border p-2">Does the tool store client data?</td>
-    <td class="border p-2">
-      <textarea class="w-full border p-2" placeholder="Enter response"></textarea>
-    </td>
-    <td class="border p-2">
-      <input type="file" class="w-full text-sm">
-    </td>
-    <td class="border p-2">
-      <input type="text" class="w-full border p-2" placeholder="Owner name">
-    </td>
-    <td class="border p-2">
-      <select class="w-full border p-2">
-        <option value="Pending">Pending</option>
-        <option value="Completed">Completed</option>
-        <option value="Not Applicable">Not Applicable</option>
-      </select>
-    </td>
-  </tr>
-
-  <tr>
-    <td class="border p-2">Is the tool SOC / ISO compliant? If yes, attach report.</td>
-    <td class="border p-2">
-      <textarea class="w-full border p-2" placeholder="Enter response"></textarea>
-    </td>
-    <td class="border p-2">
-      <input type="file" class="w-full text-sm">
-    </td>
-    <td class="border p-2">
-      <input type="text" class="w-full border p-2" placeholder="Owner name">
-    </td>
-    <td class="border p-2">
-      <select class="w-full border p-2">
-        <option value="Pending">Pending</option>
-        <option value="Completed">Completed</option>
-        <option value="Not Applicable">Not Applicable</option>
-      </select>
-    </td>
-  </tr>
-</tbody>
-    </table>
-  </div>
-
-  <!-- NDA Subsection -->
-  <div id="ndaSection">
-    <h4 class="font-semibold mb-2">NDA Section</h4>
-    <table id="ndaChecklistTable" class="table-auto w-full border-collapse border">
-      <thead>
-        <tr>
-          <th class="border p-2">Document</th>
-          <th class="border p-2">Upload</th>
-          <th class="border p-2">Owner</th>
-          <th class="border p-2">Status</th>
-        </tr>
-      </thead>
-      <tbody><tbody>
-  <tr>
-    <td class="border p-2">NDA Signed</td>
-    <td class="border p-2">
-      <input type="file" class="w-full text-sm">
-    </td>
-    <td class="border p-2">
-      <input type="text" class="w-full border p-2" placeholder="Owner name">
-    </td>
-    <td class="border p-2">
-      <select class="w-full border p-2">
-        <option value="Pending">Pending</option>
-        <option value="Completed">Completed</option>
-      </select>
-    </td>
-  </tr>
-</tbody>
-    </table>
-  </div>
-</div>
-
-    <!-- SECTION 4 -->
-    <div id="section4" class="section mb-6">
-      <h3 class="font-bold mb-2">Section 4: IT Clearance</h3>
-
-      <table class="w-full text-sm border">
-        <thead class="bg-gray-200">
-          <tr>
-            <th class="p-2">Section</th>
-            <th class="p-2">Team</th>
-            <th class="p-2">Question</th>
-            <th class="p-2">Answer</th>
-            <th class="p-2">Evidence</th>
-            <th class="p-2">Owner</th>
-            <th class="p-2">Status</th>
-          </tr>
-        </thead>
-        <tbody id="itChecklist"></tbody>
-      </table>
-    </div>
-
-    <!-- SECTION 5 -->
-    <div id="section5" class="section mb-6">
-      <h3 class="font-bold mb-2">Section 5: Partner Clearance</h3>
-    </div>
-
-    <!-- SECTION 6 -->
-    <div id="section6" class="section mb-6">
-      <h3 class="font-bold mb-2">Section 6: Pilot</h3>
-    </div>
-
-    <!-- SECTION 7 -->
-    <div id="section7" class="section mb-6">
-      <h3 class="font-bold mb-2">Section 7: DT Clearance</h3>
-
-      <table class="w-full text-sm border">
-        <thead class="bg-gray-200">
-          <tr>
-            <th class="p-2">Section</th>
-             <th class="p-2">Team</th>
-            <th class="p-2">Question</th>
-            <th class="p-2">Answer</th>
-            <th class="p-2">Evidence</th>
-            <th class="p-2">Owner</th>
-            <th class="p-2">Status</th>
-          </tr>
-        </thead>
-        <tbody id="dtChecklist"></tbody>
-      </table>
-    </div>
-
-    <!-- SECTION 8 -->
-<div id="section8" class="section mb-6">
-  <h3 class="font-bold mb-2">Section 8: AI Clearance</h3>
-
-  <table class="w-full text-sm border">
-    <thead class="bg-gray-200">
-      <tr>
-        <th class="p-2">Section</th>
-        <th class="p-2">Team</th>
-        <th class="p-2">Question</th>
-        <th class="p-2">Answer</th>
-        <th class="p-2">Evidence Upload</th>
-        <th class="p-2">Owner</th>
-        <th class="p-2">Status</th>
+        <td class="p-2">
+          <button onclick="openTool(${i})" class="btn-primary px-2 py-1">View</button>
+        </td>
       </tr>
-    </thead>
-    <tbody id="aiChecklist"></tbody>
-  </table>
-</div>
+      `;
+    }).join("");
+}
 
-    <!-- SECTION 9 -->
-    <div id="section9" class="section mb-6">
-      <h3 class="font-bold mb-2">Section 8: Tool Memo</h3>
-    </div>
+// =======================
+// OPEN TOOL
+// =======================
 
-    <!-- SECTION 10 -->
-    <div id="section10" class="section mb-6">
-      <h3 class="font-bold mb-2">Section 9: QC Clearance</h3>
+function openTool(index) {
 
-     <table class="w-full border">
-  <thead>
-    <tr class="bg-gray-200">
-      <th>Section</th>
-      <th>Team</th>
-      <th>Question</th>
-      <th>Answer</th>
-      <th>Evidence Upload</th>
-      <th>Owner</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody id="qcChecklist"></tbody>
-</table> 
-</div>
+  currentToolIndex = index;
+  const tool = tools[index];
 
-    <!-- SECTION 11 -->
-    <div id="section11" class="section mb-6">
-      <h3 class="font-bold mb-2">Section 10: MSA</h3>
-    </div>
+  document.getElementById("toolDetailsSection").classList.remove("hidden");
+  document.getElementById("dashboardSection").style.display = "none";
+  document.getElementById("workflowSidebar").classList.remove("hidden");
 
-    <!-- SECTION 12 -->
-    <div id="section12" class="section mb-6">
-      <h3 class="font-bold mb-2">Section 11: Rollout</h3>
-    </div>
+  document.getElementById("toolName").value = tool.name || "";
+  document.getElementById("companyName").value = tool.company || "";
+  document.getElementById("requestorName").value = tool.requestor || "";
+  document.getElementById("practiceArea").value = tool.practice || "";
 
-    <!-- BUTTONS -->
-    <div class="flex gap-2">
-      <button onclick="saveToolDetails()" class="btn-primary flex-1">Save</button>
-      <button onclick="nextStep()" class="bg-green-600 text-white px-4 py-2 rounded">
-        Next →
-      </button>
-    </div>
+  showSection(tool.step);
+}
 
-  </div>
+// =======================
+// SECTION CONTROL
+// =======================
 
-  <!-- ================= DASHBOARD ================= -->
-  <div id="dashboardSection">
+function showSection(step) {
 
-    <div class="mb-4 flex gap-2">
-      <button onclick="setFilter('all')" class="filter-btn px-4 py-2 rounded bg-gray-200">All</button>
-      <button onclick="setFilter('progress')" class="filter-btn px-4 py-2 rounded bg-blue-200">In Progress</button>
-      <button onclick="setFilter('completed')" class="filter-btn px-4 py-2 rounded bg-green-200">Completed</button>
-      <button onclick="setFilter('new')" class="filter-btn px-4 py-2 rounded bg-gray-400 text-white">Not Started</button>
-    </div>
-
-    <table class="w-full bg-white rounded shadow">
-      <thead>
-        <tr class="border-b">
-          <th class="p-2">Tool</th>
-          <th class="p-2">Type</th>
-          <th class="p-2">Step</th>
-          <th class="p-2">Progress</th>
-          <th class="p-2">%</th>
-          <th class="p-2">Action</th>
-        </tr>
-      </thead>
-      <tbody id="table"></tbody>
-    </table>
-
-  </div>
-
-</div>
-
-</div>
-
-<script src="js/app.js"></script>
-
-<script>
-  // Helper functions to toggle sections based on workflow clicks
-
-  function goToStep(step) {
-    // Remove active from all workflow items
-    document.querySelectorAll('.workflow-item').forEach(item => {
-      item.classList.remove('active');
-    });
-    // Add active to clicked workflow item
-    const selectedStep = document.getElementById('step-' + step);
-    if (selectedStep) selectedStep.classList.add('active');
-
-    // Hide all sections
-    document.querySelectorAll('.section').forEach(sec => {
-      sec.classList.remove('active');
-    });
-
-    // Show the selected section
-    const selectedSection = document.getElementById('section' + (step + 1));
-    if (selectedSection) selectedSection.classList.add('active');
-
-    // Show the form and hide dashboard when step is selected
-    document.getElementById('toolDetailsSection').classList.remove('hidden');
-    document.getElementById('dashboardSection').classList.add('hidden');
-
-    // Show workflow sidebar if hidden
-    document.getElementById('workflowSidebar').classList.remove('hidden');
+  for (let i = 1; i <= 12; i++) {
+    let el = document.getElementById("section" + i);
+    if (el) el.style.display = "none";
   }
 
-  function toggleAddMenu() {
-    const menu = document.getElementById('addToolMenu');
-    if (menu.classList.contains('hidden')) {
-      menu.classList.remove('hidden');
-    } else {
-      menu.classList.add('hidden');
+  let current = document.getElementById("section" + (step + 1));
+  if (current) current.style.display = "block";
+
+  if (step === 7) { // assuming AI Clearance is step 7
+    loadAIChecklist();
+
+   if (step === 9) loadQCChecklist();
+
+  }
+
+  updateWorkflowUI(step);
+  updateMiniDonuts(step);
+}
+
+// =======================
+// NEXT STEP
+// =======================
+
+function nextStep() {
+
+  if (currentToolIndex === null) return;
+
+  if (tools[currentToolIndex].step < 11) {
+    tools[currentToolIndex].step++;
+  }
+
+  localStorage.setItem("tools", JSON.stringify(tools));
+
+  showSection(tools[currentToolIndex].step);
+  render();
+}
+
+// =======================
+// CLICK SIDE STEP
+// =======================
+
+function goToStep(step) {
+
+  if (currentToolIndex === null) return;
+
+  tools[currentToolIndex].step = step;
+
+  localStorage.setItem("tools", JSON.stringify(tools));
+
+  showSection(step);
+  render();
+}
+
+// =======================
+// WORKFLOW UI (FIXED)
+// =======================
+
+function updateWorkflowUI(step) {
+
+  for (let i = 0; i <= 11; i++) {
+    let el = document.getElementById("step-" + i);
+    if (!el) continue;
+
+    el.classList.remove("active", "completed", "inprogress");
+
+    if (i < step) {
+      el.classList.add("completed");
+    } else if (i === step) {
+      el.classList.add("active", "inprogress");
     }
-  }
-  
-    function selectToolType(type) {
-
-  document.getElementById('addToolMenu').classList.add('hidden');
-
-  const vendor = document.getElementById("step-2");
-  const msa = document.getElementById("step-9");
-
-  if(type === 'new') {
-
-      // hide Vendor Questionnaire and MSA
-      vendor.style.display = "none";
-      msa.style.display = "none";
-
-      document.getElementById('workflowSidebar').classList.remove('hidden');
-      addTool();
-
-  } 
-  else if(type === 'existing') {
-
-      // show Vendor Questionnaire and MSA
-      vendor.style.display = "flex";
-      msa.style.display = "flex";
-
-      document.getElementById('workflowSidebar').classList.remove('hidden');
-      addTool();
-
   }
 }
 
-  function closeToolForm() {
-    // Hide workflow sidebar and form, show dashboard
-    document.getElementById('workflowSidebar').classList.add('hidden');
-    document.getElementById('toolDetailsSection').classList.add('hidden');
-    document.getElementById('dashboardSection').classList.remove('hidden');
+// =======================
+// MINI DONUTS (FIXED)
+// =======================
 
-    // Remove active workflow items highlight
-    document.querySelectorAll('.workflow-item').forEach(item => {
-      item.classList.remove('active');
-    });
+function updateMiniDonuts(step) {
 
-    render();
-  }
+  const donuts = document.querySelectorAll(".donut");
 
-  function nextStep() {
-    // Find current active section index
-    const activeSection = document.querySelector('.section.active');
-    if (!activeSection) return;
+  donuts.forEach((donut, i) => {
 
-    const currentIndex = parseInt(activeSection.id.replace('section', ''), 10);
-    if (currentIndex < 11) {
-      goToStep(currentIndex); // goToStep expects zero-based index, sections are 1-based
-    }
-  }
-</script>
+    let percent = 0;
 
-</body>
-</html>
+    if (i < step) percent = 100;
+    else if (i === step) percent = 50;
+    else percent = 0;
+
+    donut.innerText = percent + "%";
+
+    donut.style.background =
+      `conic-gradient(#800000 ${percent}%, #e5e5e5 ${percent}%)`;
+
+    donut.style.transition = "all 0.4s ease";
+  });
+}
+
+// =======================
+// DROPDOWN
+// =======================
+
+function toggleAddMenu() {
+  document.getElementById("addToolMenu").classList.toggle("hidden");
+}
+
+function selectToolType(type) {
+  selectedToolType = type;
+  addTool();
+  document.getElementById("addToolMenu").classList.add("hidden");
+}
+
+// =======================
+// FILTER
+// =======================
+
+function setFilter(f) {
+  filter = f;
+  render();
+}
+
+// =======================
+// IT CHECKLIST DATA
+// =======================
+
+const itChecklistData = [
+  { section: "Access Control", team: "IT", question: "Does the tool support role-based access control (RBAC)?" },
+  { section: "Access Control", team: "IT", question: "Is least privilege access enforced?" },
+  { section: "Access Controls", team: "IT", question: "Are user roles formally defined?" },
+  { section: "Access Controls", team: "IT", question: "Is there periodic user access review (quarterly)?" },
+  { section: "Access Controls", team: "IT", question: "Can access be revoked immediately upon termination?" },
+  { section: "Access Controls", team: "IT", question: "Does the system support SSO (Azure AD)?" },
+  { section: "Authentication", team: "IT", question: "Is SSO (Azure AD) enabled?" },
+  { section: "Authentication", team: "IT", question: "Is MFA enforced?" },
+  { section: "Authentication & Identity", team: "IT", question: "Is authentication handled via enterprise identity provider?" },
+  { section: "Authentication & Identity", team: "IT", question: "Are passwords stored securely (hashed + salted)?" },
+  { section: "Authentication & Identity", team: "IT", question: "Are there controls for failed login attempts / lockout?" },
+  { section: "Authentication & Identity", team: "IT", question: "Is session timeout configured?" },
+  { section: "Change Management", team: "IT", question: "Is there a formal change management process?" },
+  { section: "Change Management", team: "IT", question: "Are deployments approved before production?" },
+  { section: "Change Management", team: "IT", question: "Is version control used (Git)?" },
+  { section: "Change Management", team: "IT", question: "Are rollback mechanisms available?" },
+  { section: "Infrastructure", team: "IT", question: "Is data encrypted at rest and in transit?" },
+  { section: "Infrastructure & Hosting", team: "IT", question: "Where is the tool hosted? (Azure / AWS / SaaS)" },
+  { section: "Infrastructure & Hosting", team: "IT", question: "Is data encrypted at rest?" },
+  { section: "Infrastructure & Hosting", team: "IT", question: "Is data encrypted in transit (HTTPS)?" },
+  { section: "Infrastructure & Hosting", team: "IT", question: "Are backups enabled?" },
+  { section: "Infrastructure & Hosting", team: "IT", question: "What is the RPO / RTO?" },
+  { section: "Security", team: "IT", question: "Has VAPT been performed?" },
+  { section: "Security & Vulnerability", team: "IT", question: "Has the tool undergone VAPT / penetration testing?" },
+  { section: "Security & Vulnerability", team: "IT", question: "Are vulnerabilities tracked and remediated?" },
+  { section: "Security & Vulnerability", team: "IT", question: "Is antivirus / endpoint protection used?" },
+  { section: "Security & Vulnerability", team: "IT", question: "Are logs monitored for suspicious activity?" }
+];
+
+// =======================
+// FUNCTION TO LOAD IT CHECKLIST
+// =======================
+
+function loadITChecklist() {
+  const tbody = document.getElementById("itChecklist");
+  tbody.innerHTML = ""; // Clear existing rows
+
+  itChecklistData.forEach((item, index) => {
+    const tr = document.createElement("tr");
+    tr.classList.add(index % 2 === 0 ? "bg-white" : "bg-gray-50"); // Zebra stripes
+
+    tr.innerHTML = `
+      <td class="p-2 border">${item.section}</td>
+      <td class="p-2 border">${item.team}</td>
+      <td class="p-2 border">${item.question}</td>
+      <td class="p-2 border"><input type="text" placeholder="Answer" class="w-full border rounded p-1"></td>
+      <td class="p-2 border"><input type="file" class="w-full"></td>
+      <td class="p-2 border"><input type="text" placeholder="Owner" class="w-full border rounded p-1"></td>
+      <td class="p-2 border">
+        <select class="w-full border rounded p-1">
+          <option value="">Select Status</option>
+          <option value="pending">Pending</option>
+          <option value="in-progress">In Progress</option>
+          <option value="completed">Completed</option>
+        </select>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// =======================
+// CALL IT ON PAGE LOAD
+// =======================
+window.addEventListener('DOMContentLoaded', loadITChecklist);
+
+// =======================
+// DT CHECKLIST
+// =======================
+
+const dtChecklistData = [
+  { section: "Architecture", team: "DT", question: "Is the tool scalable?" },
+  { section: "Architecture", team: "DT", question: "Does it support API-based integration?" },
+  { section: "Architecture", team: "DT", question: "Is the architecture documented?" },
+  { section: "Automation", team: "DT", question: "Can workflows be automated?" },
+  { section: "Automation", team: "DT", question: "Can approvals be tracked digitally?" },
+  { section: "Automation", team: "DT", question: "Does it support Power Automate / APIs?" },
+  { section: "Business Fit", team: "DT", question: "What business problem does this tool solve?" },
+  { section: "Business Fit", team: "DT", question: "Is this tool replacing an existing system?" },
+  { section: "Business Fit", team: "DT", question: "Is there duplication with existing tools?" },
+  { section: "Data Flow", team: "DT", question: "Is data classified (PII/confidential)?" },
+  { section: "Data Flow", team: "DT", question: "What data is captured?" },
+  { section: "Data Flow", team: "DT", question: "Where is data stored?" },
+  { section: "Data Flow", team: "DT", question: "Is there data classification (PII / confidential)?" },
+  { section: "Integration", team: "DT", question: "Does it integrate with enterprise systems?" },
+  { section: "Integration", team: "DT", question: "Does the tool integrate with:\nAzure AD\nSharePoint\nERP / CRM systems" },
+  { section: "Integration", team: "DT", question: "Are APIs secure (OAuth / tokens)?" },
+  { section: "Master Checklist", team: "DT", question: "All approvals completed (IT / DT / QC)" },
+  { section: "Master Checklist", team: "DT", question: "Audit logs available" },
+  { section: "Master Checklist", team: "DT", question: "Access controls verified" },
+  { section: "Master Checklist", team: "DT", question: "Change management documented" },
+  { section: "Master Checklist", team: "DT", question: "Risk assessment completed" },
+  { section: "Master Checklist", team: "DT", question: "Data protection validated" },
+  { section: "Master Checklist", team: "DT", question: "Contracts (MSA / NDA) signed" },
+  { section: "Master Checklist", team: "DT", question: "Tool memo prepared" }
+];
+
+// =======================
+// AI CHECKLIST DATA
+// =======================
+
+const aiChecklistData = [
+  { section: "AI Governance", team: "AI", question: "Is the model explainable?" },
+  { section: "AI Governance", team: "AI", question: "Is client data protected?" },
+  { section: "AI Governance", team: "AI", question: "Is human oversight implemented?" },
+
+  { section: "Bias & Ethics", team: "AI", question: "Has bias testing been performed?" },
+  { section: "Bias & Ethics", team: "AI", question: "Are outputs monitored for fairness?" },
+
+  { section: "Data Usage", team: "AI", question: "What data is used for training?" },
+  { section: "Data Usage", team: "AI", question: "Is client data used?" },
+  { section: "Data Usage", team: "AI", question: "Is data anonymized?" },
+
+  { section: "Governance", team: "AI", question: "Is there human oversight?" },
+  { section: "Governance", team: "AI", question: "Are AI decisions reviewed?" },
+  { section: "Governance", team: "AI", question: "Is there an approval workflow?" },
+
+  { section: "Model Transparency", team: "AI", question: "Is the AI model explainable?" },
+  { section: "Model Transparency", team: "AI", question: "Are outputs auditable?" },
+
+  { section: "Security", team: "AI", question: "Is prompt data stored?" },
+  { section: "Security", team: "AI", question: "Is there risk of data leakage (LLM risk)?" },
+  { section: "Security", team: "AI", question: "Are inputs/outputs logged?" }
+];
+
+// =======================
+// QC CHECKLIST DATA
+// =======================
+
+const qcChecklistData = [
+  { section: "Audit Trail", team: "QC", question: "Are logs timestamped and user-specific?" },
+  { section: "Audit Trail", team: "QC", question: "Does the system maintain audit logs?" },
+  { section: "Audit Trail", team: "QC", question: "Are logs: Immutable / Timestamped / User-specific?" },
+  { section: "Audit Trail", team: "QC", question: "Can logs be exported?" },
+
+  { section: "Compliance", team: "QC", question: "Is the tool SOC compliant?" },
+  { section: "Compliance", team: "QC", question: "Is the tool compliant with: SOC 1 / SOC 2 / ITGC?" },
+  { section: "Compliance", team: "QC", question: "Are control owners defined?" },
+
+  { section: "Data Retention", team: "QC", question: "What is the data retention policy?" },
+  { section: "Data Retention", team: "QC", question: "Can data be archived?" },
+  { section: "Data Retention", team: "QC", question: "Is deletion controlled?" },
+
+  { section: "Evidence & Documentation", team: "QC", question: "Are approvals documented?" },
+  { section: "Evidence & Documentation", team: "QC", question: "Are documents version-controlled?" },
+  { section: "Evidence & Documentation", team: "QC", question: "Is there evidence of: IT / DT / Partner approval?" },
+
+  { section: "Final Review", team: "QC", question: "All approvals completed?" },
+  { section: "Final Review", team: "QC", question: "Documents (NDA/MSA) signed?" },
+
+  { section: "Risk", team: "QC", question: "Is risk assessment completed?" },
+
+  { section: "Risk Assessment", team: "QC", question: "Has a risk assessment been performed?" },
+  { section: "Risk Assessment", team: "QC", question: "Is there a risk rating (Low / Medium / High)?" },
+  { section: "Risk Assessment", team: "QC", question: "Are mitigation steps documented?" }
+];
+
+// =======================
+// FUNCTION TO LOAD QC CHECKLIST
+// =======================
+
+function loadQCChecklist() {
+  const tbody = document.getElementById("qcChecklist");
+  if (!tbody) return;
+
+  tbody.innerHTML = qcChecklistData.map(item => `
+    <tr class="border-b">
+      <td class="p-2">${item.section}</td>
+      <td class="p-2">${item.team}</td>
+      <td class="p-2">${item.question}</td>
+      <td class="p-2"><input type="text" placeholder="Answer" class="w-full border rounded p-1"></td>
+      <td class="p-2"><input type="file" class="w-full"></td>
+      <td class="p-2"><input type="text" placeholder="Owner" class="w-full border rounded p-1"></td>
+      <td class="p-2">
+        <select class="w-full border rounded p-1">
+          <option value="">Select Status</option>
+          <option value="pending">Pending</option>
+          <option value="in-progress">In Progress</option>
+          <option value="completed">Completed</option>
+        </select>
+      </td>
+    </tr>
+  `).join("");
+}
+
+
+// =======================
+// FUNCTION TO LOAD AI CHECKLIST
+// =======================
+
+function loadAIChecklist() {
+  const tbody = document.getElementById("aiChecklist");
+  if (!tbody) return;
+
+  tbody.innerHTML = "";
+
+  aiChecklistData.forEach((item, index) => {
+    const tr = document.createElement("tr");
+    tr.classList.add(index % 2 === 0 ? "bg-white" : "bg-gray-50");
+
+    tr.innerHTML = `
+      <td class="p-2 border">${item.section}</td>
+      <td class="p-2 border">${item.team}</td>
+      <td class="p-2 border">${item.question}</td>
+      <td class="p-2 border"><input type="text" placeholder="Answer" class="w-full border rounded p-1"></td>
+      <td class="p-2 border"><input type="file" class="w-full"></td>
+      <td class="p-2 border"><input type="text" placeholder="Owner" class="w-full border rounded p-1"></td>
+      <td class="p-2 border">
+        <select class="w-full border rounded p-1">
+          <option value="">Select Status</option>
+          <option value="pending">Pending</option>
+          <option value="in-progress">In Progress</option>
+          <option value="completed">Completed</option>
+        </select>
+      </td>
+    `;
+
+    tbody.appendChild(tr);
+  });
+}
+
+// =======================
+// RENDER DT CHECKLIST
+// =======================
+
+function renderDTChecklist() {
+  const tbody = document.getElementById("dtChecklist");
+  tbody.innerHTML = dtChecklistData.map(item => `
+    <tr class="border-b">
+      <td class="p-2">${item.section}</td>
+      <td class="p-2">${item.team}</td>
+      <td class="p-2">${item.question}</td>
+      <td class="p-2"><input type="text" placeholder="Answer" class="w-full border rounded p-1"></td>
+      <td class="p-2"><input type="file" class="w-full"></td>
+      <td class="p-2"><input type="text" placeholder="Owner" class="w-full border rounded p-1"></td>
+      <td class="p-2">
+        <select class="w-full border rounded p-1">
+          <option value="">Select Status</option>
+          <option value="pending">Pending</option>
+          <option value="in-progress">In Progress</option>
+          <option value="completed">Completed</option>
+        </select>
+      </td>
+    </tr>
+  `).join("");
+}
+// =======================
+// INIT
+// =======================
+
+render();             // Dashboard table
+loadITChecklist();    // Populate IT Checklist
+renderDTChecklist();  // DT Checklist
+loadAIChecklist();
+loadQCChecklist();
+updateMiniDonuts(0);  // Workflow donuts
