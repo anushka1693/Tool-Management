@@ -73,6 +73,38 @@ function loadPilotSection() {
   }
 }
 
+// =======================
+// PARTNER APPROVAL OPTIONS
+// =======================
+
+function updatePartnerDecisionOptions() {
+
+  const dropdown = document.getElementById("partnerDecision");
+  if (!dropdown) return;
+
+  dropdown.innerHTML = "";
+
+  if (selectedToolType === "request") {
+
+    dropdown.innerHTML = `
+      <option value="">Select Decision</option>
+      <option>Procure the Tool</option>
+      <option>Get the Quotation</option>
+      <option>Not Approved</option>
+    `;
+
+  } else if (selectedToolType === "new") {
+
+    dropdown.innerHTML = `
+      <option value="">Select Decision</option>
+      <option>Develop the Tool</option>
+      <option>Further Evaluation Required</option>
+      <option>Not Approved</option>
+    `;
+
+  }
+}
+
 
 // =======================
 // OPEN / CLOSE FORM
@@ -209,6 +241,10 @@ function showSection(step) {
 
   let current = document.getElementById("section" + (step + 1));
   if (current) current.style.display = "block";
+
+  if (step === 4) {
+  updatePartnerDecisionOptions();
+}
 
   if (step === 5) {
     loadPilotSection();
