@@ -593,3 +593,4 @@ renderDTChecklist();  // DT Checklist
 loadAIChecklist();
 loadQCChecklist();
 updateMiniDonuts(0);  // Workflow donuts
+loadPilotSection();  
