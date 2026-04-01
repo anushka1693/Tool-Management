@@ -419,7 +419,17 @@ function loadITChecklist() {
       <td class="p-2 border">${item.team}</td>
       <td class="p-2 border">${item.question}</td>
       <td class="p-2 border"><input type="text" placeholder="Answer" class="w-full border rounded p-1"></td>
-      <td class="p-2 border"><input type="file" class="w-full"></td>
+      <td class="p-2 border">
+
+      <input
+      type="file"
+      multiple
+      onchange="handleFileUpload(this)"
+      class="w-full text-sm">
+      
+      <div class="file-list text-xs mt-2 space-y-1"></div>
+      
+      </td>
       <td class="p-2 border"><input type="text" placeholder="Owner" class="w-full border rounded p-1"></td>
       <td class="p-2 border">
         <select class="w-full border rounded p-1">
@@ -663,6 +673,39 @@ function toggleRolloutRow(checkbox) {
 
 }
 
+function handleFileUpload(input){
+
+  const container = input.parentElement.querySelector(".file-list");
+
+  Array.from(input.files).forEach(file => {
+
+    const url = URL.createObjectURL(file);
+
+    const row = document.createElement("div");
+
+    row.className = "flex items-center gap-2";
+
+    row.innerHTML = `
+      <span>${file.name}</span>
+
+      <a href="${url}" target="_blank" class="text-blue-600 underline">
+        Open
+      </a>
+
+      <a href="${url}" download class="text-green-600 underline">
+        Download
+      </a>
+
+      <button onclick="this.parentElement.remove()" class="text-red-600 underline">
+        Remove
+      </button>
+    `;
+
+    container.appendChild(row);
+
+  });
+
+}
 
 // =======================
 // INIT
