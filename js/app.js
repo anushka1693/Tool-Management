@@ -619,6 +619,26 @@ function renderDTChecklist() {
     </tr>
   `).join("");
 }
+
+// =======================
+// DT SIGN OFF FUNCTION
+// =======================
+
+function signOff(button) {
+
+  const userName = "Rahul Shah"; // replace later with logged-in user
+
+  const initials = userName
+    .split(" ")
+    .map(n => n[0])
+    .join("")
+    .toUpperCase();
+
+  const cell = button.parentElement;
+
+  cell.innerHTML = `<span class="font-semibold text-green-700">${initials}</span>`;
+}
+
 // =======================
 // INIT
 // =======================
