@@ -105,6 +105,7 @@ function updatePartnerDecisionOptions() {
   }
 }
 
+
 // =======================
 // OPEN / CLOSE FORM
 // =======================
@@ -136,8 +137,6 @@ function saveToolDetails() {
   const requestor = document.getElementById("requestorName").value;
   const practice = document.getElementById("practiceArea").value;
 
-  const partnerDate = document.getElementById("partnerApprovalDate")?.value;
-
   if (!name) {
     alert("Tool Name is required");
     return;
@@ -149,7 +148,6 @@ function saveToolDetails() {
       company,
       requestor,
       practice,
-      partnerDate
       type: selectedToolType,
       step: 0
     });
