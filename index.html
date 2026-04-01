@@ -146,14 +146,19 @@
       </div>
 
       <div id="step-10" onclick="goToStep(10)" class="workflow-item">
-        <div class="donut" data-progress="0"></div>
-        <span>MSA</span>
-      </div>
+  <div class="donut" data-progress="0"></div>
+  <span>MSA</span>
+</div>
 
-      <div id="step-11" onclick="goToStep(11)" class="workflow-item">
-        <div class="donut" data-progress="0"></div>
-        <span>Rollout</span>
-      </div>
+<div id="step-11" onclick="goToStep(11)" class="workflow-item">
+  <div class="donut" data-progress="0"></div>
+  <span>Subscription Update (GRCHub)</span>
+</div>
+
+<div id="step-12" onclick="goToStep(12)" class="workflow-item">
+  <div class="donut" data-progress="0"></div>
+  <span>Rollout</span>
+</div>
 
     </div>
   </div>
@@ -390,12 +395,12 @@
 
     <!-- SECTION 9 -->
     <div id="section9" class="section mb-6">
-      <h3 class="font-bold mb-2">Section 8: Tool Memo</h3>
+      <h3 class="font-bold mb-2">Section 9: Tool Memo</h3>
     </div>
 
     <!-- SECTION 10 -->
     <div id="section10" class="section mb-6">
-      <h3 class="font-bold mb-2">Section 9: QC Clearance</h3>
+      <h3 class="font-bold mb-2">Section 10: QC Clearance</h3>
 
      <table class="w-full border">
   <thead>
@@ -415,12 +420,57 @@
 
     <!-- SECTION 11 -->
     <div id="section11" class="section mb-6">
-      <h3 class="font-bold mb-2">Section 10: MSA</h3>
+      <h3 class="font-bold mb-2">Section 11: MSA</h3>
     </div>
 
     <!-- SECTION 12 -->
-    <div id="section12" class="section mb-6">
-      <h3 class="font-bold mb-2">Section 11: Rollout</h3>
+<div id="section12" class="section mb-6">
+  <h3 class="font-bold mb-2">Section 12: Subscription Update (GRCHub)</h3>
+
+  <table class="w-full text-sm border">
+    <thead class="bg-gray-200">
+      <tr>
+        <th class="p-2">Question</th>
+        <th class="p-2">Answer</th>
+        <th class="p-2">Evidence Upload</th>
+        <th class="p-2">Owner</th>
+        <th class="p-2">Status</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td class="p-2 border">Has the subscription been updated in GRCHub?</td>
+
+        <td class="p-2 border">
+          <select class="border p-2 w-full">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        </td>
+
+        <td class="p-2 border">
+          <input type="file" class="w-full text-sm">
+        </td>
+
+        <td class="p-2 border">
+          <input type="text" class="border p-2 w-full" placeholder="Owner name">
+        </td>
+
+        <td class="p-2 border">
+          <select class="border p-2 w-full">
+            <option>Pending</option>
+            <option>Completed</option>
+          </select>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+    <!-- SECTION 13 -->
+    <div id="section13" class="section mb-6">
+      <h3 class="font-bold mb-2">Section 13: Rollout</h3>
     </div>
 
     <!-- BUTTONS -->
@@ -550,7 +600,7 @@
     if (!activeSection) return;
 
     const currentIndex = parseInt(activeSection.id.replace('section', ''), 10);
-    if (currentIndex < 11) {
+    if (currentIndex < 13) {
       goToStep(currentIndex); // goToStep expects zero-based index, sections are 1-based
     }
   }
