@@ -66,6 +66,8 @@ function loadPilotSection() {
   // prevent duplicate loading
   if (container.children.length > 0) return;
 
+  testCaseCount = 0;   // RESET COUNTER
+
   for (let i = 0; i < 3; i++) {
     addTestCase();
   }
