@@ -150,12 +150,7 @@
   <span>MSA</span>
 </div>
 
-<div id="step-11" onclick="goToStep(11)" class="workflow-item">
-  <div class="donut" data-progress="0"></div>
-  <span>Subscription Update (GRCHub)</span>
-</div>
-
-<div id="step-12" onclick="goToStep(12)" class="workflow-item">
+<div id="step-11" onclick="goToStep(12)" class="workflow-item">
   <div class="donut" data-progress="0"></div>
   <span>Rollout</span>
 </div>
@@ -476,51 +471,6 @@ placeholder="Enter any additional remarks if required">
       <h3 class="font-bold mb-2">Section 11: MSA</h3>
     </div>
 
-    <!-- SECTION 12 -->
-<div id="section12" class="section mb-6">
-  <h3 class="font-bold mb-2">Section 12: Subscription Update (GRCHub)</h3>
-
-  <table class="w-full text-sm border">
-    <thead class="bg-gray-200">
-      <tr>
-        <th class="p-2">Question</th>
-        <th class="p-2">Answer</th>
-        <th class="p-2">Evidence Upload</th>
-        <th class="p-2">Owner</th>
-        <th class="p-2">Status</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr>
-        <td class="p-2 border">Has the subscription been updated in GRCHub?</td>
-
-        <td class="p-2 border">
-          <select class="border p-2 w-full">
-            <option>Yes</option>
-            <option>No</option>
-          </select>
-        </td>
-
-        <td class="p-2 border">
-          <input type="file" class="w-full text-sm">
-        </td>
-
-        <td class="p-2 border">
-          <input type="text" class="border p-2 w-full" placeholder="Owner name">
-        </td>
-
-        <td class="p-2 border">
-          <select class="border p-2 w-full">
-            <option>Pending</option>
-            <option>Completed</option>
-          </select>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
     <!-- SECTION 13 -->
 <div id="section13" class="section mb-6">
 
@@ -615,6 +565,55 @@ Sign Off
 </table>
 
 </div>
+  <div class="mt-8">
+
+<h4 class="font-semibold mb-3">Subscription Update (GRCHub)</h4>
+
+<table class="w-full text-sm border">
+
+<thead class="bg-gray-200">
+<tr>
+<th class="p-2">Question</th>
+<th class="p-2">Answer</th>
+<th class="p-2">Evidence Upload</th>
+<th class="p-2">Owner</th>
+<th class="p-2">Status</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td class="p-2 border">
+Has the subscription been updated in GRCHub?
+</td>
+
+<td class="p-2 border">
+<select class="border p-2 w-full">
+<option>Yes</option>
+<option>No</option>
+</select>
+</td>
+
+<td class="p-2 border">
+<input type="file" class="w-full text-sm">
+</td>
+
+<td class="p-2 border">
+<input type="text" class="border p-2 w-full" placeholder="Owner name">
+</td>
+
+<td class="p-2 border">
+<select class="border p-2 w-full">
+<option>Pending</option>
+<option>Completed</option>
+</select>
+</td>
+</tr>
+
+</tbody>
+
+</table>
 
 </div>
 
