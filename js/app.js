@@ -640,6 +640,31 @@ function signOff(button) {
 }
 
 // =======================
+// ENABLE / DISABLE ROLLOUT ROW
+// =======================
+
+function toggleRolloutRow(checkbox) {
+
+  const row = checkbox.closest("tr");
+
+  const fields = row.querySelectorAll(".rollout-field");
+
+  fields.forEach(field => {
+
+    field.disabled = !checkbox.checked;
+
+    if (checkbox.checked) {
+      field.classList.remove("bg-gray-200");
+    } else {
+      field.classList.add("bg-gray-200");
+    }
+
+  });
+
+}
+
+
+// =======================
 // INIT
 // =======================
 
