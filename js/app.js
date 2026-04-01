@@ -256,6 +256,11 @@ function goToStep(step) {
   localStorage.setItem("tools", JSON.stringify(tools));
 
   showSection(step);
+
+  // LOAD PILOT TEST CASES
+  if (step === 5) {
+    loadPilotSection();
+  }
   render();
 }
 
