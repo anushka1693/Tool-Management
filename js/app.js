@@ -726,24 +726,43 @@ loadPilotSection();
 async function loadUser() {
   try {
     const res = await fetch("/.auth/me");
+
+    if (!res.ok) {
+      throw new Error("Auth API failed");
+    }
+
     const data = await res.json();
 
-    const user = data?.clientPrincipal;
+    console.log("AUTH RESPONSE:", data);
 
-    if (user) {
-      // Get display name from claims
-      const nameClaim = user.claims.find(c => c.typ === "name");
-
-      const displayName = nameClaim?.val || user.userDetails;
-
-      document.getElementById("userName").innerText = displayName;
-    } else {
-      document.getElementById("userName").innerText = "User";
+    // 🔥 CRITICAL FIX: handle array response
+    if (!data || data.length === 0) {
+      document.getElementById("userName").innerText = "Not logged in";
+      return;
     }
+
+    const user = data[0].clientPrincipal;
+
+    if (!user) {
+      document.getElementById("userName").innerText = "No user";
+      return;
+    }
+
+    // ✅ Get display name properly
+    let displayName = user.userDetails;
+
+    if (user.claims && user.claims.length > 0) {
+      const nameClaim = user.claims.find(c => c.typ === "name");
+      if (nameClaim) {
+        displayName = nameClaim.val;
+      }
+    }
+
+    document.getElementById("userName").innerText = displayName;
 
   } catch (err) {
     console.error("User load error:", err);
-    document.getElementById("userName").innerText = "Error";
+    document.getElementById("userName").innerText = "Error loading user";
   }
 }
 
