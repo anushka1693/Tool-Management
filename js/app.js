@@ -718,3 +718,45 @@ loadAIChecklist();
 loadQCChecklist();
 updateMiniDonuts(0);  // Workflow donuts
 loadPilotSection();  
+
+
+// ======================
+// Load Logged-in User
+// ======================
+async function loadUser() {
+  try {
+    const res = await fetch("/.auth/me");
+    const data = await res.json();
+
+    const user = data?.clientPrincipal;
+
+    if (user) {
+      // Get display name from claims
+      const nameClaim = user.claims.find(c => c.typ === "name");
+
+      const displayName = nameClaim?.val || user.userDetails;
+
+      document.getElementById("userName").innerText = displayName;
+    } else {
+      document.getElementById("userName").innerText = "User";
+    }
+
+  } catch (err) {
+    console.error("User load error:", err);
+    document.getElementById("userName").innerText = "Error";
+  }
+}
+
+// ======================
+// Logout Function
+// ======================
+function logout() {
+  window.location.href = "/.auth/logout";
+}
+
+// ======================
+// Run on Page Load
+// ======================
+window.onload = function () {
+  loadUser();
+};
