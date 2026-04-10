@@ -732,29 +732,31 @@ async function loadUser() {
     }
 
     const data = await res.json();
-
     console.log("AUTH RESPONSE:", data);
 
     let user = null;
 
-    // ✅ Handle BOTH formats (array + object)
+    // ✅ Handle BOTH formats safely
     if (Array.isArray(data)) {
-      user = data[0]?.clientPrincipal;
-    } else {
-      user = data?.clientPrincipal;
+      if (data.length > 0 && data[0].clientPrincipal) {
+        user = data[0].clientPrincipal;
+      }
+    } else if (data && data.clientPrincipal) {
+      user = data.clientPrincipal;
     }
 
+    // ✅ SAFETY CHECK (this was missing earlier)
     if (!user) {
       document.getElementById("userName").innerText = "No User";
       return;
     }
 
-    // ✅ Get display name
-    let displayName = user.userDetails;
+    // ✅ Display Name (fallback to email)
+    let displayName = user.userDetails || "User";
 
     if (user.claims && user.claims.length > 0) {
       const nameClaim = user.claims.find(c => c.typ === "name");
-      if (nameClaim) {
+      if (nameClaim && nameClaim.val) {
         displayName = nameClaim.val;
       }
     }
