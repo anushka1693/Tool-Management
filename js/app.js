@@ -735,20 +735,21 @@ async function loadUser() {
 
     console.log("AUTH RESPONSE:", data);
 
-    // 🔥 CRITICAL FIX: handle array response
-    if (!data || data.length === 0) {
-      document.getElementById("userName").innerText = "Not logged in";
-      return;
-    }
+    let user = null;
 
-    const user = data[0].clientPrincipal;
+    // ✅ Handle BOTH formats (array + object)
+    if (Array.isArray(data)) {
+      user = data[0]?.clientPrincipal;
+    } else {
+      user = data?.clientPrincipal;
+    }
 
     if (!user) {
-      document.getElementById("userName").innerText = "No user";
+      document.getElementById("userName").innerText = "No User";
       return;
     }
 
-    // ✅ Get display name properly
+    // ✅ Get display name
     let displayName = user.userDetails;
 
     if (user.claims && user.claims.length > 0) {
@@ -762,7 +763,7 @@ async function loadUser() {
 
   } catch (err) {
     console.error("User load error:", err);
-    document.getElementById("userName").innerText = "Error loading user";
+    document.getElementById("userName").innerText = "Error";
   }
 }
 
