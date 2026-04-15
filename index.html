@@ -670,6 +670,19 @@ Has the subscription been updated in GRCHub?
   <!-- ================= DASHBOARD ================= -->
   <div id="dashboardSection">
 
+  <!-- SEARCH BAR -->
+<div class="mb-4 flex justify-between items-center">
+
+  <input
+    id="searchTool"
+    type="text"
+    placeholder="Search tool..."
+    class="border rounded px-3 py-2 w-72 text-sm"
+    onkeyup="searchTool()"
+  >
+
+</div>
+
     <div class="mb-4 flex gap-2">
       <button onclick="setFilter('all')" class="filter-btn px-4 py-2 rounded bg-gray-200">All</button>
       <button onclick="setFilter('progress')" class="filter-btn px-4 py-2 rounded bg-blue-200">In Progress</button>
