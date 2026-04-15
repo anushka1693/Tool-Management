@@ -4,49 +4,94 @@
 <title>KNAV Tool Clearance Hub</title>
 
 <style>
+
 body{
 display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
-background:#f4f4f4;
+background:#f3f4f6;
 font-family:Cambria;
 }
 
-.login-box{
+.login-card{
+width:380px;
 background:white;
 padding:40px;
 border-radius:10px;
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
 text-align:center;
-box-shadow:0 4px 10px rgba(0,0,0,0.1);
 }
 
-button{
-background:#a00000;
+.logo{
+width:140px;
+margin-bottom:15px;
+}
+
+.subtitle{
+color:#555;
+margin-bottom:30px;
+font-size:16px;
+}
+
+.login-btn{
+width:100%;
+background:#8B0015;
 color:white;
 border:none;
-padding:12px 25px;
-font-size:16px;
+padding:12px;
 border-radius:6px;
+font-size:16px;
 cursor:pointer;
 }
-</style>
 
+.login-btn:hover{
+background:#6f0011;
+}
+
+.assist{
+margin-top:25px;
+font-size:13px;
+color:#666;
+}
+
+.assist a{
+color:#8B0015;
+text-decoration:none;
+font-weight:500;
+}
+
+.assist a:hover{
+text-decoration:underline;
+}
+
+</style>
 </head>
 
 <body>
 
-<div class="login-box">
+<div class="login-card">
 
-<h2>KNAV Tool Clearance Hub</h2>
+<img src="images/knav-logo.png" class="logo">
 
-<button onclick="login()">Login with Microsoft SSO</button>
+<div class="subtitle">Sign in to begin.</div>
+
+<button class="login-btn" onclick="login()">
+Login with Microsoft SSO
+</button>
+
+<div class="assist">
+For assistance, please contact <br>
+<a href="mailto:digital.transformation@knavus.com">
+digital.transformation@knavus.com
+</a>
+</div>
 
 </div>
 
 <script>
 function login(){
-  window.location.href="/.auth/login/aad?post_login_redirect_uri=/index.html";
+window.location.href="/.auth/login/aad?post_login_redirect_uri=/index.html";
 }
 </script>
 
