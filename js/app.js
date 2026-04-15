@@ -776,6 +776,15 @@ name = name.replace(/\b\w/g, l => l.toUpperCase());
 loggedInUser = name;
 document.getElementById("userName").innerText = name;
 
+// Generate initials for avatar
+const initials = name
+  .split(" ")
+  .map(n => n[0])
+  .join("")
+  .toUpperCase();
+
+document.getElementById("userAvatar").innerText = initials;
+
   } catch (err) {
     console.error("User load error:", err);
     document.getElementById("userName").innerText = "Error";
