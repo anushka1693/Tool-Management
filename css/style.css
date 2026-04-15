@@ -8,16 +8,17 @@ body {
 ========================= */
 
 .btn-primary {
-  background: #800000;
+  background: #7A1E2C;   /* KNAV maroon */
   color: white;
   width: 100%;
   padding: 8px;
   border-radius: 6px;
   transition: 0.2s;
+  font-weight: 500;
 }
 
 .btn-primary:hover {
-  background: #a00000;
+  background: #651824;
 }
 
 .btn-danger {
