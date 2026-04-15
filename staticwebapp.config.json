@@ -5,6 +5,10 @@
       "allowedRoles": ["anonymous"]
     },
     {
+      "route": "/css/*",
+      "allowedRoles": ["anonymous"]
+    },
+    {
       "route": "/.auth/*",
       "allowedRoles": ["anonymous"]
     },
