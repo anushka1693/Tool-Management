@@ -655,33 +655,38 @@ const userName = loggedInUser;// replace later with logged-in user
 // ENABLE / DISABLE ROLLOUT ROW
 // =======================
 
-function toggleRolloutRow(checkbox){
+function toggleRolloutRow(checkbox) {
 
   const row = checkbox.closest("tr");
 
   const fields = row.querySelectorAll(".rollout-field");
 
+  const signOffCell = row.querySelector("td:last-child");
+
   fields.forEach(field => {
 
-    if(checkbox.checked){
+    field.disabled = !checkbox.checked;
 
-        field.disabled = false;
-        field.classList.remove("bg-gray-200");
-
-    } 
-    else{
-
-        field.disabled = true;
-        field.classList.add("bg-gray-200");
-
-        // ⭐ reset Sign Off button
-        if(field.tagName === "BUTTON"){
-            field.innerText = "Sign Off";
-        }
-
+    if (checkbox.checked) {
+      field.classList.remove("bg-gray-200");
+    } else {
+      field.classList.add("bg-gray-200");
     }
 
   });
+
+  // ⭐ RESET SIGN OFF IF UNCHECKED
+  if (!checkbox.checked) {
+
+    signOffCell.innerHTML = `
+      <button onclick="signOff(this)"
+        class="bg-green-600 text-white px-2 py-1 rounded text-xs rollout-field"
+        disabled>
+        Sign Off
+      </button>
+    `;
+
+  }
 
 }
 
