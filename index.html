@@ -49,18 +49,49 @@
 <body class="bg-gray-100">
 
 <!-- HEADER -->
-<div class="bg-[#5A1C24] text-white px-6 py-3 flex items-center justify-between shadow">
+<div class="bg-white border-b px-6 py-3 flex items-center justify-between shadow-sm">
 
-  <div class="flex items-center gap-3">
-    <img src="/css/knav-logo.png" class="h-8">
-   <div class="font-bold text-lg">Tool Clearance Hub</div>
+  <div class="flex items-center gap-4">
+    <img src="/css/knav-logo.png" class="h-7">
+   <div class="font-semibold text-gray-800 text-lg">Tool Clearance Hub</div>
   </div>
 
-  <div class="flex items-center gap-4 text-sm">
-    <span id="userName">Loading...</span>
-    <button onclick="logout()" class="underline hover:text-gray-200">
-      Logout
-    </button>
+<div class="flex items-center gap-4 text-sm text-gray-700">
+ <div class="flex items-center gap-3 relative">
+
+  <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold">
+    AS
+  </div>
+
+  <span id="userName" class="cursor-pointer">Loading...</span>
+
+  <span class="cursor-pointer">▼</span>
+
+</div>
+    <button onclick="logout()" class="text-red-600 hover:text-red-700">
+  Logout
+</button>
+  </div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- PROFILE DROPDOWN -->
+<div id="profileMenu" class="hidden absolute right-6 top-14 bg-white border rounded shadow w-48">
+
+  <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+    My Profile
+  </div>
+
+  <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+    Settings
+  </div>
+
+  <div onclick="logout()" class="px-4 py-2 hover:bg-gray-100 text-red-600 cursor-pointer">
+    Logout
   </div>
 
 </div>
