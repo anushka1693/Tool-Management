@@ -780,6 +780,21 @@ document.getElementById("userName").innerText = name;
 }
 
 // ======================
+// Toggle User Menu
+// ======================
+function toggleUserMenu() {
+
+  const menu = document.getElementById("profileMenu");
+
+  if (menu.classList.contains("hidden")) {
+    menu.classList.remove("hidden");
+  } else {
+    menu.classList.add("hidden");
+  }
+
+}
+
+// ======================
 // Logout Function
 // ======================
 function logout() {
