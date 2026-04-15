@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>KNAV Tool Clearance Hub</title>
+
+<style>
+body{
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+background:#f4f4f4;
+font-family:Cambria;
+}
+
+.login-box{
+background:white;
+padding:40px;
+border-radius:10px;
+text-align:center;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+button{
+background:#a00000;
+color:white;
+border:none;
+padding:12px 25px;
+font-size:16px;
+border-radius:6px;
+cursor:pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="login-box">
+
+<h2>KNAV Tool Clearance Hub</h2>
+
+<button onclick="login()">Login with Microsoft SSO</button>
+
+</div>
+
+<script>
+function login(){
+window.location.href="/.auth/login/aad";
+}
+</script>
+
+</body>
+</html>
