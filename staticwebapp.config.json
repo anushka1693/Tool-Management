@@ -9,6 +9,10 @@
       "allowedRoles": ["anonymous"]
     },
     {
+      "route": "/",
+      "rewrite": "/login.html"
+    },
+    {
       "route": "/*",
       "allowedRoles": ["authenticated"]
     }
