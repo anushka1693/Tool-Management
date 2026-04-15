@@ -660,7 +660,7 @@ function toggleRolloutRow(checkbox) {
   const row = checkbox.closest("tr");
 
   const fields = row.querySelectorAll(".rollout-field");
-
+  const inputs = row.querySelectorAll("input, textarea");
   const signOffCell = row.querySelector("td:last-child");
 
   fields.forEach(field => {
@@ -675,9 +675,24 @@ function toggleRolloutRow(checkbox) {
 
   });
 
-  // ⭐ RESET SIGN OFF IF UNCHECKED
+  // ⭐ RESET ENTIRE ROW IF UNCHECKED
   if (!checkbox.checked) {
 
+    inputs.forEach(input => {
+
+      if (input.type === "checkbox") return;
+
+      if (input.type === "date" || input.type === "text") {
+        input.value = "";
+      }
+
+      if (input.tagName === "TEXTAREA") {
+        input.value = "";
+      }
+
+    });
+
+    // Reset sign off button
     signOffCell.innerHTML = `
       <button onclick="signOff(this)"
         class="bg-green-600 text-white px-2 py-1 rounded text-xs rollout-field"
@@ -685,7 +700,6 @@ function toggleRolloutRow(checkbox) {
         Sign Off
       </button>
     `;
-
   }
 
 }
