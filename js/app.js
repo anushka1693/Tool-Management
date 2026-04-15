@@ -761,7 +761,17 @@ async function loadUser() {
       }
     }
 
-    document.getElementById("userName").innerText = displayName;
+   let name = displayName;
+
+// Convert email style to name if needed
+if (name.includes("@")) {
+  name = name.split("@")[0];
+}
+
+name = name.replace(".", " ");
+name = name.replace(/\b\w/g, l => l.toUpperCase());
+
+document.getElementById("userName").innerText = name;
 
   } catch (err) {
     console.error("User load error:", err);
