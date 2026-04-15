@@ -655,7 +655,7 @@ const userName = loggedInUser;// replace later with logged-in user
 // ENABLE / DISABLE ROLLOUT ROW
 // =======================
 
-function toggleRolloutRow(checkbox) {
+function toggleRolloutRow(checkbox){
 
   const row = checkbox.closest("tr");
 
@@ -663,12 +663,22 @@ function toggleRolloutRow(checkbox) {
 
   fields.forEach(field => {
 
-    field.disabled = !checkbox.checked;
+    if(checkbox.checked){
 
-    if (checkbox.checked) {
-      field.classList.remove("bg-gray-200");
-    } else {
-      field.classList.add("bg-gray-200");
+        field.disabled = false;
+        field.classList.remove("bg-gray-200");
+
+    } 
+    else{
+
+        field.disabled = true;
+        field.classList.add("bg-gray-200");
+
+        // ⭐ reset Sign Off button
+        if(field.tagName === "BUTTON"){
+            field.innerText = "Sign Off";
+        }
+
     }
 
   });
