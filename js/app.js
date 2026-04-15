@@ -1,3 +1,5 @@
+let loggedInUser = "";
+
 // =======================
 // GLOBAL STATE
 // =======================
@@ -636,7 +638,7 @@ function renderDTChecklist() {
 
 function signOff(button) {
 
-  const userName = "Rahul Shah"; // replace later with logged-in user
+const userName = loggedInUser;// replace later with logged-in user
 
   const initials = userName
     .split(" ")
@@ -771,6 +773,7 @@ if (name.includes("@")) {
 name = name.replace(".", " ");
 name = name.replace(/\b\w/g, l => l.toUpperCase());
 
+loggedInUser = name;
 document.getElementById("userName").innerText = name;
 
   } catch (err) {
