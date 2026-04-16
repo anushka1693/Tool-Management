@@ -273,11 +273,27 @@ if (res.ok) {
   console.error("API error:", text);
 }
 
-    console.log("Saved:", result);
+console.log("Saved:", result);
 
-    alert("Tool saved successfully!");
+// ADD TOOL TO DASHBOARD STATE
+tools.push({
+  name: name,
+  company: company,
+  requestor: requestor,
+  practice: practice,
+  type: selectedToolType,
+  step: 0
+});
 
-    closeToolForm();
+// SAVE TO LOCAL STORAGE
+localStorage.setItem("tools", JSON.stringify(tools));
+
+// REFRESH DASHBOARD
+render();
+
+alert("Tool saved successfully!");
+
+closeToolForm();
 
   } catch (err) {
 
@@ -304,7 +320,7 @@ function render() {
   document.getElementById("table").innerHTML =
     filtered.map((t, i) => {
 
-      let percent = Math.round((t.step / 10) * 100);
+      let percent = Math.round((t.step / (stepsList.length - 1)) * 100);
 
       return `
       <tr class="border-b">
