@@ -4,7 +4,7 @@ let loggedInUser = "";
 // GLOBAL STATE
 // =======================
 
-let tools = JSON.parse(localStorage.getItem("tools")) || [];
+let tools = [];
 let selectedToolType = "new";
 let filter = "all";
 let currentToolIndex = null;
@@ -308,6 +308,35 @@ closeToolForm();
 // RENDER TABLE
 // =======================
 
+async function loadTools() {
+
+  try {
+
+    const res = await fetch("/api/getTools");
+
+    const data = await res.json();
+
+    tools = data.map(t => ({
+  name: t.toolName,
+  company: t.companyName,
+  requestor: t.requestorName,
+  practice: t.practiceArea,
+  type: t.toolType || "New",
+  step: t.step || 0
+}));
+
+    render();
+
+  } catch (err) {
+
+    console.error("Error loading tools:", err);
+
+  }
+
+}
+
+
+// Dashboard rendering
 function render() {
 
   let filtered = tools.filter(t => {
@@ -411,8 +440,6 @@ function nextStep() {
   if (tools[currentToolIndex].step < 11) {
     tools[currentToolIndex].step++;
   }
-
-  localStorage.setItem("tools", JSON.stringify(tools));
 
   showSection(tools[currentToolIndex].step);
   render();
@@ -883,7 +910,7 @@ function handleFileUpload(input){
 // INIT
 // =======================
 
-render();             // Dashboard table
+loadTools();  // Dashboard table
 loadITChecklist();    // Populate IT Checklist
 renderDTChecklist();  // DT Checklist
 loadAIChecklist();
