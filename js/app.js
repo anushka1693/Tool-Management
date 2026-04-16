@@ -162,7 +162,14 @@ async function saveToolDetails() {
       body: JSON.stringify(toolData)
     });
 
-    const result = await res.json();
+    let result = null;
+
+if (res.ok) {
+  result = await res.json();
+} else {
+  const text = await res.text();
+  console.error("API error:", text);
+}
 
     console.log("Saved:", result);
 
