@@ -67,9 +67,26 @@ function updateSectionProgress(sectionId, stepIndex) {
   const donut = step.querySelector(".donut");
 
   if (donut) {
+
     donut.innerText = percent + "%";
+
+    let color = "#800000";
+
+    if (percent === 100) {
+      color = "#2e7d32";   // green when completed
+    } else if (percent > 50) {
+      color = "#c62828";   // lighter red
+    }
+
     donut.style.background =
-      `conic-gradient(#800000 ${percent}%, #e5e5e5 ${percent}%)`;
+      `conic-gradient(${color} ${percent}%, #e5e5e5 ${percent}%)`;
+
+    if (percent > 50) {
+      donut.style.color = "#ffffff";
+    } else {
+      donut.style.color = "#800000";
+    }
+
   }
 
 }
