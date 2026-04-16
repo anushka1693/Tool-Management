@@ -15,11 +15,25 @@ let currentToolIndex = null;
 
 function calculateSectionProgress(sectionId) {
 
-  const section = document.getElementById(sectionId);
+  let inputs = [];
 
-  if (!section) return 0;
+  if (sectionId === "toolDetailsSection") {
 
-  const inputs = section.querySelectorAll("input, textarea, select");
+    inputs = [
+      document.getElementById("toolName"),
+      document.getElementById("companyName"),
+      document.getElementById("requestorName"),
+      document.getElementById("practiceArea")
+    ];
+
+  } else {
+
+    const section = document.getElementById(sectionId);
+    if (!section) return 0;
+
+    inputs = section.querySelectorAll("input, textarea, select");
+
+  }
 
   const total = inputs.length;
 
@@ -28,6 +42,8 @@ function calculateSectionProgress(sectionId) {
   let filled = 0;
 
   inputs.forEach(input => {
+
+    if (!input) return;
 
     if (input.type === "file") {
       if (input.files.length > 0) filled++;
