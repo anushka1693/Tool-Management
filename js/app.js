@@ -10,6 +10,75 @@ let filter = "all";
 let currentToolIndex = null;
 
 // =======================
+// SECTION PROGRESS LOGIC
+// =======================
+
+function calculateSectionProgress(sectionId) {
+
+  const section = document.getElementById(sectionId);
+
+  if (!section) return 0;
+
+  const inputs = section.querySelectorAll("input, textarea, select");
+
+  const total = inputs.length;
+
+  if (total === 0) return 0;
+
+  let filled = 0;
+
+  inputs.forEach(input => {
+
+    if (input.type === "file") {
+      if (input.files.length > 0) filled++;
+    } else if (input.value && input.value.trim() !== "") {
+      filled++;
+    }
+
+  });
+
+  return Math.round((filled / total) * 100);
+}
+
+function updateSectionProgress(sectionId, stepIndex) {
+
+  const percent = calculateSectionProgress(sectionId);
+
+  const step = document.getElementById("step-" + stepIndex);
+
+  if (!step) return;
+
+  const donut = step.querySelector(".donut");
+
+  if (donut) {
+    donut.innerText = percent + "%";
+    donut.style.background =
+      `conic-gradient(#800000 ${percent}%, #e5e5e5 ${percent}%)`;
+  }
+
+}
+
+function attachProgressTracking(sectionId, stepIndex) {
+
+  const section = document.getElementById(sectionId);
+
+  if (!section) return;
+
+  const inputs = section.querySelectorAll("input, textarea, select");
+
+  inputs.forEach(input => {
+
+    input.addEventListener("input", () => {
+
+      updateSectionProgress(sectionId, stepIndex);
+
+    });
+
+  });
+
+}
+
+// =======================
 // WORKFLOW STEPS
 // =======================
 
@@ -774,6 +843,22 @@ loadQCChecklist();
 updateMiniDonuts(0);  // Workflow donuts
 loadPilotSection();  
 
+// =======================
+// ATTACH PROGRESS TRACKING
+// =======================
+
+attachProgressTracking("toolDetailsSection", 0);
+attachProgressTracking("demoSection", 1);
+attachProgressTracking("vendorSection", 2);
+attachProgressTracking("itClearanceSection", 3);
+attachProgressTracking("partnerClearanceSection", 4);
+attachProgressTracking("pilotSection", 5);
+attachProgressTracking("dtClearanceSection", 6);
+attachProgressTracking("aiClearanceSection", 7);
+attachProgressTracking("toolMemoSection", 8);
+attachProgressTracking("qcClearanceSection", 9);
+attachProgressTracking("msaSection", 10);
+attachProgressTracking("rolloutSection", 11);
 
 // ======================
 // Load Logged-in User
