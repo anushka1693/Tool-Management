@@ -286,7 +286,10 @@ function showSection(step) {
 
 function nextStep() {
 
-  if (currentToolIndex === null) return;
+  if (currentToolIndex === null) {
+  showSection(1);
+  return;
+}
 
   if (tools[currentToolIndex].step < 11) {
     tools[currentToolIndex].step++;
@@ -304,7 +307,11 @@ function nextStep() {
 
 function goToStep(step) {
 
-  if (currentToolIndex === null) return;
+  if (currentToolIndex === null) {
+    showSection(step);
+    updateWorkflowUI(step);
+    return;
+  }
 
   tools[currentToolIndex].step = step;
 
