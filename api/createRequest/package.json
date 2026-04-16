@@ -1,0 +1,7 @@
+{
+  "name": "createRequest",
+  "version": "1.0.0",
+  "dependencies": {
+    "@azure/data-tables": "^13.2.0"
+  }
+}
