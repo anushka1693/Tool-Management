@@ -5,13 +5,18 @@ module.exports = async function (context, req) {
   try {
 
     const connectionString = process.env.STORAGE_CONNECTION_STRING;
+    if (!connectionString) {
+  throw new Error("STORAGE_CONNECTION_STRING is missing");
+}
 
     const tableClient = TableClient.fromConnectionString(
       connectionString,
       "ToolRequests"
     );
 
-    const body = req.body;
+   const body = typeof req.body === "string"
+  ? JSON.parse(req.body)
+  : req.body;
 
     const entity = {
       partitionKey: "tools",
