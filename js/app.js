@@ -132,7 +132,7 @@ function closeToolForm() {
 // SAVE TOOL
 // =======================
 
-function saveToolDetails() {
+async function saveToolDetails() {
 
   const name = document.getElementById("toolName").value;
   const company = document.getElementById("companyName").value;
@@ -144,29 +144,39 @@ function saveToolDetails() {
     return;
   }
 
-  if (currentToolIndex === null) {
-    tools.push({
-      name,
-      company,
-      requestor,
-      practice,
-      type: selectedToolType,
-      step: 0
+  const toolData = {
+    toolName: name,
+    companyName: company,
+    requestorName: requestor,
+    practiceArea: practice,
+    createdBy: loggedInUser
+  };
+
+  try {
+
+    const res = await fetch("/api/createRequest", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(toolData)
     });
-  } else {
-    tools[currentToolIndex] = {
-      ...tools[currentToolIndex],
-      name,
-      company,
-      requestor,
-      practice
-    };
+
+    const result = await res.json();
+
+    console.log("Saved:", result);
+
+    alert("Tool saved successfully!");
+
+    closeToolForm();
+
+  } catch (err) {
+
+    console.error(err);
+    alert("Error saving tool");
+
   }
 
-  localStorage.setItem("tools", JSON.stringify(tools));
-
-  render();
-  alert("Saved successfully!");
 }
 
 // =======================
