@@ -346,7 +346,6 @@ function showSection(step) {
   }
 
   updateWorkflowUI(step);
-  updateMiniDonuts(step);
 }
 
 // =======================
