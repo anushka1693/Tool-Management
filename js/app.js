@@ -334,9 +334,9 @@ function updateMiniDonuts(step) {
 
     let percent = 0;
 
-    if (i < step) percent = 100;
-    else if (i === step) percent = 50;
-    else percent = 0;
+  if (i < step) percent = 100;
+  else if (i === step) percent = 0;
+  else percent = 0;
 
     donut.innerText = percent + "%";
 
