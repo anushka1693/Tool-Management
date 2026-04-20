@@ -810,41 +810,6 @@ Has the subscription been updated in GRCHub?
 <script>
   // Helper functions to toggle sections based on workflow clicks
 
-  function goToStep(step) {
-
-  // highlight workflow item
-  document.querySelectorAll('.workflow-item').forEach(item => {
-    item.classList.remove('active');
-  });
-
-  const selectedStep = document.getElementById('step-' + step);
-  if (selectedStep) selectedStep.classList.add('active');
-
-  // hide all sections
-  document.querySelectorAll('.section').forEach(sec => {
-    sec.classList.remove('active');
-  });
-
-  // show selected section
-const selectedSection = document.getElementById('section' + (step + 1));
-
-if (selectedSection) {
-  selectedSection.classList.add('active');
-} else {
-  console.error("❌ Section not found:", step + 1);
-}
-
-  // show form / hide dashboard
-  document.getElementById('toolDetailsSection').classList.remove('hidden');
-  document.getElementById('dashboardSection').classList.add('hidden');
-  document.getElementById('workflowSidebar').classList.remove('hidden');
-
-  // ⭐ trigger pilot logic from app.js
-  if (step === 5 && typeof loadPilotSection === "function") {
-    loadPilotSection();
-  }
-}
-
   function toggleAddMenu() {
     const menu = document.getElementById('addToolMenu');
     if (menu.classList.contains('hidden')) {
