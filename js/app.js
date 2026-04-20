@@ -1031,4 +1031,24 @@ function logout() {
 // ======================
 window.onload = function () {
   loadUser();
+// ✅ SOW TOGGLE FIX
+  const dropdown = document.getElementById("sowInhouse");
+  const sowSection = document.getElementById("sowDetails");
+
+  if(dropdown && sowSection){
+
+    function toggleSOW(){
+      if(dropdown.value === "yes"){
+        sowSection.style.display = "block";
+      } else {
+        sowSection.style.display = "none";
+      }
+    }
+
+    dropdown.addEventListener("change", toggleSOW);
+
+    // run on load
+    toggleSOW();
+  }
+
 };
