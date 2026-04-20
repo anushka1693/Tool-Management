@@ -179,7 +179,7 @@
 
       <div id="step-10" onclick="goToStep(10)" class="workflow-item">
   <div class="donut" data-progress="0"></div>
-  <span>MSA / NDA / SOW</span>
+  <span>MSA</span>
 </div>
 
 <div id="step-11" onclick="goToStep(11)" class="workflow-item">
@@ -280,7 +280,74 @@
     </table>
   </div>
 
-  <!-- NDA Subsection -->  
+  <!-- NDA Subsection -->
+<div id="ndaSection">
+  <h4 class="font-semibold mb-2">NDA Section</h4>
+
+  <table id="ndaChecklistTable" class="table-auto w-full border-collapse border text-sm">
+
+    <thead>
+      <tr>
+        <th class="border p-2">Document</th>
+        <th class="border p-2">Date of Signature</th>
+        <th class="border p-2">Validity</th>
+        <th class="border p-2">Format of NDA</th>
+        <th class="border p-2">Signed NDA</th>
+        <th class="border p-2">Signer Company</th>
+        <th class="border p-2">Owner</th>
+        <th class="border p-2">Status</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr>
+
+        <td class="border p-2">
+          NDA
+        </td>
+
+        <td class="border p-2">
+          <input type="date" class="border p-1 w-full">
+        </td>
+
+        <td class="border p-2 flex gap-1">
+          <input type="date" class="border p-1 w-full">
+          <span class="px-1">→</span>
+          <input type="date" class="border p-1 w-full">
+        </td>
+
+        <td class="border p-2">
+          <input type="file" class="w-full text-sm">
+        </td>
+
+        <td class="border p-2">
+          <input type="file" class="w-full text-sm">
+        </td>
+
+        <td class="border p-2">
+          <input type="text" class="w-full border p-2" placeholder="Signer company">
+        </td>
+
+        <td class="border p-2">
+          <input type="text" class="w-full border p-2" placeholder="Owner name">
+        </td>
+
+        <td class="border p-2">
+          <select class="w-full border p-2">
+            <option value="Pending">Pending</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</div>
+  
 </div>
   
     <!-- SECTION 4 -->
@@ -432,184 +499,14 @@ placeholder="Enter any additional remarks if required">
 </div>
 
     <!-- SECTION 11 -->
-   <div id="section11" class="section mb-6">
-  <h3 class="font-bold mb-2">Section 11: MSA & NDA</h3>
-
-  <h4 class="font-semibold mb-2">MSA Section</h4>
-
-  <table class="table-auto w-full border-collapse border text-sm">
-
-    <thead>
-      <tr>
-        <th class="border p-2">Document</th>
-        <th class="border p-2">Date of Signature</th>
-        <th class="border p-2">Validity</th>
-        <th class="border p-2">Format of MSA</th>
-        <th class="border p-2">Signed MSA</th>
-        <th class="border p-2">Signer Company</th>
-        <th class="border p-2">Owner</th>
-        <th class="border p-2">Status</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr>
-
-        <td class="border p-2">MSA</td>
-
-        <td class="border p-2">
-          <input type="date" class="border p-1 w-full">
-        </td>
-
-        <td class="border p-2 flex gap-1">
-          <input type="date" class="border p-1 w-full">
-          <span class="px-1">→</span>
-          <input type="date" class="border p-1 w-full">
-        </td>
-
-        <td class="border p-2">
-          <input type="file" class="w-full text-sm">
-        </td>
-
-        <td class="border p-2">
-          <input type="file" class="w-full text-sm">
-        </td>
-
-        <td class="border p-2">
-          <input type="text" class="w-full border p-2" placeholder="Signer company">
-        </td>
-
-        <td class="border p-2">
-          <input type="text" class="w-full border p-2" placeholder="Owner name">
-        </td>
-
-        <td class="border p-2">
-          <select class="w-full border p-2">
-            <option value="Pending">Pending</option>
-            <option value="Completed">Completed</option>
-          </select>
-        </td>
-
-      </tr>
-    </tbody>
-
-  </table>
-<h4 class="font-semibold mt-6 mb-2">NDA Section</h4>
-
-<table class="table-auto w-full border-collapse border text-sm">
-
-  <thead>
-    <tr>
-      <th class="border p-2">Document</th>
-      <th class="border p-2">Date of Signature</th>
-      <th class="border p-2">Validity</th>
-      <th class="border p-2">Format of NDA</th>
-      <th class="border p-2">Signed NDA</th>
-      <th class="border p-2">Signer Company</th>
-      <th class="border p-2">Owner</th>
-      <th class="border p-2">Status</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr>
-
-      <td class="border p-2">NDA</td>
-
-      <td class="border p-2">
-        <input type="date" class="border p-1 w-full">
-      </td>
-
-      <td class="border p-2 flex gap-1">
-        <input type="date" class="border p-1 w-full">
-        <span class="px-1">→</span>
-        <input type="date" class="border p-1 w-full">
-      </td>
-
-      <td class="border p-2">
-        <input type="file" class="w-full text-sm">
-      </td>
-
-      <td class="border p-2">
-        <input type="file" class="w-full text-sm">
-      </td>
-
-      <td class="border p-2">
-        <input type="text" class="w-full border p-2" placeholder="Signer company">
-      </td>
-
-      <td class="border p-2">
-        <input type="text" class="w-full border p-2" placeholder="Owner name">
-      </td>
-
-      <td class="border p-2">
-        <select class="w-full border p-2">
-          <option>Pending</option>
-          <option>Completed</option>
-        </select>
-      </td>
-
-    </tr>
-  </tbody>
-
-</table>
-<h4 class="font-semibold mt-6 mb-2">SOW Section</h4>
-
-<div class="border p-4 rounded bg-gray-50">
-
-  <label class="font-semibold">Is the tool developed by in-house team?</label>
-
-<select id="sowInhouse" class="border p-2 w-full mt-2 mb-4">
-    <option value="">Select</option>
-    <option value="yes">Yes</option>
-    <option value="no">No</option>
-  </select>
-
- <div id="sowDetails" style="display:none;">
-  <table class="w-full border text-sm">
-    <thead class="bg-gray-100">
-      <tr>
-        <th class="border p-2">SOW Document</th>
-        <th class="border p-2">Upload</th>
-        <th class="border p-2">Amount</th>
-        <th class="border p-2">Owner</th>
-        <th class="border p-2">Status</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr>
-        <td class="border p-2">SOW</td>
-
-        <td class="border p-2">
-          <input type="file" class="w-full text-sm">
-        </td>
-
-        <td class="border p-2">
-          <input type="number" class="w-full border p-2" placeholder="Enter amount">
-        </td>
-
-        <td class="border p-2">
-          <input type="text" class="w-full border p-2" placeholder="Owner name">
-        </td>
-
-        <td class="border p-2">
-          <select class="w-full border p-2">
-            <option>Pending</option>
-            <option>Completed</option>
-          </select>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-</div>
-     
-</div>
+    <div id="section11" class="section mb-6">
+      <h3 class="font-bold mb-2">Section 11: MSA</h3>
+    </div>
 
     <!-- SECTION 12 -->
 <div id="section12" class="section mb-6">
-  <h3 class="font-bold mb-4">Section 12: Rollout</h3>
+
+<h3 class="font-bold mb-4">Section 12: Rollout</h3>
 
 <div class="overflow-x-auto">
 
@@ -809,6 +706,36 @@ Has the subscription been updated in GRCHub?
 <script>
   // Helper functions to toggle sections based on workflow clicks
 
+  function goToStep(step) {
+
+  // highlight workflow item
+  document.querySelectorAll('.workflow-item').forEach(item => {
+    item.classList.remove('active');
+  });
+
+  const selectedStep = document.getElementById('step-' + step);
+  if (selectedStep) selectedStep.classList.add('active');
+
+  // hide all sections
+  document.querySelectorAll('.section').forEach(sec => {
+    sec.classList.remove('active');
+  });
+
+  // show selected section
+  const selectedSection = document.getElementById('section' + (step + 1));
+  if (selectedSection) selectedSection.classList.add('active');
+
+  // show form / hide dashboard
+  document.getElementById('toolDetailsSection').classList.remove('hidden');
+  document.getElementById('dashboardSection').classList.add('hidden');
+  document.getElementById('workflowSidebar').classList.remove('hidden');
+
+  // ⭐ trigger pilot logic from app.js
+  if (step === 5 && typeof loadPilotSection === "function") {
+    loadPilotSection();
+  }
+}
+
   function toggleAddMenu() {
     const menu = document.getElementById('addToolMenu');
     if (menu.classList.contains('hidden')) {
@@ -859,21 +786,16 @@ Has the subscription been updated in GRCHub?
     });
   }
 
-function nextStep() {
+  function nextStep() {
+    // Find current active section index
+    const activeSection = document.querySelector('.section.active');
+    if (!activeSection) return;
 
-  const activeSection = document.querySelector('.section.active');
-
-  if (!activeSection) {
-    goToStep(0); // fallback to first section
-    return;
+    const currentIndex = parseInt(activeSection.id.replace('section', ''), 10);
+    if (currentIndex < 13) {
+      goToStep(currentIndex); // goToStep expects zero-based index, sections are 1-based
+    }
   }
-
-  const currentIndex = parseInt(activeSection.id.replace('section', ''), 10);
-
-  // move to next section safely
-  goToStep(currentIndex);
-}
-  
 </script>
 <script src="/js/app.js"></script>
 
