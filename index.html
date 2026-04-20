@@ -826,8 +826,13 @@ Has the subscription been updated in GRCHub?
   });
 
   // show selected section
-  const selectedSection = document.getElementById('section' + (step + 1));
-  if (selectedSection) selectedSection.classList.add('active');
+const selectedSection = document.getElementById('section' + (step + 1));
+
+if (selectedSection) {
+  selectedSection.classList.add('active');
+} else {
+  console.error("❌ Section not found:", step + 1);
+}
 
   // show form / hide dashboard
   document.getElementById('toolDetailsSection').classList.remove('hidden');
@@ -891,15 +896,20 @@ Has the subscription been updated in GRCHub?
   }
 
 function nextStep() {
+
   const activeSection = document.querySelector('.section.active');
-  if (!activeSection) return;
+
+  if (!activeSection) {
+    goToStep(0); // fallback to first section
+    return;
+  }
 
   const currentIndex = parseInt(activeSection.id.replace('section', ''), 10);
 
-  // ✅ move forward properly
+  // move to next section safely
   goToStep(currentIndex);
 }
-
+  
 </script>
 <script src="/js/app.js"></script>
 
