@@ -1031,24 +1031,26 @@ function logout() {
 // ======================
 window.onload = function () {
   loadUser();
-// ✅ SOW TOGGLE FIX
+  loadTools(); // keep this here
+
+  // ✅ SHOW DASHBOARD BY DEFAULT
+  const dashboard = document.getElementById("dashboardSection");
+  const toolForm = document.getElementById("toolDetailsSection");
+  const sidebar = document.getElementById("workflowSidebar");
+
+  if (dashboard) dashboard.style.display = "block";
+  if (toolForm) toolForm.classList.add("hidden");
+  if (sidebar) sidebar.classList.add("hidden");
+
+  // SOW logic
   const dropdown = document.getElementById("sowInhouse");
   const sowSection = document.getElementById("sowDetails");
 
-  if(dropdown && sowSection){
-
-    function toggleSOW(){
-      if(dropdown.value === "yes"){
-        sowSection.style.display = "block";
-      } else {
-        sowSection.style.display = "none";
-      }
+  if (dropdown && sowSection) {
+    function toggleSOW() {
+      sowSection.style.display = dropdown.value === "yes" ? "block" : "none";
     }
-
     dropdown.addEventListener("change", toggleSOW);
-
-    // run on load
     toggleSOW();
   }
-
 };
