@@ -314,6 +314,12 @@ async function loadTools() {
 
     const res = await fetch("/api/getTools");
 
+    // ✅ ADD THIS SAFETY CHECK
+    if (!res.ok) {
+      console.warn("API not available, skipping...");
+      return;
+    }
+
     const data = await res.json();
 
     tools = data.map(t => ({
@@ -910,7 +916,6 @@ function handleFileUpload(input){
 // INIT
 // =======================
 
-loadTools();  // Dashboard table
 loadITChecklist();    // Populate IT Checklist
 renderDTChecklist();  // DT Checklist
 loadAIChecklist();
