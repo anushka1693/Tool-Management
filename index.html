@@ -494,7 +494,65 @@ placeholder="Enter any additional remarks if required">
     </tbody>
 
   </table>
+<h4 class="font-semibold mt-6 mb-2">NDA Section</h4>
 
+<table class="table-auto w-full border-collapse border text-sm">
+
+  <thead>
+    <tr>
+      <th class="border p-2">Document</th>
+      <th class="border p-2">Date of Signature</th>
+      <th class="border p-2">Validity</th>
+      <th class="border p-2">Format of NDA</th>
+      <th class="border p-2">Signed NDA</th>
+      <th class="border p-2">Signer Company</th>
+      <th class="border p-2">Owner</th>
+      <th class="border p-2">Status</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+
+      <td class="border p-2">NDA</td>
+
+      <td class="border p-2">
+        <input type="date" class="border p-1 w-full">
+      </td>
+
+      <td class="border p-2 flex gap-1">
+        <input type="date" class="border p-1 w-full">
+        <span class="px-1">→</span>
+        <input type="date" class="border p-1 w-full">
+      </td>
+
+      <td class="border p-2">
+        <input type="file" class="w-full text-sm">
+      </td>
+
+      <td class="border p-2">
+        <input type="file" class="w-full text-sm">
+      </td>
+
+      <td class="border p-2">
+        <input type="text" class="w-full border p-2" placeholder="Signer company">
+      </td>
+
+      <td class="border p-2">
+        <input type="text" class="w-full border p-2" placeholder="Owner name">
+      </td>
+
+      <td class="border p-2">
+        <select class="w-full border p-2">
+          <option>Pending</option>
+          <option>Completed</option>
+        </select>
+      </td>
+
+    </tr>
+  </tbody>
+
+</table>
 </div>
 
     <!-- SECTION 12 -->
