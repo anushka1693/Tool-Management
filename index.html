@@ -890,16 +890,16 @@ Has the subscription been updated in GRCHub?
     });
   }
 
-  function nextStep() {
-    // Find current active section index
-    const activeSection = document.querySelector('.section.active');
-    if (!activeSection) return;
+function nextStep() {
+  const activeSection = document.querySelector('.section.active');
+  if (!activeSection) return;
 
-    const currentIndex = parseInt(activeSection.id.replace('section', ''), 10);
-    if (currentIndex < 13) {
-      goToStep(currentIndex); // goToStep expects zero-based index, sections are 1-based
-    }
-  }
+  const currentIndex = parseInt(activeSection.id.replace('section', ''), 10);
+
+  // ✅ move forward properly
+  goToStep(currentIndex);
+}
+
 </script>
 <script src="/js/app.js"></script>
 
