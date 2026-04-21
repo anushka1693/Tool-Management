@@ -118,7 +118,7 @@ function attachProgressTracking(sectionId, stepIndex) {
 const stepsList = [
   "Tool Details","Demo","Vendor Questionnaire","IT Clearance",
   "Partner Approval","Pilot","DT Clearance", "AI Clearance", "Tool Memo",
-  "QC Clearance","MSA","Rollout"
+  "QC Clearance","NDA / MSA / SOW","Rollout"
 ];
 
 // =======================
@@ -422,12 +422,13 @@ function showSection(step) {
     loadPilotSection();
   }
 
-  if (step === 7) { // assuming AI Clearance is step 7
-    loadAIChecklist();
+if (step === 7) {
+  loadAIChecklist();
+}
 
-   if (step === 9) loadQCChecklist();
-
-  }
+if (step === 9) {
+  loadQCChecklist();
+}
 
   updateWorkflowUI(step);
 }
@@ -1062,14 +1063,14 @@ window.onload = function () {
   if (sidebar) sidebar.classList.add("hidden");
 
   // SOW logic
-  const dropdown = document.getElementById("sowInhouse");
-  const sowSection = document.getElementById("sowDetails");
+const dropdown = document.getElementById("sowType");
+const sowSection = document.getElementById("sowSection");
 
-  if (dropdown && sowSection) {
-    function toggleSOW() {
-      sowSection.style.display = dropdown.value === "yes" ? "block" : "none";
-    }
-    dropdown.addEventListener("change", toggleSOW);
-    toggleSOW();
+if (dropdown && sowSection) {
+  function toggleSOW() {
+    sowSection.classList.toggle("hidden", dropdown.value !== "yes");
   }
+  dropdown.addEventListener("change", toggleSOW);
+  toggleSOW();
+}
 };
