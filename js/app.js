@@ -438,16 +438,30 @@ function showSection(step) {
 
 function nextStep() {
 
-  if (currentToolIndex === null) {
-  showSection(1);
-  return;
-}
+  let currentStep = 0;
 
-  if (tools[currentToolIndex].step < 11) {
-    tools[currentToolIndex].step++;
+  // detect current visible section
+  for (let i = 1; i <= 12; i++) {
+    let el = document.getElementById("section" + i);
+    if (el && el.style.display === "block") {
+      currentStep = i - 1;
+      break;
+    }
   }
 
-  showSection(tools[currentToolIndex].step);
+  // move to next step
+  if (currentStep < 11) {
+    currentStep++;
+  }
+
+  // update tool state if exists
+  if (currentToolIndex !== null) {
+    tools[currentToolIndex].step = currentStep;
+    localStorage.setItem("tools", JSON.stringify(tools));
+  }
+
+  // show next section
+  showSection(currentStep);
   render();
 }
 
