@@ -407,7 +407,7 @@ placeholder="Enter any additional remarks if required">
 <h3 class="font-bold mb-4">Section 11: NDA / MSA / SOW</h3>
 
 <!-- ================= NDA ================= -->
-<div class="mb-6">
+<div id="ndaSection" class="mb-6">
   <h4 class="font-semibold mb-2">NDA Section</h4>
 
   <table class="table-auto w-full border text-sm">
@@ -448,7 +448,7 @@ placeholder="Enter any additional remarks if required">
 </div>
 
 <!-- ================= MSA ================= -->
-<div class="mb-6">
+<div id="msaSubSection" class="mb-6">
   <h4 class="font-semibold mb-2">MSA Section</h4>
 
   <table class="table-auto w-full border text-sm">
@@ -489,7 +489,7 @@ placeholder="Enter any additional remarks if required">
 </div>
 
 <!-- ================= SOW ================= -->
-<div>
+<div id="sowMainSection">
   <h4 class="font-semibold mb-2">SOW Section</h4>
 
   <!-- Question -->
@@ -733,33 +733,46 @@ Has the subscription been updated in GRCHub?
     }
   }
   
-    function selectToolType(type) {
+function selectToolType(type) {
 
   document.getElementById('addToolMenu').classList.add('hidden');
 
-  const vendor = document.getElementById("step-2");
-  const msa = document.getElementById("step-10");
+  const vendorStep = document.getElementById("step-2");
+  const msaStep = document.getElementById("step-10");
+
+  const vendorSection = document.getElementById("section3");
+  const nda = document.getElementById("ndaSection");
+  const msa = document.getElementById("msaSubSection");
+  const sow = document.getElementById("sowMainSection");
 
   if(type === 'new') {
 
-      // hide Vendor Questionnaire and MSA
-      vendor.style.display = "none";
-      msa.style.display = "none";
+      // Sidebar
+      vendorStep.style.display = "none";
+      msaStep.style.display = "flex";
 
-      document.getElementById('workflowSidebar').classList.remove('hidden');
-      goToStep(0);
+      // Sections
+      if (vendorSection) vendorSection.style.display = "none";
+      if (nda) nda.style.display = "none";
+      if (msa) msa.style.display = "none";
+      if (sow) sow.style.display = "block";
 
   } 
   else if(type === 'existing') {
 
-      // show Vendor Questionnaire and MSA
-      vendor.style.display = "flex";
-      msa.style.display = "flex";
+      // Sidebar
+      vendorStep.style.display = "flex";
+      msaStep.style.display = "flex";
 
-      document.getElementById('workflowSidebar').classList.remove('hidden');
-      goToStep(0);
-
+      // Sections
+      if (vendorSection) vendorSection.style.display = "block";
+      if (nda) nda.style.display = "block";
+      if (msa) msa.style.display = "block";
+      if (sow) sow.style.display = "none";
   }
+
+  document.getElementById('workflowSidebar').classList.remove('hidden');
+  goToStep(0);
 }
 
   function closeToolForm() {
