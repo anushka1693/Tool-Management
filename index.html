@@ -18,6 +18,10 @@
     display: block;
   }
 
+  .hidden-by-type {
+  display: none !important;
+}
+
   /* Workflow item styling */
   .workflow-item {
     cursor: pointer;
@@ -750,12 +754,31 @@ function selectToolType(type) {
       // Sidebar
       vendorStep.style.display = "none";
       msaStep.style.display = "flex";
+  } 
+  else if(type === 'existing') {
 
-      // Sections
-      if (vendorSection) vendorSection.style.display = "none";
-      if (nda) nda.style.display = "none";
-      if (msa) msa.style.display = "none";
-      if (sow) sow.style.display = "block";
+      // Sidebar
+      vendorStep.style.display = "flex";
+      msaStep.style.display = "flex";
+  }
+
+  function selectToolType(type) {
+
+  document.getElementById('addToolMenu').classList.add('hidden');
+
+  const vendorStep = document.getElementById("step-2");
+  const msaStep = document.getElementById("step-10");
+
+  const vendorSection = document.getElementById("section3");
+  const nda = document.getElementById("ndaSection");
+  const msa = document.getElementById("msaSubSection");
+  const sow = document.getElementById("sowMainSection");
+
+  if(type === 'new') {
+
+      // Sidebar
+      vendorStep.style.display = "none";
+      msaStep.style.display = "flex";
 
   } 
   else if(type === 'existing') {
@@ -763,13 +786,24 @@ function selectToolType(type) {
       // Sidebar
       vendorStep.style.display = "flex";
       msaStep.style.display = "flex";
-
-      // Sections
-      if (vendorSection) vendorSection.style.display = "block";
-      if (nda) nda.style.display = "block";
-      if (msa) msa.style.display = "block";
-      if (sow) sow.style.display = "none";
   }
+
+  [vendorSection, nda, msa, sow].forEach(el => {
+    if (el) el.classList.remove("hidden-by-type");
+  });
+
+  if(type === 'new') {
+    vendorSection?.classList.add("hidden-by-type");
+    nda?.classList.add("hidden-by-type");
+    msa?.classList.add("hidden-by-type");
+  } 
+  else if(type === 'existing') {
+    sow?.classList.add("hidden-by-type");
+  }
+
+  document.getElementById('workflowSidebar').classList.remove('hidden');
+  goToStep(0);
+}
 
   document.getElementById('workflowSidebar').classList.remove('hidden');
   goToStep(0);
