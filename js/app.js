@@ -552,9 +552,31 @@ function toggleAddMenu() {
 }
 
 function selectToolType(type) {
+
   selectedToolType = type;
-  addTool();
+
   document.getElementById("addToolMenu").classList.add("hidden");
+
+  const vendorSection = document.getElementById("section3");
+  const nda = document.getElementById("ndaSection");
+  const msa = document.getElementById("msaSubSection");
+  const sow = document.getElementById("sowMainSection");
+
+  // Reset all
+  [vendorSection, nda, msa, sow].forEach(el => {
+    if (el) el.classList.remove("hidden-by-type");
+  });
+
+  if (type === "new") {
+    vendorSection?.classList.add("hidden-by-type");
+    nda?.classList.add("hidden-by-type");
+    msa?.classList.add("hidden-by-type");
+  } 
+  else if (type === "existing") {
+    sow?.classList.add("hidden-by-type");
+  }
+
+  addTool();
 }
 
 // =======================
