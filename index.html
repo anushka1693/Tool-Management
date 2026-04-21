@@ -179,7 +179,7 @@
 
       <div id="step-10" onclick="goToStep(10)" class="workflow-item">
   <div class="donut" data-progress="0"></div>
-  <span>MSA</span>
+  <span>NDA / MSA / SOW</span>
 </div>
 
 <div id="step-11" onclick="goToStep(11)" class="workflow-item">
@@ -280,75 +280,6 @@
 </tbody>
     </table>
   </div>
-
-  <!-- NDA Subsection -->
-<div id="ndaSection">
-  <h4 class="font-semibold mb-2">NDA Section</h4>
-
-  <table id="ndaChecklistTable" class="table-auto w-full border-collapse border text-sm">
-
-    <thead>
-      <tr>
-        <th class="border p-2">Document</th>
-        <th class="border p-2">Date of Signature</th>
-        <th class="border p-2">Validity</th>
-        <th class="border p-2">Format of NDA</th>
-        <th class="border p-2">Signed NDA</th>
-        <th class="border p-2">Signer Company</th>
-        <th class="border p-2">Owner</th>
-        <th class="border p-2">Status</th>
-      </tr>
-    </thead>
-
-    <tbody>
-
-      <tr>
-
-        <td class="border p-2">
-          NDA
-        </td>
-
-        <td class="border p-2">
-          <input type="date" class="border p-1 w-full">
-        </td>
-
-        <td class="border p-2 flex gap-1">
-          <input type="date" class="border p-1 w-full">
-          <span class="px-1">→</span>
-          <input type="date" class="border p-1 w-full">
-        </td>
-
-        <td class="border p-2">
-          <input type="file" class="w-full text-sm">
-        </td>
-
-        <td class="border p-2">
-          <input type="file" class="w-full text-sm">
-        </td>
-
-        <td class="border p-2">
-          <input type="text" class="w-full border p-2" placeholder="Signer company">
-        </td>
-
-        <td class="border p-2">
-          <input type="text" class="w-full border p-2" placeholder="Owner name">
-        </td>
-
-        <td class="border p-2">
-          <select class="w-full border p-2">
-            <option value="Pending">Pending</option>
-            <option value="Completed">Completed</option>
-          </select>
-        </td>
-
-      </tr>
-
-    </tbody>
-
-  </table>
-
-</div>
-  
 </div>
   
     <!-- SECTION 4 -->
@@ -500,9 +431,148 @@ placeholder="Enter any additional remarks if required">
 </div>
 
     <!-- SECTION 11 -->
-    <div id="section11" class="section mb-6">
-      <h3 class="font-bold mb-2">Section 11: MSA</h3>
+<div id="section11" class="section mb-6">
+
+<h3 class="font-bold mb-4">Section 11: NDA / MSA / SOW</h3>
+
+<!-- ================= NDA ================= -->
+<div class="mb-6">
+  <h4 class="font-semibold mb-2">NDA Section</h4>
+
+  <table class="table-auto w-full border text-sm">
+    <thead>
+      <tr>
+        <th class="border p-2">Document</th>
+        <th class="border p-2">Date</th>
+        <th class="border p-2">Validity</th>
+        <th class="border p-2">Upload</th>
+        <th class="border p-2">Signed Copy</th>
+        <th class="border p-2">Company</th>
+        <th class="border p-2">Owner</th>
+        <th class="border p-2">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="border p-2">NDA</td>
+        <td class="border p-2"><input type="date" class="w-full border p-1"></td>
+        <td class="border p-2 flex gap-1">
+          <input type="date" class="w-full border p-1">
+          <span>→</span>
+          <input type="date" class="w-full border p-1">
+        </td>
+        <td class="border p-2"><input type="file"></td>
+        <td class="border p-2"><input type="file"></td>
+        <td class="border p-2"><input type="text" class="w-full border p-1"></td>
+        <td class="border p-2"><input type="text" class="w-full border p-1"></td>
+        <td class="border p-2">
+          <select class="w-full border p-1">
+            <option>Pending</option>
+            <option>Completed</option>
+          </select>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ================= MSA ================= -->
+<div class="mb-6">
+  <h4 class="font-semibold mb-2">MSA Section</h4>
+
+  <table class="table-auto w-full border text-sm">
+    <thead>
+      <tr>
+        <th class="border p-2">Document</th>
+        <th class="border p-2">Date</th>
+        <th class="border p-2">Validity</th>
+        <th class="border p-2">Upload</th>
+        <th class="border p-2">Signed Copy</th>
+        <th class="border p-2">Company</th>
+        <th class="border p-2">Owner</th>
+        <th class="border p-2">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="border p-2">MSA</td>
+        <td class="border p-2"><input type="date" class="w-full border p-1"></td>
+        <td class="border p-2 flex gap-1">
+          <input type="date" class="w-full border p-1">
+          <span>→</span>
+          <input type="date" class="w-full border p-1">
+        </td>
+        <td class="border p-2"><input type="file"></td>
+        <td class="border p-2"><input type="file"></td>
+        <td class="border p-2"><input type="text" class="w-full border p-1"></td>
+        <td class="border p-2"><input type="text" class="w-full border p-1"></td>
+        <td class="border p-2">
+          <select class="w-full border p-1">
+            <option>Pending</option>
+            <option>Completed</option>
+          </select>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ================= SOW ================= -->
+<div>
+  <h4 class="font-semibold mb-2">SOW Section</h4>
+
+  <!-- Question -->
+  <div class="mb-4">
+    <label class="font-semibold">Is development done by in-house team?</label>
+    <select id="sowType" onchange="handleSOWChange()" class="border p-2 w-full mt-1">
+      <option value="">Select</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+  </div>
+
+  <!-- Conditional SOW -->
+  <div id="sowSection" class="hidden">
+
+    <div class="mb-4">
+      <label class="font-semibold">SOW Amount</label>
+      <input type="number" class="border p-2 w-full mt-1">
     </div>
+
+    <div class="mb-4">
+      <label class="font-semibold">Upload SOW Document</label>
+      <input type="file" class="w-full border p-2 mt-1">
+    </div>
+
+    <table class="table-auto w-full border text-sm">
+      <tbody>
+        <tr>
+          <td class="border p-2">SOW</td>
+          <td class="border p-2"><input type="date" class="w-full border p-1"></td>
+          <td class="border p-2 flex gap-1">
+            <input type="date" class="w-full border p-1">
+            <span>→</span>
+            <input type="date" class="w-full border p-1">
+          </td>
+          <td class="border p-2"><input type="file"></td>
+          <td class="border p-2"><input type="file"></td>
+          <td class="border p-2"><input type="text" class="w-full border p-1"></td>
+          <td class="border p-2"><input type="text" class="w-full border p-1"></td>
+          <td class="border p-2">
+            <select class="w-full border p-1">
+              <option>Pending</option>
+              <option>Completed</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
+
+</div>
 
     <!-- SECTION 12 -->
 <div id="section12" class="section mb-6">
