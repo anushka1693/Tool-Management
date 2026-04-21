@@ -26,14 +26,20 @@ function calculateSectionProgress(sectionId) {
       document.getElementById("practiceArea")
     ];
 
-  } else {
+  } else if (sectionId === "questionnaireSection") {
 
-    const section = document.getElementById(sectionId);
-    if (!section) return 0;
+  inputs = [
+    document.getElementById("dtClearance")
+  ];
 
-    inputs = section.querySelectorAll("input, textarea, select");
+} 
+else {
 
-  }
+  const section = document.getElementById(sectionId);
+  if (!section) return 0;
+
+  inputs = section.querySelectorAll("input, textarea, select");
+}
 
   const total = inputs.length;
 
@@ -100,12 +106,13 @@ function attachProgressTracking(sectionId, stepIndex) {
   const inputs = section.querySelectorAll("input, textarea, select");
 
   inputs.forEach(input => {
+  input.addEventListener("input", () => {
+  updateSectionProgress(sectionId, stepIndex);
+});
 
-    input.addEventListener("input", () => {
-
-      updateSectionProgress(sectionId, stepIndex);
-
-    });
+input.addEventListener("change", () => {
+  updateSectionProgress(sectionId, stepIndex);
+});
 
   });
 
@@ -944,7 +951,7 @@ loadPilotSection();
 
 attachProgressTracking("toolDetailsSection", 0);
 attachProgressTracking("demoSection", 1);
-attachProgressTracking("vendorSection", 2);
+attachProgressTracking("questionnaireSection", 2);
 attachProgressTracking("itClearanceSection", 3);
 attachProgressTracking("partnerClearanceSection", 4);
 attachProgressTracking("pilotSection", 5);
