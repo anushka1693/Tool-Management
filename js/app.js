@@ -418,8 +418,12 @@ function showSection(step) {
     if (el) el.style.display = "none";
   }
 
-  let current = document.getElementById("section" + (step + 1));
-  if (current) current.style.display = "block";
+let current = document.getElementById("section" + (step + 1));
+
+// ✅ FIX: don't show hidden sections
+if (current && !current.classList.contains("hidden-by-type")) {
+  current.style.display = "block";
+}
 
   if (step === 4) {
   updatePartnerDecisionOptions();
