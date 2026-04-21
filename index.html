@@ -707,36 +707,6 @@ Has the subscription been updated in GRCHub?
 <script>
   // Helper functions to toggle sections based on workflow clicks
 
-  function goToStep(step) {
-
-  // highlight workflow item
-  document.querySelectorAll('.workflow-item').forEach(item => {
-    item.classList.remove('active');
-  });
-
-  const selectedStep = document.getElementById('step-' + step);
-  if (selectedStep) selectedStep.classList.add('active');
-
-  // hide all sections
-  document.querySelectorAll('.section').forEach(sec => {
-    sec.classList.remove('active');
-  });
-
-  // show selected section
-  const selectedSection = document.getElementById('section' + (step + 1));
-  if (selectedSection) selectedSection.classList.add('active');
-
-  // show form / hide dashboard
-  document.getElementById('toolDetailsSection').classList.remove('hidden');
-  document.getElementById('dashboardSection').classList.add('hidden');
-  document.getElementById('workflowSidebar').classList.remove('hidden');
-
-  // ⭐ trigger pilot logic from app.js
-  if (step === 5 && typeof loadPilotSection === "function") {
-    loadPilotSection();
-  }
-}
-
   function toggleAddMenu() {
     const menu = document.getElementById('addToolMenu');
     if (menu.classList.contains('hidden')) {
@@ -751,7 +721,7 @@ Has the subscription been updated in GRCHub?
   document.getElementById('addToolMenu').classList.add('hidden');
 
   const vendor = document.getElementById("step-2");
-  const msa = document.getElementById("step-9");
+  const msa = document.getElementById("step-10");
 
   if(type === 'new') {
 
@@ -787,21 +757,6 @@ Has the subscription been updated in GRCHub?
     });
   }
 
-function nextStep() {
-  const activeSection = document.querySelector('.section.active');
-  if (!activeSection) return;
-
-  // Get current section number (1-based)
-  const currentSection = parseInt(activeSection.id.replace('section', ''), 10);
-
-  // Convert to step index (0-based)
-  const currentStep = currentSection - 1;
-
-  // Move to next step if not last
-  if (currentStep < 11) {
-    goToStep(currentStep + 1);
-  }
-}
 </script>
 <script src="/js/app.js"></script>
 
