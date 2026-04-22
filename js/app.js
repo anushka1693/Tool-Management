@@ -616,7 +616,12 @@ const memo = `
 `;
 
 const container = document.getElementById("toolMemoContent");
-if (container) container.innerHTML = memo;
+
+if (!container) return;
+
+// prevent accidental overwrite issues
+container.innerHTML = "";
+container.insertAdjacentHTML("beforeend", memo);
 }
 
 // =======================
