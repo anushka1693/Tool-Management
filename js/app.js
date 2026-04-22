@@ -462,9 +462,14 @@ function nextStep() {
   }
 
   // move to next step
-  if (currentStep < 11) {
-    currentStep++;
-  }
+do {
+  currentStep++;
+  var nextSection = document.getElementById("section" + (currentStep + 1));
+} while (
+  currentStep < 11 &&
+  nextSection &&
+  nextSection.classList.contains("hidden-by-type")
+);
 
   // update tool state if exists
   if (currentToolIndex !== null) {
@@ -566,18 +571,32 @@ function selectToolType(type) {
   const msa = document.getElementById("msaSubSection");
   const sow = document.getElementById("sowMainSection");
 
+  // ⭐ ADD THIS (sidebar step)
+  const vendorStep = document.getElementById("step-2");
+
   // Reset all
   [vendorSection, nda, msa, sow].forEach(el => {
     if (el) el.classList.remove("hidden-by-type");
   });
 
   if (type === "new") {
+
+    // Hide Vendor everywhere
     vendorSection?.classList.add("hidden-by-type");
     nda?.classList.add("hidden-by-type");
     msa?.classList.add("hidden-by-type");
+
+    // ⭐ Hide sidebar step
+    if (vendorStep) vendorStep.style.display = "none";
+
   } 
   else if (type === "existing") {
+
+    // Show Vendor again
     sow?.classList.add("hidden-by-type");
+
+    // ⭐ Show sidebar step
+    if (vendorStep) vendorStep.style.display = "flex";
   }
 
   addTool();
