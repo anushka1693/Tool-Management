@@ -465,13 +465,41 @@ const memo = `
 <div style="
   font-family: Cambria, Georgia, serif;
   color:#2c2c2c;
-  line-height:1.8;
+  line-height:1.9;
   font-size:15px;
-  padding:20px 10px;
+  padding:25px 20px;
 ">
 
-  <h2 style="text-align:center; font-weight:600; margin-bottom:25px;">
-    KNAV – TOOL CLEARANCE MEMORANDUM
+  <!-- HEADER WITH LOGO -->
+  <div style="
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+  ">
+    
+    <img src="/css/knav-logo.png" 
+         style="height:45px; object-fit:contain;" />
+
+    <div style="text-align:right;">
+      <div style="font-size:18px; font-weight:600;">KNAV</div>
+      <div style="font-size:12px; color:#666;">
+        Tool Governance Framework
+      </div>
+    </div>
+
+  </div>
+
+  <hr style="margin:15px 0 25px 0; border:0.5px solid #ccc;">
+
+  <!-- TITLE -->
+  <h2 style="
+    text-align:center;
+    font-weight:600;
+    margin-bottom:30px;
+    letter-spacing:0.5px;
+  ">
+   KNAV - TOOL CLEARANCE MEMORANDUM
   </h2>
 
   <p><b>Date:</b> ${today}</p>
