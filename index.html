@@ -379,14 +379,29 @@ placeholder="Enter any additional remarks if required">
     <div id="section9" class="section mb-6">
   <h3 class="font-bold mb-2">Section 9: Tool Memo</h3>
 
-  <div id="toolMemoSection">
+<div id="toolMemoSection">
 
-<div 
-  id="toolMemoContent"
-  class="bg-white p-8 border rounded shadow text-sm leading-relaxed">
-</div>
+  <!-- DOWNLOAD BUTTONS -->
+  <div class="flex gap-3 mb-4">
+
+    <button onclick="downloadPDF()" 
+      class="bg-red-600 text-white px-4 py-2 rounded">
+      Download PDF
+    </button>
+
+    <button onclick="downloadWord()" 
+      class="bg-blue-600 text-white px-4 py-2 rounded">
+      Download Word
+    </button>
 
   </div>
+
+  <!-- MEMO CONTENT -->
+  <div 
+    id="toolMemoContent"
+    class="bg-white p-8 border rounded shadow text-sm leading-relaxed">
+  </div>
+
 </div>
 
     <!-- SECTION 10 -->
@@ -753,7 +768,7 @@ Has the subscription been updated in GRCHub?
     });
   }
 
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script src="/js/app.js"></script>
 
 </body>
