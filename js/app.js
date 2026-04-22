@@ -1382,3 +1382,23 @@ if (dropdown && sowSection) {
   toggleSOW();
 }
 };
+
+function downloadPDF() {
+
+  const element = document.getElementById("toolMemoContent");
+
+  if (!element) {
+    alert("Memo not found");
+    return;
+  }
+
+  const opt = {
+    margin: 10,
+    filename: 'Tool_Memo.pdf',
+    image: { type: 'jpeg', quality: 1 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+
+  html2pdf().set(opt).from(element).save();
+}
