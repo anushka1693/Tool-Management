@@ -527,8 +527,8 @@ const memo = `
  <h4 style="margin-top:15px; margin-bottom:5px; font-weight:600;">
   4.1 IT Clearance
 </h4>
-  <p>• <b>Status:</b> Pending</p>
-  <p>• <b>Comments:</b> Not Available</p>
+<p style="margin-left:15px;">• <b>Status:</b> Pending</p>
+ <p style="margin-left:15px;">• <b>Comments:</b> Not available</p>
 
   <h4 style="margin-top:15px; margin-bottom:5px; font-weight:600;">
   4.2 Data Security & Privacy
