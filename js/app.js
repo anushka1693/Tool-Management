@@ -385,13 +385,19 @@ async function saveToolDetails() {
     return;
   }
 
-  const toolData = {
-    toolName: name,
-    companyName: company,
-    requestorName: requestor,
-    practiceArea: practice,
-    createdBy: loggedInUser
-  };
+const today = new Date().toLocaleDateString();
+
+const toolData = {
+  toolName: name,
+  companyName: company,
+  requestorName: requestor,
+  practiceArea: practice,
+  createdBy: loggedInUser,
+
+  requestedDate: today,
+  step: 0,
+  toolType: selectedToolType
+};
 
   try {
 
@@ -417,21 +423,7 @@ console.log("Saved:", result);
 // ADD TOOL TO DASHBOARD STATE
 
 const today = new Date().toLocaleDateString(); 
-tools.push({
-  name: name,
-  company: company,
-  requestor: requestor,
-  practice: practice,
-  type: selectedToolType,
-  step: 0,
-  requestedDate: today 
-});
-
-// SAVE TO LOCAL STORAGE
-localStorage.setItem("tools", JSON.stringify(tools));
-
-// REFRESH DASHBOARD
-render();
+await loadTools();
 
 alert("Tool saved successfully!");
 
