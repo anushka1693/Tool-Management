@@ -1384,7 +1384,6 @@ if (dropdown && sowSection) {
 };
 
 function downloadPDF() {
-
   const element = document.getElementById("toolMemoContent");
 
   if (!element) {
@@ -1392,13 +1391,29 @@ function downloadPDF() {
     return;
   }
 
-  const opt = {
-    margin: 10,
-    filename: 'Tool_Memo.pdf',
-    image: { type: 'jpeg', quality: 1 },
-    html2canvas: { scale: 2 },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-  };
+  html2pdf()
+    .from(element)
+    .save("Tool_Memo.pdf");
+}
 
-  html2pdf().set(opt).from(element).save();
+function downloadWord() {
+  const element = document.getElementById("toolMemoContent");
+
+  if (!element) return;
+
+  const html = `
+    <html>
+      <head><meta charset="UTF-8"></head>
+      <body>${element.innerHTML}</body>
+    </html>
+  `;
+
+  const blob = new Blob(['\ufeff', html], {
+    type: 'application/msword'
+  });
+
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "Tool_Memo.doc";
+  link.click();
 }
