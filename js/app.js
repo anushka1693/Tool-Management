@@ -555,22 +555,22 @@ const memo = `
  <h4 style="margin-top:15px; margin-bottom:5px; font-weight:600;">
   4.1 IT Clearance
 </h4>
-<p style="margin-left:15px;">• <b>Status:</b> Pending</p>
+ <p style="margin-left:15px;">• <b>Status:</b> Pending</p>
  <p style="margin-left:15px;">• <b>Comments:</b> Not available</p>
 
   <h4 style="margin-top:15px; margin-bottom:5px; font-weight:600;">
   4.2 Data Security & Privacy
 </h4>
-  <p>• <b>PII / Sensitive Data:</b> Not Available</p>
-  <p>• <b>Data Residency Impact:</b> Not Available</p>
-  <p>• <b>Encryption Controls:</b> Not Available</p>
+  <p style="margin-left:15px;">• <b>PII / Sensitive Data:</b> Not available</p>
+  <p style="margin-left:15px;">• <b>Data Residency Impact:</b> Not available</p>
+  <p style="margin-left:15px;">• <b>Encryption Controls:</b> Not available</p>
 
  <h4 style="margin-top:15px; margin-bottom:5px; font-weight:600;">
   4.3 Legal Documentation
 </h4>
-  <p>• <b>NDA:</b> Not Available</p>
-  <p>• <b>MSA:</b> Not Available</p>
-  <p>• <b>SOW:</b> ${getVal("sowType") || "Not Available"}</p>
+  <p style="margin-left:15px;">• <b>NDA:</b> Not available</p>
+  <p style="margin-left:15px;">• <b>MSA:</b> Not available</p>
+  <p style="margin-left:15px;">• <b>SOW:</b> Not available</p>
 
   <hr style="margin:30px 0; border-top:1px solid #e5e5e5;">
 
