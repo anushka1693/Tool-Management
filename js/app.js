@@ -423,7 +423,7 @@ tools.push({
   requestor: requestor,
   practice: practice,
   type: selectedToolType,
-  step: 0
+  step: 0,
   requestedDate: today 
 });
 
@@ -470,7 +470,8 @@ async function loadTools() {
   requestor: t.requestorName,
   practice: t.practiceArea,
   type: t.toolType || "New",
-  step: t.step || 0
+  step: t.step || 0,
+  requestedDate: t.requestedDate || "-"
 }));
 
     render();
