@@ -2,7 +2,7 @@ let loggedInUser = "";
 
 // =======================
 // GLOBAL STATE
-// =======================
+// =======================f
 
 let tools = [];
 let selectedToolType = "new";
@@ -13,27 +13,72 @@ let currentToolIndex = null;
 // SECTION PROGRESS LOGIC
 // =======================
 
+const sectionFieldMap = {
+
+  toolDetailsSection: [
+    "toolName",
+    "companyName",
+    "requestorName",
+    "practiceArea"
+  ],
+
+  demoSection: [
+    "demoLink",
+    "demoOwner"
+  ],
+
+  questionnaireSection: [
+    "dtClearance"
+  ],
+
+  itClearanceSection: [
+    // optional: skip for now OR define key fields
+  ],
+
+  partnerClearanceSection: [
+    "partnerDecision"
+  ],
+
+  pilotSection: [
+    // dynamic → leave for now
+  ],
+
+  dtClearanceSection: [
+    // can refine later
+  ],
+
+  aiClearanceSection: [
+    // can refine later
+  ],
+
+  toolMemoSection: [
+    // add if needed
+  ],
+
+  qcClearanceSection: [
+    // add later
+  ],
+
+  msaSection: [
+    "sowType"
+  ],
+
+  rolloutSection: [
+    // optional
+  ]
+};
+
 function calculateSectionProgress(sectionId) {
 
   let inputs = [];
+  
+if (sectionFieldMap[sectionId] && sectionFieldMap[sectionId].length > 0) {
 
-  if (sectionId === "toolDetailsSection") {
+  inputs = sectionFieldMap[sectionId]
+    .map(id => document.getElementById(id))
+    .filter(el => el !== null);
 
-    inputs = [
-      document.getElementById("toolName"),
-      document.getElementById("companyName"),
-      document.getElementById("requestorName"),
-      document.getElementById("practiceArea")
-    ];
-
-  } else if (sectionId === "questionnaireSection") {
-
-  inputs = [
-    document.getElementById("dtClearance")
-  ];
-
-} 
-else {
+} else {
 
   const section = document.getElementById(sectionId);
   if (!section) return 0;
