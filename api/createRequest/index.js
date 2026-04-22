@@ -18,18 +18,21 @@ module.exports = async function (context, req) {
   ? JSON.parse(req.body)
   : req.body;
 
-    const entity = {
-      partitionKey: "tools",
-      rowKey: Date.now().toString(),
+   const entity = {
+  partitionKey: "tools",
+  rowKey: Date.now().toString(),
 
-      toolName: body.toolName || "",
-      companyName: body.companyName || "",
-      requestorName: body.requestorName || "",
-      practiceArea: body.practiceArea || "",
+  toolName: body.toolName || "",
+  companyName: body.companyName || "",
+  requestorName: body.requestorName || "",
+  practiceArea: body.practiceArea || "",
 
-      createdBy: body.createdBy || "",
-      createdDate: new Date().toISOString()
-    };
+  createdBy: body.createdBy || "",
+
+  requestedDate: body.requestedDate || "",
+  step: body.step || 0,
+  toolType: body.toolType || "New"
+};
 
     await tableClient.createEntity(entity);
 
