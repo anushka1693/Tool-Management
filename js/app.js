@@ -1,3 +1,55 @@
+// ================= TOGGLE AUDIT =================
+function toggleAuditIT() {
+  const el = document.getElementById("auditITContainer");
+
+  if (!el) {
+    console.log("Audit container not found ❌");
+    return;
+  }
+
+  el.style.display = el.style.display === "none" ? "block" : "none";
+}
+
+// ================= ADD AUDIT =================
+function addAuditEntry(question, action) {
+  const tbody = document.getElementById("auditITBody");
+  if (!tbody) return;
+
+  const user = document.getElementById("userAvatar")?.innerText || "NA";
+  const now = new Date().toLocaleString();
+
+  const row = `
+    <tr>
+      <td class="border p-1">${now}</td>
+      <td class="border p-1">${user}</td>
+      <td class="border p-1">${action}</td>
+      <td class="border p-1">${question}</td>
+    </tr>
+  `;
+
+  tbody.innerHTML = row + tbody.innerHTML;
+}
+
+// ================= SIGN OFF ROW =================
+function signOffRow(btn, question) {
+  const row = btn.closest("tr");
+  const ownerInput = row.querySelector(".owner-input");
+
+  const user = document.getElementById("userAvatar")?.innerText || "NA";
+
+  if (!ownerInput.value) {
+    ownerInput.value = user;
+  }
+
+  row.querySelectorAll("input, select").forEach(el => el.disabled = true);
+
+  btn.disabled = true;
+
+  row.style.backgroundColor = "#e6fffa";
+
+  addAuditEntry(question, "Signed Off");
+}
+
 let loggedInUser = "";
 
 // =======================
@@ -999,8 +1051,22 @@ function loadITChecklist() {
       
       </td>
       <td class="p-2 border">
-      <input type="text" placeholder="Owner" class="owner-input w-full border rounded p-1">
-    </td>
+  <div style="display:flex; gap:6px; align-items:center;">
+    
+    <input 
+      type="text" 
+      placeholder="Owner" 
+      class="owner-input border rounded p-1 w-20"
+    >
+
+    <button 
+      onclick="signOffRow(this, '${item.question.replace(/'/g, "")}')"
+      class="bg-green-600 text-white px-2 py-1 rounded text-xs">
+      ✔
+    </button>
+
+  </div>
+</td>
       <td class="p-2 border">
         <select class="status-select w-full border rounded p-1">
           <option value="">Select Status</option>
