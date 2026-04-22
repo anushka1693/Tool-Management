@@ -404,7 +404,7 @@ function render() {
     if (filter === "new") return t.step === 0;
   });
 
-  document.getElementById("table").innerHTML =
+  document.getElementById("tableBody").innerHTML =
     filtered.map((t, i) => {
 
       let percent = Math.round((t.step / (stepsList.length - 1)) * 100);
