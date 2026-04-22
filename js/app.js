@@ -39,7 +39,9 @@ function addAuditLog({ step, question, action, value }) {
 
   console.log("Audit Log:", entry);
 
-   renderITAuditTrail(); 
+  if (document.getElementById("itChecklist")) {
+  renderITAuditTrail();
+}
 }
 
 // =======================
