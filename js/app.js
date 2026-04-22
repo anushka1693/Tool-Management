@@ -453,6 +453,62 @@ function openTool(index) {
 }
 
 // =======================
+// TOOL MEMO GENERATION
+// =======================
+
+function generateToolMemo() {
+
+  const getVal = (id) => document.getElementById(id)?.value || "";
+  const today = new Date().toLocaleDateString();
+
+  const memo = `
+KNAV – TOOL CLEARANCE MEMORANDUM
+
+Date: ${today}
+Prepared By: ${getVal("requestorName")}
+Practice Area: ${getVal("practiceArea")}
+
+----------------------------------------
+
+1. Tool Overview
+Tool Name: ${getVal("toolName")}
+Vendor / Company: ${getVal("companyName")}
+Tool Type: ${selectedToolType === "new" ? "In-house" : "External"}
+
+----------------------------------------
+
+2. Demo
+Demo Link: ${getVal("demoLink")}
+Owner: ${getVal("demoOwner")}
+
+----------------------------------------
+
+3. Vendor / DT Clearance
+DT Clearance: ${getVal("dtClearance") || "Pending"}
+
+----------------------------------------
+
+4. Partner Approval
+Decision: ${getVal("partnerDecision") || "Pending"}
+
+----------------------------------------
+
+5. Legal
+SOW Type: ${getVal("sowType") || "Not Available"}
+
+----------------------------------------
+`;
+
+  const textarea = document.getElementById("toolMemoContent");
+  if (textarea) textarea.value = memo;
+}
+
+
+// =======================
+// SECTION CONTROL
+// =======================
+function showSection(step) {
+// =======================
 // SECTION CONTROL
 // =======================
 
@@ -481,6 +537,10 @@ if (current && !current.classList.contains("hidden-by-type")) {
 if (step === 7) {
   loadAIChecklist();
 }
+
+if (step === 8) {
+  generateToolMemo();
+} 
 
 if (step === 9) {
   loadQCChecklist();
