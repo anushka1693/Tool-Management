@@ -13,11 +13,6 @@
     display: none;
   }
 
-  /* Show active section */
-  .section.active {
-    display: block;
-  }
-
   .hidden-by-type {
   display: none !important;
 }
@@ -750,7 +745,7 @@ Has the subscription been updated in GRCHub?
     // Hide workflow sidebar and form, show dashboard
     document.getElementById('workflowSidebar').classList.add('hidden');
     document.getElementById('toolDetailsSection').classList.add('hidden');
-    document.getElementById('dashboardSection').classList.remove('hidden');
+    document.getElementById('dashboardSection').style.display = "block";
 
     // Remove active workflow items highlight
     document.querySelectorAll('.workflow-item').forEach(item => {
