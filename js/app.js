@@ -415,6 +415,8 @@ if (res.ok) {
 console.log("Saved:", result);
 
 // ADD TOOL TO DASHBOARD STATE
+
+const today = new Date().toLocaleDateString(); 
 tools.push({
   name: name,
   company: company,
@@ -422,6 +424,7 @@ tools.push({
   practice: practice,
   type: selectedToolType,
   step: 0
+  requestedDate: today 
 });
 
 // SAVE TO LOCAL STORAGE
@@ -500,6 +503,7 @@ function render() {
       <tr class="border-b">
         <td class="p-2"><b>${t.name}</b></td>
         <td class="p-2">${t.type}</td>
+        <td class="p-2">${t.requestedDate || "-"}</td>
         <td class="p-2">${stepsList[t.step]}</td>
 
         <td class="p-2">
