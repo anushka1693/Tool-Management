@@ -690,8 +690,14 @@ if (step === 7) {
 }
 
 if (step === 8) {
-  generateToolMemo();
-} 
+  setTimeout(() => {
+    try {
+      generateToolMemo();
+    } catch (e) {
+      console.error("Memo error:", e);
+    }
+  }, 100);
+}
 
 if (step === 9) {
   loadQCChecklist();
@@ -718,14 +724,15 @@ function nextStep() {
   }
 
   // move to next step
-do {
+while (currentStep < 11) {
   currentStep++;
-  var nextSection = document.getElementById("section" + (currentStep + 1));
-} while (
-  currentStep < 11 &&
-  nextSection &&
-  nextSection.classList.contains("hidden-by-type")
-);
+
+  const nextSection = document.getElementById("section" + (currentStep + 1));
+
+  if (!nextSection || !nextSection.classList.contains("hidden-by-type")) {
+    break;
+  }
+}
 
   // update tool state if exists
   if (currentToolIndex !== null) {
