@@ -2,7 +2,7 @@ let loggedInUser = "";
 
 // =======================
 // GLOBAL STATE
-// =======================f
+// =======================
 
 let tools = [];
 let selectedToolType = "new";
@@ -503,11 +503,6 @@ SOW Type: ${getVal("sowType") || "Not Available"}
   if (textarea) textarea.value = memo;
 }
 
-
-// =======================
-// SECTION CONTROL
-// =======================
-function showSection(step) {
 // =======================
 // SECTION CONTROL
 // =======================
