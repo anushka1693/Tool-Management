@@ -463,10 +463,11 @@ function generateToolMemo() {
   
 const memo = `
 <div style="
-  font-family: 'Segoe UI', Arial, sans-serif;
+  font-family: Cambria, Georgia, serif;
   color:#2c2c2c;
-  line-height:1.6;
-  font-size:14px;
+  line-height:1.8;
+  font-size:15px;
+  padding:20px 10px;
 ">
 
   <h2 style="text-align:center; font-weight:600; margin-bottom:25px;">
@@ -477,27 +478,35 @@ const memo = `
   <p><b>Prepared By:</b> ${getVal("requestorName")}</p>
   <p><b>Practice Area:</b> ${getVal("practiceArea")}</p>
 
-  <hr style="margin:20px 0;">
+  <hr style="margin:30px 0; border-top:1px solid #e5e5e5;">
 
-  <h3>1. Tool Overview</h3>
+ <h3 style="margin-top:25px; margin-bottom:10px; font-weight:600;">
+  1. Tool Overview
+</h3>
   <p>• <b>Tool Name:</b> ${getVal("toolName")}</p>
   <p>• <b>Vendor / Company:</b> ${getVal("companyName")}</p>
   <p>• <b>Tool Type:</b> ${selectedToolType === "new" ? "In-house" : "External"}</p>
   <p>• <b>Purpose of Tool:</b> Not Available</p>
   <p>• <b>Business Use Case:</b> Not Available</p>
 
-  <hr style="margin:20px 0;">
+ <hr style="margin:30px 0; border-top:1px solid #e5e5e5;">
 
-  <h3>2. Request Details</h3>
+  <h3 style="margin-top:25px; margin-bottom:10px; font-weight:600;">
+  2. Request Details
+</h3>
   <p>• <b>Request Initiated By:</b> ${getVal("requestorName")}</p>
   <p>• <b>Request Type:</b> ${selectedToolType === "new" ? "New Development" : "External Tool Onboarding"}</p>
   <p>• <b>Date of Request:</b> ${today}</p>
 
-  <hr style="margin:20px 0;">
+  <hr style="margin:30px 0; border-top:1px solid #e5e5e5;">
 
-  <h3>3. Evaluation & Review Summary</h3>
+ <h3 style="margin-top:25px; margin-bottom:10px; font-weight:600;">
+  3. Evaluation and Review Summary
+</h3>
 
-  <h4 style="margin-top:10px;">3.1 Demo Conducted</h4>
+<h4 style="margin-top:15px; margin-bottom:5px; font-weight:600;">
+  3.1 Demo Conducted
+</h4>
   <p>• <b>Status:</b> ${getVal("demoLink") ? "Completed" : "Pending"}</p>
   <p>• <b>Key Observations:</b><br>Not Available</p>
 
@@ -507,7 +516,7 @@ const memo = `
   <p>• <b>Hosting Location:</b> Not Available</p>
   <p>• <b>Compliance Certifications:</b> Not Available</p>
 
-  <hr style="margin:20px 0;">
+  <hr style="margin:30px 0; border-top:1px solid #e5e5e5;">
 
   <h3>4. Risk & Compliance Review</h3>
 
@@ -525,14 +534,14 @@ const memo = `
   <p>• <b>MSA:</b> Not Available</p>
   <p>• <b>SOW:</b> ${getVal("sowType") || "Not Available"}</p>
 
-  <hr style="margin:20px 0;">
+  <hr style="margin:30px 0; border-top:1px solid #e5e5e5;">
 
   <h3>5. Business Approval</h3>
   <p>• <b>Status:</b> ${getVal("partnerDecision") || "Pending"}</p>
   <p>• <b>Approving Partner:</b> Not Available</p>
   <p>• <b>Approval Date:</b> Not Available</p>
 
-  <hr style="margin:20px 0;">
+<hr style="margin:30px 0; border-top:1px solid #e5e5e5;">
 
   <h3>6. Pilot Testing</h3>
   <p>• <b>Pilot Conducted:</b> Not Available</p>
@@ -541,7 +550,7 @@ const memo = `
   <p><b>Pilot Summary</b><br>Not Available</p>
   <p><b>Key Observations</b><br>Not Available</p>
 
-  <hr style="margin:20px 0;">
+  <hr style="margin:30px 0; border-top:1px solid #e5e5e5;">
 
   <h3>7. Internal Clearances</h3>
 
@@ -573,31 +582,31 @@ const memo = `
     </tr>
   </table>
 
-  <hr style="margin:20px 0;">
+  <hr style="margin:30px 0; border-top:1px solid #e5e5e5;">
 
   <h3>8. Exceptions / Deviations</h3>
   <p>None</p>
 
-  <hr style="margin:20px 0;">
+<hr style="margin:30px 0; border-top:1px solid #e5e5e5;">
 
   <h3>9. Final Decision</h3>
   <p>• <b>Status:</b> Pending</p>
   <p>• <b>Conditions:</b> None</p>
 
-  <hr style="margin:20px 0;">
+  <hr style="margin:30px 0; border-top:1px solid #e5e5e5;">
 
   <h3>10. Rollout Plan</h3>
   <p>• <b>Status:</b> Not Started</p>
   <p>• <b>Users:</b> Not Available</p>
   <p>• <b>Go-Live Date:</b> Not Available</p>
 
-  <hr style="margin:20px 0;">
+ <hr style="margin:30px 0; border-top:1px solid #e5e5e5;">
 
   <h3>11. Audit Trail</h3>
   <p>• <b>Completion:</b> Not Calculated</p>
   <p>• <b>All Steps Completed:</b> No</p>
 
-  <hr style="margin:20px 0;">
+ <hr style="margin:30px 0; border-top:1px solid #e5e5e5;">
 
   <h3>12. Declaration</h3>
   <p>
