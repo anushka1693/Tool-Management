@@ -510,7 +510,9 @@ const memo = `
   <p>• <b>Status:</b> ${getVal("demoLink") ? "Completed" : "Pending"}</p>
   <p>• <b>Key Observations:</b><br>Not Available</p>
 
-  <h4 style="margin-top:10px;">3.2 Vendor Assessment</h4>
+ <h4 style="margin-top:15px; margin-bottom:5px; font-weight:600;">
+  3.2 Vendor Assessment
+</h4>
   <p>• <b>Vendor Questionnaire Completed:</b> ${getVal("dtClearance") || "Pending"}</p>
   <p>• <b>Data Security Measures:</b> Not Available</p>
   <p>• <b>Hosting Location:</b> Not Available</p>
@@ -518,32 +520,44 @@ const memo = `
 
   <hr style="margin:30px 0; border-top:1px solid #e5e5e5;">
 
-  <h3>4. Risk & Compliance Review</h3>
+  <h3 style="margin-top:25px; margin-bottom:10px; font-weight:600;">
+  4. Risk & Compliance Overview
+</h3>
 
-  <h4>4.1 IT Clearance</h4>
+ <h4 style="margin-top:15px; margin-bottom:5px; font-weight:600;">
+  4.1 IT Clearance
+</h4>
   <p>• <b>Status:</b> Pending</p>
   <p>• <b>Comments:</b> Not Available</p>
 
-  <h4>4.2 Data Security & Privacy</h4>
+  <h4 style="margin-top:15px; margin-bottom:5px; font-weight:600;">
+  4.2 Data Security & Privacy
+</h4>
   <p>• <b>PII / Sensitive Data:</b> Not Available</p>
   <p>• <b>Data Residency Impact:</b> Not Available</p>
   <p>• <b>Encryption Controls:</b> Not Available</p>
 
-  <h4>4.3 Legal Documentation</h4>
+ <h4 style="margin-top:15px; margin-bottom:5px; font-weight:600;">
+  4.3 Legal Documentation
+</h4>
   <p>• <b>NDA:</b> Not Available</p>
   <p>• <b>MSA:</b> Not Available</p>
   <p>• <b>SOW:</b> ${getVal("sowType") || "Not Available"}</p>
 
   <hr style="margin:30px 0; border-top:1px solid #e5e5e5;">
 
-  <h3>5. Business Approval</h3>
+ <h3 style="margin-top:25px; margin-bottom:10px; font-weight:600;">
+  5. Business Approval
+</h3>
   <p>• <b>Status:</b> ${getVal("partnerDecision") || "Pending"}</p>
   <p>• <b>Approving Partner:</b> Not Available</p>
   <p>• <b>Approval Date:</b> Not Available</p>
 
 <hr style="margin:30px 0; border-top:1px solid #e5e5e5;">
 
-  <h3>6. Pilot Testing</h3>
+  <h3 style="margin-top:25px; margin-bottom:10px; font-weight:600;">
+  6. Pilot Testing
+</h3>
   <p>• <b>Pilot Conducted:</b> Not Available</p>
   <p>• <b>Number of Test Cases:</b> Not Available</p>
 
@@ -552,7 +566,9 @@ const memo = `
 
   <hr style="margin:30px 0; border-top:1px solid #e5e5e5;">
 
-  <h3>7. Internal Clearances</h3>
+ <h3 style="margin-top:25px; margin-bottom:10px; font-weight:600;">
+  7. Internal Clearances
+</h3>
 
   <table style="width:100%; border-collapse: collapse; margin-top:10px;">
     <tr>
@@ -584,31 +600,41 @@ const memo = `
 
   <hr style="margin:30px 0; border-top:1px solid #e5e5e5;">
 
-  <h3>8. Exceptions / Deviations</h3>
+ <h3 style="margin-top:25px; margin-bottom:10px; font-weight:600;">
+  8. Exceptions/Deviations
+</h3>
   <p>None</p>
 
 <hr style="margin:30px 0; border-top:1px solid #e5e5e5;">
 
-  <h3>9. Final Decision</h3>
+ <h3 style="margin-top:25px; margin-bottom:10px; font-weight:600;">
+  9. Final Decision
+</h3>
   <p>• <b>Status:</b> Pending</p>
   <p>• <b>Conditions:</b> None</p>
 
   <hr style="margin:30px 0; border-top:1px solid #e5e5e5;">
 
-  <h3>10. Rollout Plan</h3>
+ <h3 style="margin-top:25px; margin-bottom:10px; font-weight:600;">
+  10. Roll out Plan
+</h3>
   <p>• <b>Status:</b> Not Started</p>
   <p>• <b>Users:</b> Not Available</p>
   <p>• <b>Go-Live Date:</b> Not Available</p>
 
  <hr style="margin:30px 0; border-top:1px solid #e5e5e5;">
 
-  <h3>11. Audit Trail</h3>
+<h3 style="margin-top:25px; margin-bottom:10px; font-weight:600;">
+  11. Audit Trail
+</h3>
   <p>• <b>Completion:</b> Not Calculated</p>
   <p>• <b>All Steps Completed:</b> No</p>
 
  <hr style="margin:30px 0; border-top:1px solid #e5e5e5;">
 
-  <h3>12. Declaration</h3>
+ <h3 style="margin-top:25px; margin-bottom:10px; font-weight:600;">
+  12. Declaration
+</h3>
   <p>
     This memo confirms that the tool has undergone required evaluation and approvals.
   </p>
