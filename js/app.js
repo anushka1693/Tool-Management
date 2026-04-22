@@ -460,47 +460,75 @@ function generateToolMemo() {
 
   const getVal = (id) => document.getElementById(id)?.value || "";
   const today = new Date().toLocaleDateString();
+  
+const memo = `
+<div style="font-family: Arial; color:#333;">
 
-  const memo = `
-KNAV – TOOL CLEARANCE MEMORANDUM
+  <h2 style="text-align:center; font-weight:bold; margin-bottom:20px;">
+    KNAV – TOOL CLEARANCE MEMORANDUM
+  </h2>
 
-Date: ${today}
-Prepared By: ${getVal("requestorName")}
-Practice Area: ${getVal("practiceArea")}
+  <p><b>Date:</b> ${today}</p>
+  <p><b>Prepared By:</b> ${getVal("requestorName")}</p>
+  <p><b>Practice Area:</b> ${getVal("practiceArea")}</p>
 
-----------------------------------------
+  <hr style="margin:15px 0;">
 
-1. Tool Overview
-Tool Name: ${getVal("toolName")}
-Vendor / Company: ${getVal("companyName")}
-Tool Type: ${selectedToolType === "new" ? "In-house" : "External"}
+  <h3>1. Tool Overview</h3>
+  <p><b>Tool Name:</b> ${getVal("toolName")}</p>
+  <p><b>Vendor / Company:</b> ${getVal("companyName")}</p>
+  <p><b>Tool Type:</b> ${selectedToolType === "new" ? "In-house" : "External"}</p>
 
-----------------------------------------
+  <h3>2. Request Details</h3>
+  <p><b>Request Initiated By:</b> ${getVal("requestorName")}</p>
+  <p><b>Request Type:</b> ${selectedToolType === "new" ? "New Development" : "External Tool Onboarding"}</p>
 
-2. Demo
-Demo Link: ${getVal("demoLink")}
-Owner: ${getVal("demoOwner")}
+  <h3>3. Demo</h3>
+  <p><b>Status:</b> ${getVal("demoLink") ? "Completed" : "Pending"}</p>
+  <p><b>Attendees:</b> ${getVal("demoAttendees")}</p>
 
-----------------------------------------
+  <h3>4. Vendor / DT Clearance</h3>
+  <p><b>DT Clearance:</b> ${getVal("dtClearance") || "Pending"}</p>
 
-3. Vendor / DT Clearance
-DT Clearance: ${getVal("dtClearance") || "Pending"}
+  <h3>5. Partner Approval</h3>
+  <p><b>Decision:</b> ${getVal("partnerDecision") || "Pending"}</p>
 
-----------------------------------------
+  <h3>6. Legal</h3>
+  <p><b>SOW Type:</b> ${getVal("sowType") || "Not Available"}</p>
 
-4. Partner Approval
-Decision: ${getVal("partnerDecision") || "Pending"}
+  <h3>7. Internal Clearances</h3>
 
-----------------------------------------
+  <table style="width:100%; border-collapse: collapse; margin-top:10px;">
+    <tr>
+      <th style="border:1px solid #ccc; padding:8px;">Function</th>
+      <th style="border:1px solid #ccc; padding:8px;">Status</th>
+    </tr>
+    <tr>
+      <td style="border:1px solid #ccc; padding:8px;">DT</td>
+      <td style="border:1px solid #ccc; padding:8px;">Pending</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #ccc; padding:8px;">AI</td>
+      <td style="border:1px solid #ccc; padding:8px;">Pending</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #ccc; padding:8px;">IT</td>
+      <td style="border:1px solid #ccc; padding:8px;">Pending</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #ccc; padding:8px;">QC</td>
+      <td style="border:1px solid #ccc; padding:8px;">Pending</td>
+    </tr>
+  </table>
 
-5. Legal
-SOW Type: ${getVal("sowType") || "Not Available"}
+  <h3 style="margin-top:15px;">Final Decision</h3>
+  <p><b>Status:</b> Pending</p>
 
-----------------------------------------
+</div>
 `;
 
-  const textarea = document.getElementById("toolMemoContent");
-  if (textarea) textarea.value = memo;
+const container = document.getElementById("toolMemoContent");
+if (container) container.innerHTML = memo;
 }
 
 // =======================
