@@ -1250,18 +1250,18 @@ loadPilotSection();
 // ATTACH PROGRESS TRACKING
 // =======================
 
-attachProgressTracking("toolDetailsSection", 0);
-attachProgressTracking("demoSection", 1);
-attachProgressTracking("questionnaireSection", 2);
-attachProgressTracking("itClearanceSection", 3);
-attachProgressTracking("partnerClearanceSection", 4);
-attachProgressTracking("pilotSection", 5);
-attachProgressTracking("dtClearanceSection", 6);
-attachProgressTracking("aiClearanceSection", 7);
-attachProgressTracking("toolMemoSection", 8);
-attachProgressTracking("qcClearanceSection", 9);
-attachProgressTracking("msaSection", 10);
-attachProgressTracking("rolloutSection", 11);
+attachProgressTracking("section1", 0);
+attachProgressTracking("section2", 1);
+attachProgressTracking("section3", 2);
+attachProgressTracking("section4", 3);
+attachProgressTracking("section5", 4);
+attachProgressTracking("section6", 5);
+attachProgressTracking("section7", 6);
+attachProgressTracking("section8", 7);
+attachProgressTracking("section9", 8);
+attachProgressTracking("section10", 9);
+attachProgressTracking("section11", 10);
+attachProgressTracking("section12", 11);
 
 // ======================
 // Load Logged-in User
