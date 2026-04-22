@@ -5,9 +5,40 @@ let loggedInUser = "";
 // =======================
 
 let tools = [];
+let auditTrail = [];
 let selectedToolType = "new";
 let filter = "all";
 let currentToolIndex = null;
+
+// =======================
+// USER HELPERS
+// =======================
+
+function getUserInitials() {
+  if (!loggedInUser) return "NA";
+
+  return loggedInUser
+    .split(" ")
+    .map(n => n[0])
+    .join("")
+    .toUpperCase();
+}
+
+function addAuditLog({ step, question, action, value }) {
+
+  const entry = {
+    step,
+    question,
+    action,
+    value,
+    user: getUserInitials(),
+    timestamp: new Date().toLocaleString()
+  };
+
+  auditTrail.push(entry);
+
+  console.log("Audit Log:", entry);
+}
 
 // =======================
 // SECTION PROGRESS LOGIC
@@ -907,33 +938,30 @@ function setFilter(f) {
 // =======================
 
 const itChecklistData = [
+
   { section: "Access Control", team: "IT", question: "Does the tool support role-based access control (RBAC)?" },
-  { section: "Access Control", team: "IT", question: "Is least privilege access enforced?" },
-  { section: "Access Controls", team: "IT", question: "Are user roles formally defined?" },
-  { section: "Access Controls", team: "IT", question: "Is there periodic user access review (quarterly)?" },
-  { section: "Access Controls", team: "IT", question: "Can access be revoked immediately upon termination?" },
-  { section: "Access Controls", team: "IT", question: "Does the system support SSO (Azure AD)?" },
-  { section: "Authentication", team: "IT", question: "Is SSO (Azure AD) enabled?" },
-  { section: "Authentication", team: "IT", question: "Is MFA enforced?" },
-  { section: "Authentication & Identity", team: "IT", question: "Is authentication handled via enterprise identity provider?" },
-  { section: "Authentication & Identity", team: "IT", question: "Are passwords stored securely (hashed + salted)?" },
-  { section: "Authentication & Identity", team: "IT", question: "Are there controls for failed login attempts / lockout?" },
-  { section: "Authentication & Identity", team: "IT", question: "Is session timeout configured?" },
-  { section: "Change Management", team: "IT", question: "Is there a formal change management process?" },
-  { section: "Change Management", team: "IT", question: "Are deployments approved before production?" },
-  { section: "Change Management", team: "IT", question: "Is version control used (Git)?" },
-  { section: "Change Management", team: "IT", question: "Are rollback mechanisms available?" },
-  { section: "Infrastructure", team: "IT", question: "Is data encrypted at rest and in transit?" },
-  { section: "Infrastructure & Hosting", team: "IT", question: "Where is the tool hosted? (Azure / AWS / SaaS)" },
-  { section: "Infrastructure & Hosting", team: "IT", question: "Is data encrypted at rest?" },
-  { section: "Infrastructure & Hosting", team: "IT", question: "Is data encrypted in transit (HTTPS)?" },
-  { section: "Infrastructure & Hosting", team: "IT", question: "Are backups enabled?" },
-  { section: "Infrastructure & Hosting", team: "IT", question: "What is the RPO / RTO?" },
-  { section: "Security", team: "IT", question: "Has VAPT been performed?" },
-  { section: "Security & Vulnerability", team: "IT", question: "Has the tool undergone VAPT / penetration testing?" },
-  { section: "Security & Vulnerability", team: "IT", question: "Are vulnerabilities tracked and remediated?" },
-  { section: "Security & Vulnerability", team: "IT", question: "Is antivirus / endpoint protection used?" },
-  { section: "Security & Vulnerability", team: "IT", question: "Are logs monitored for suspicious activity?" }
+  { section: "Access Control", team: "IT", question: "Are user roles and permissions formally documented and approved?" },
+  { section: "Access Control", team: "IT", question: "Is periodic user access review performed (e.g., quarterly)?" },
+  { section: "Access Control", team: "IT", question: "Can user access be revoked immediately upon employee termination?" },
+
+  { section: "Authentication", team: "IT", question: "Does the tool support Single Sign-On (SSO) via Azure AD or enterprise identity provider?" },
+  { section: "Authentication", team: "IT", question: "Is session timeout configured for inactive users?" },
+
+  { section: "Change Management", team: "IT", question: "Is there a documented change management process for system updates?" },
+  { section: "Change Management", team: "IT", question: "Are changes tested and approved before deployment to production?" },
+  { section: "Change Management", team: "IT", question: "Is version control used for source code management (e.g., Git)?" },
+  { section: "Change Management", team: "IT", question: "Are rollback or recovery mechanisms available for failed deployments?" },
+
+  { section: "Infrastructure & Hosting", team: "IT", question: "Where is the tool hosted (Azure, AWS, on-premise, or SaaS)?" },
+  { section: "Infrastructure & Hosting", team: "IT", question: "Is data encrypted both at rest and in transit?" },
+  { section: "Infrastructure & Hosting", team: "IT", question: "Are system backups performed regularly?" },
+  { section: "Infrastructure & Hosting", team: "IT", question: "What are the defined Recovery Point Objective (RPO) and Recovery Time Objective (RTO)?" },
+
+  { section: "Security & Monitoring", team: "IT", question: "Has the tool undergone vulnerability assessment and penetration testing (VAPT)?" },
+  { section: "Security & Monitoring", team: "IT", question: "Are identified vulnerabilities tracked and remediated?" },
+  { section: "Security & Monitoring", team: "IT", question: "Are system and access logs monitored for suspicious activity?" },
+  { section: "Security & Monitoring", team: "IT", question: "Is endpoint protection or antivirus implemented where applicable?" }
+
 ];
 
 // =======================
@@ -952,7 +980,9 @@ function loadITChecklist() {
       <td class="p-2 border">${item.section}</td>
       <td class="p-2 border">${item.team}</td>
       <td class="p-2 border">${item.question}</td>
-      <td class="p-2 border"><input type="text" placeholder="Answer" class="w-full border rounded p-1"></td>
+      <td class="p-2 border">
+      <input type="text" placeholder="Answer" class="answer-input w-full border rounded p-1">
+    </td>
       <td class="p-2 border">
 
       <input
@@ -964,9 +994,11 @@ function loadITChecklist() {
       <div class="file-list text-xs mt-2 space-y-1"></div>
       
       </td>
-      <td class="p-2 border"><input type="text" placeholder="Owner" class="w-full border rounded p-1"></td>
       <td class="p-2 border">
-        <select class="w-full border rounded p-1">
+      <input type="text" placeholder="Owner" class="owner-input w-full border rounded p-1">
+    </td>
+      <td class="p-2 border">
+        <select class="status-select w-full border rounded p-1">
           <option value="">Select Status</option>
           <option value="pending">Pending</option>
           <option value="in-progress">In Progress</option>
@@ -975,6 +1007,56 @@ function loadITChecklist() {
       </td>
     `;
     tbody.appendChild(tr);
+  });
+}
+
+attachITAuditListeners();
+
+function attachITAuditListeners() {
+
+  const rows = document.querySelectorAll("#itChecklist tr");
+
+  rows.forEach(row => {
+
+    const question = row.children[2]?.innerText;
+
+    const answer = row.querySelector(".answer-input");
+    const owner = row.querySelector(".owner-input");
+    const status = row.querySelector(".status-select");
+
+    if (answer) {
+      answer.addEventListener("change", () => {
+        addAuditLog({
+          step: "IT Clearance",
+          question,
+          action: "Answer Updated",
+          value: answer.value
+        });
+      });
+    }
+
+    if (owner) {
+      owner.addEventListener("change", () => {
+        addAuditLog({
+          step: "IT Clearance",
+          question,
+          action: "Owner Updated",
+          value: owner.value
+        });
+      });
+    }
+
+    if (status) {
+      status.addEventListener("change", () => {
+        addAuditLog({
+          step: "IT Clearance",
+          question,
+          action: "Status Updated",
+          value: status.value
+        });
+      });
+    }
+
   });
 }
 
@@ -988,30 +1070,24 @@ window.addEventListener('DOMContentLoaded', loadITChecklist);
 // =======================
 
 const dtChecklistData = [
-  { section: "Architecture", team: "DT", question: "Is the tool scalable?" },
-  { section: "Architecture", team: "DT", question: "Does it support API-based integration?" },
-  { section: "Architecture", team: "DT", question: "Is the architecture documented?" },
-  { section: "Automation", team: "DT", question: "Can workflows be automated?" },
-  { section: "Automation", team: "DT", question: "Can approvals be tracked digitally?" },
-  { section: "Automation", team: "DT", question: "Does it support Power Automate / APIs?" },
-  { section: "Business Fit", team: "DT", question: "What business problem does this tool solve?" },
-  { section: "Business Fit", team: "DT", question: "Is this tool replacing an existing system?" },
-  { section: "Business Fit", team: "DT", question: "Is there duplication with existing tools?" },
-  { section: "Data Flow", team: "DT", question: "Is data classified (PII/confidential)?" },
-  { section: "Data Flow", team: "DT", question: "What data is captured?" },
-  { section: "Data Flow", team: "DT", question: "Where is data stored?" },
-  { section: "Data Flow", team: "DT", question: "Is there data classification (PII / confidential)?" },
-  { section: "Integration", team: "DT", question: "Does it integrate with enterprise systems?" },
-  { section: "Integration", team: "DT", question: "Does the tool integrate with:\nAzure AD\nSharePoint\nERP / CRM systems" },
-  { section: "Integration", team: "DT", question: "Are APIs secure (OAuth / tokens)?" },
-  { section: "Master Checklist", team: "DT", question: "All approvals completed (IT / DT / QC)" },
-  { section: "Master Checklist", team: "DT", question: "Audit logs available" },
-  { section: "Master Checklist", team: "DT", question: "Access controls verified" },
-  { section: "Master Checklist", team: "DT", question: "Change management documented" },
-  { section: "Master Checklist", team: "DT", question: "Risk assessment completed" },
-  { section: "Master Checklist", team: "DT", question: "Data protection validated" },
-  { section: "Master Checklist", team: "DT", question: "Contracts (MSA / NDA) signed" },
-  { section: "Master Checklist", team: "DT", question: "Tool memo prepared" }
+
+  { section: "Business Fit", team: "DT", question: "What business problem or process does this tool address?" },
+  { section: "Business Fit", team: "DT", question: "Which teams or functions will use this tool?" },
+  { section: "Business Fit", team: "DT", question: "Will this tool replace an existing system or manual process?" },
+  { section: "Business Fit", team: "DT", question: "Does this tool duplicate functionality available in existing systems?" },
+
+  { section: "Architecture", team: "DT", question: "Is the tool cloud-based or on-premise?" },
+  { section: "Architecture", team: "DT", question: "Is the system architecture documented?" },
+  { section: "Architecture", team: "DT", question: "Can the tool scale to support future users and data growth?" },
+
+  { section: "Integration & Automation", team: "DT", question: "Does the tool support automation through APIs or platforms such as Power Automate?" },
+  { section: "Integration & Automation", team: "DT", question: "Which enterprise systems does it integrate with (e.g., Azure AD, SharePoint, ERP, CRM)?" },
+  { section: "Integration & Automation", team: "DT", question: "Are APIs available for integration with other systems?" },
+
+  { section: "Data & Security", team: "DT", question: "What type of data will be captured or processed by the tool?" },
+  { section: "Data & Security", team: "DT", question: "Does the tool process sensitive or confidential data (e.g., PII)?" },
+  { section: "Data & Security", team: "DT", question: "Where will the data be stored or hosted (region/cloud provider)?" }
+
 ];
 
 // =======================
@@ -1019,27 +1095,29 @@ const dtChecklistData = [
 // =======================
 
 const aiChecklistData = [
-  { section: "AI Governance", team: "AI", question: "Is the model explainable?" },
-  { section: "AI Governance", team: "AI", question: "Is client data protected?" },
-  { section: "AI Governance", team: "AI", question: "Is human oversight implemented?" },
 
-  { section: "Bias & Ethics", team: "AI", question: "Has bias testing been performed?" },
-  { section: "Bias & Ethics", team: "AI", question: "Are outputs monitored for fairness?" },
+  { section: "Governance & Oversight", team: "AI", question: "Is there human oversight for AI-generated outputs or decisions?" },
+  { section: "Governance & Oversight", team: "AI", question: "Are AI outputs reviewed or validated before use in critical processes?" },
+  { section: "Governance & Oversight", team: "AI", question: "Is there an approval process for deploying or using AI models?" },
+  { section: "Governance & Oversight", team: "AI", question: "Are policies in place governing responsible AI usage?" },
 
-  { section: "Data Usage", team: "AI", question: "What data is used for training?" },
-  { section: "Data Usage", team: "AI", question: "Is client data used?" },
-  { section: "Data Usage", team: "AI", question: "Is data anonymized?" },
+  { section: "Bias & Fairness", team: "AI", question: "Has bias testing been conducted on the AI model?" },
+  { section: "Bias & Fairness", team: "AI", question: "Are AI outputs monitored to detect bias or unfair outcomes?" },
+  { section: "Bias & Fairness", team: "AI", question: "Are mitigation controls implemented if bias is detected?" },
 
-  { section: "Governance", team: "AI", question: "Is there human oversight?" },
-  { section: "Governance", team: "AI", question: "Are AI decisions reviewed?" },
-  { section: "Governance", team: "AI", question: "Is there an approval workflow?" },
+  { section: "Data Usage & Privacy", team: "AI", question: "What datasets are used to train or fine-tune the AI model?" },
+  { section: "Data Usage & Privacy", team: "AI", question: "Is client or confidential data used for training or inference?" },
+  { section: "Data Usage & Privacy", team: "AI", question: "Is sensitive data anonymized or masked before use?" },
+  { section: "Data Usage & Privacy", team: "AI", question: "Are data usage policies defined for AI inputs and outputs?" },
 
-  { section: "Model Transparency", team: "AI", question: "Is the AI model explainable?" },
-  { section: "Model Transparency", team: "AI", question: "Are outputs auditable?" },
+  { section: "Transparency & Explainability", team: "AI", question: "Is the AI model explainable or interpretable where required?" },
+  { section: "Transparency & Explainability", team: "AI", question: "Are AI-generated outputs traceable and auditable?" },
+  { section: "Transparency & Explainability", team: "AI", question: "Is documentation available describing model behavior and limitations?" },
 
-  { section: "Security", team: "AI", question: "Is prompt data stored?" },
-  { section: "Security", team: "AI", question: "Is there risk of data leakage (LLM risk)?" },
-  { section: "Security", team: "AI", question: "Are inputs/outputs logged?" }
+  { section: "Security & Risk", team: "AI", question: "Are AI prompts, inputs, and outputs logged securely?" },
+  { section: "Security & Risk", team: "AI", question: "Is there a risk of sensitive data leakage through prompts or responses (LLM risk)?" },
+  { section: "Security & Risk", team: "AI", question: "Are controls in place to prevent unauthorized use of AI models?" }
+
 ];
 
 // =======================
@@ -1047,31 +1125,29 @@ const aiChecklistData = [
 // =======================
 
 const qcChecklistData = [
-  { section: "Audit Trail", team: "QC", question: "Are logs timestamped and user-specific?" },
-  { section: "Audit Trail", team: "QC", question: "Does the system maintain audit logs?" },
-  { section: "Audit Trail", team: "QC", question: "Are logs: Immutable / Timestamped / User-specific?" },
-  { section: "Audit Trail", team: "QC", question: "Can logs be exported?" },
 
-  { section: "Compliance", team: "QC", question: "Is the tool SOC compliant?" },
-  { section: "Compliance", team: "QC", question: "Is the tool compliant with: SOC 1 / SOC 2 / ITGC?" },
-  { section: "Compliance", team: "QC", question: "Are control owners defined?" },
+  { section: "Audit Trail", team: "QC", question: "Does the system maintain audit logs for user actions?" },
+  { section: "Audit Trail", team: "QC", question: "Are audit logs immutable and protected from modification?" },
+  { section: "Audit Trail", team: "QC", question: "Can audit logs be exported for review or investigation?" },
 
-  { section: "Data Retention", team: "QC", question: "What is the data retention policy?" },
-  { section: "Data Retention", team: "QC", question: "Can data be archived?" },
-  { section: "Data Retention", team: "QC", question: "Is deletion controlled?" },
+  { section: "Compliance & Controls", team: "QC", question: "Is the tool compliant with applicable standards (e.g., SOC 1 / SOC 2 / ITGC)?" },
+  { section: "Compliance & Controls", team: "QC", question: "Are internal controls documented and monitored?" },
 
-  { section: "Evidence & Documentation", team: "QC", question: "Are approvals documented?" },
-  { section: "Evidence & Documentation", team: "QC", question: "Are documents version-controlled?" },
-  { section: "Evidence & Documentation", team: "QC", question: "Is there evidence of: IT / DT / Partner approval?" },
+  { section: "Data Retention", team: "QC", question: "What is the defined data retention policy for the tool?" },
+  { section: "Data Retention", team: "QC", question: "Can data be archived according to retention policies?" },
+  { section: "Data Retention", team: "QC", question: "Are data deletion processes controlled and documented?" },
 
-  { section: "Final Review", team: "QC", question: "All approvals completed?" },
-  { section: "Final Review", team: "QC", question: "Documents (NDA/MSA) signed?" },
+  { section: "Documentation & Evidence", team: "QC", question: "Are approvals and key decisions documented?" },
+  { section: "Documentation & Evidence", team: "QC", question: "Are system documents and policies version-controlled?" },
+  { section: "Documentation & Evidence", team: "QC", question: "Is there evidence of IT approval, DT approval, and Partner approval?" },
 
-  { section: "Risk", team: "QC", question: "Is risk assessment completed?" },
+  { section: "Risk Management", team: "QC", question: "Has a risk assessment been performed for the tool?" },
+  { section: "Risk Management", team: "QC", question: "Is a risk rating assigned (Low / Medium / High)?" },
+  { section: "Risk Management", team: "QC", question: "Are mitigation actions defined for identified risks?" },
 
-  { section: "Risk Assessment", team: "QC", question: "Has a risk assessment been performed?" },
-  { section: "Risk Assessment", team: "QC", question: "Is there a risk rating (Low / Medium / High)?" },
-  { section: "Risk Assessment", team: "QC", question: "Are mitigation steps documented?" }
+  { section: "Final Review", team: "QC", question: "Have all required approvals been completed?" },
+  { section: "Final Review", team: "QC", question: "Are contractual documents (e.g., NDA / MSA) signed and stored?" }
+
 ];
 
 // =======================
@@ -1182,6 +1258,34 @@ const userName = loggedInUser;// replace later with logged-in user
 
   cell.innerHTML = `<span class="font-semibold text-green-700">${initials}</span>`;
 }
+
+function signOffIT() {
+
+  const initials = getUserInitials();
+
+  const rows = document.querySelectorAll("#itChecklist tr");
+
+  rows.forEach(row => {
+
+    const owner = row.querySelector(".owner-input");
+    const question = row.children[2]?.innerText;
+
+    if (owner && !owner.value) {
+      owner.value = initials;
+
+      addAuditLog({
+        step: "IT Clearance",
+        question,
+        action: "Signed Off",
+        value: initials
+      });
+    }
+
+  });
+
+  alert("IT Clearance Signed Off");
+}
+
 
 // =======================
 // ENABLE / DISABLE ROLLOUT ROW
