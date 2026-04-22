@@ -38,6 +38,8 @@ function addAuditLog({ step, question, action, value }) {
   auditTrail.push(entry);
 
   console.log("Audit Log:", entry);
+
+   renderITAuditTrail(); 
 }
 
 // =======================
@@ -1555,4 +1557,28 @@ function downloadWord() {
   link.href = URL.createObjectURL(blob);
   link.download = "Tool_Memo.doc";
   link.click();
+}
+
+function renderITAuditTrail() {
+
+  const tbody = document.getElementById("auditITBody");
+  if (!tbody) return;
+
+  tbody.innerHTML = "";
+
+  const itLogs = auditTrail.filter(log => log.step === "IT Clearance");
+
+  itLogs.forEach(log => {
+
+    const tr = document.createElement("tr");
+
+    tr.innerHTML = `
+      <td class="p-2 border">${log.timestamp}</td>
+      <td class="p-2 border font-semibold">${log.user}</td>
+      <td class="p-2 border">${log.action}</td>
+      <td class="p-2 border">${log.question || "-"}</td>
+    `;
+
+    tbody.appendChild(tr);
+  });
 }
