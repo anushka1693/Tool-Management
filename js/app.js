@@ -90,17 +90,6 @@ function getUserInitials() {
     .toUpperCase();
 }
 
-function addAuditLog({ step, question, action, value }) {
-
-  const entry = {
-    step,
-    question,
-    action,
-    value,
-    user: getUserInitials(),
-    timestamp: new Date().toLocaleString()
-  };
-
 async function addAuditLog({ step, question, action, value }) {
 
   try {
@@ -121,7 +110,7 @@ async function addAuditLog({ step, question, action, value }) {
     console.error("Audit failed:", err);
   }
 }
-}
+
 
 // =======================
 // SECTION PROGRESS LOGIC
@@ -1442,16 +1431,18 @@ function toggleRolloutRow(checkbox) {
 
 }
 
-function handleFileUpload(input){
+async function handleFileUpload(input){
 
   const container = input.parentElement.querySelector(".file-list");
 
-  Array.from(input.files).forEach(file => {
+  const stepName = input.closest("section")?.id || "Unknown Step";
 
+  for (const file of input.files) {
+
+    // UI display (same as before)
     const url = URL.createObjectURL(file);
 
     const row = document.createElement("div");
-
     row.className = "flex items-center gap-2";
 
     row.innerHTML = `
@@ -1472,8 +1463,25 @@ function handleFileUpload(input){
 
     container.appendChild(row);
 
-  });
+    // 🔥 SAVE TO AZURE TABLE
+    try {
+      await fetch("/api/uploadFile", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          toolId: tools[currentToolIndex]?.name || "unknown",
+          fileName: file.name,
+          step: stepName,
+          user: getUserInitials()
+        })
+      });
+    } catch (err) {
+      console.error("File save failed:", err);
+    }
 
+  }
 }
 
 // =======================
@@ -1606,9 +1614,9 @@ function handleAction(action, toolId) {
     showAudit(toolId);
   }
 
-  if (action === "dump") {
-    alert("Data Dump coming next");
-  }
+ if (action === "dump") {
+  showDataDump(toolId);
+}
 }
 
 async function showAudit(toolId) {
@@ -1661,6 +1669,8 @@ async function showAudit(toolId) {
     alert("Error loading audit");
   }
 }
+
+
 
 // ======================
 // Run on Page Load
