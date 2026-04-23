@@ -101,12 +101,25 @@ function addAuditLog({ step, question, action, value }) {
     timestamp: new Date().toLocaleString()
   };
 
-  auditTrail.push(entry);
+async function addAuditLog({ step, question, action, value }) {
 
-  console.log("Audit Log:", entry);
-
-  if (document.getElementById("itChecklist")) {
-  renderITAuditTrail();
+  try {
+    await fetch("/api/logAudit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        toolId: tools[currentToolIndex]?.name || "unknown",
+        step,
+        action,
+        details: `${question || ""} ${value || ""}`,
+        user: getUserInitials()
+      })
+    });
+  } catch (err) {
+    console.error("Audit failed:", err);
+  }
 }
 }
 
@@ -522,7 +535,15 @@ function render() {
         <td class="p-2">${percent}%</td>
 
         <td class="p-2">
-          <button onclick="openTool(${i})" class="btn-primary px-2 py-1">View</button>
+        8<select onchange="handleAction(this.value, '${t.name}')"
+      class="border px-2 py-1 rounded">
+    
+      <option value="">Select</option>
+      <option value="view">View</option>
+      <option value="audit">Audit Trail</option>
+      <option value="dump">Data Dump</option>
+    
+    </select>
         </td>
       </tr>
       `;
@@ -1572,6 +1593,73 @@ function toggleUserMenu() {
 // ======================
 function logout() {
   window.location.href = "/.auth/logout";
+}
+
+function handleAction(action, toolId) {
+
+  if (action === "view") {
+    const index = tools.findIndex(t => t.name === toolId);
+    openTool(index);
+  }
+
+  if (action === "audit") {
+    showAudit(toolId);
+  }
+
+  if (action === "dump") {
+    alert("Data Dump coming next");
+  }
+}
+
+async function showAudit(toolId) {
+
+  try {
+    const res = await fetch(`/api/getAudit?toolId=${toolId}`);
+    const data = await res.json();
+
+    if (!data.length) {
+      alert("No audit records found");
+      return;
+    }
+
+    // GROUP BY STEP
+    const grouped = {};
+
+    data.forEach(item => {
+      if (!grouped[item.step]) {
+        grouped[item.step] = [];
+      }
+      grouped[item.step].push(item);
+    });
+
+    let html = `<h2 style="font-weight:bold;">Audit Trail</h2>`;
+
+    Object.keys(grouped).forEach(step => {
+
+      html += `<h3 style="margin-top:15px; color:#800000;">${step}</h3>`;
+
+      grouped[step].forEach(item => {
+        html += `
+          <div style="border-bottom:1px solid #ddd; padding:8px;">
+            <b>${item.action}</b><br/>
+            ${item.details || ""}
+            <br/>
+            <small>
+              ${item.user} | ${new Date(item.timestamp).toLocaleString()}
+            </small>
+          </div>
+        `;
+      });
+
+    });
+
+    const win = window.open("", "Audit", "width=600,height=500");
+    win.document.write(html);
+
+  } catch (err) {
+    console.error(err);
+    alert("Error loading audit");
+  }
 }
 
 // ======================
