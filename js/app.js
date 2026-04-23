@@ -61,6 +61,12 @@ function signOffRow(btn, question) {
     row.style.backgroundColor = "#e6fffa";
 
     addAuditEntry(question, "Signed Off");
+    addAuditLog({
+  step: "IT Clearance",
+  question,
+  action: "Signed Off",
+  value: user
+});
   }
 }
 
