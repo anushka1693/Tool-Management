@@ -1102,7 +1102,7 @@ function attachITAuditListeners() {
     if (answer) {
       answer.addEventListener("change", () => {
         addAuditLog({
-          step: "IT Clearance",
+          step: getCurrentStepName(),
           question,
           action: "Answer Updated",
           value: answer.value
@@ -1113,7 +1113,7 @@ function attachITAuditListeners() {
     if (owner) {
       owner.addEventListener("change", () => {
         addAuditLog({
-          step: "IT Clearance",
+          step: getCurrentStepName(),
           question,
           action: "Owner Updated",
           value: owner.value
@@ -1124,7 +1124,7 @@ function attachITAuditListeners() {
     if (status) {
       status.addEventListener("change", () => {
         addAuditLog({
-          step: "IT Clearance",
+         step: getCurrentStepName(),
           question,
           action: "Status Updated",
           value: status.value
@@ -1717,3 +1717,5 @@ function renderITAuditTrail() {
     tbody.appendChild(tr);
   });
 }
+
+
