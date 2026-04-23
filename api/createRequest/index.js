@@ -18,9 +18,11 @@ module.exports = async function (context, req) {
   ? JSON.parse(req.body)
   : req.body;
 
-   const entity = {
+   const toolId = body.toolName; // unique per tool
+
+const entity = {
   partitionKey: "tools",
-  rowKey: Date.now().toString(),
+  rowKey: toolId,   // 👈 FIX
 
   toolName: body.toolName || "",
   companyName: body.companyName || "",
@@ -34,7 +36,19 @@ module.exports = async function (context, req) {
   toolType: body.toolType || "New"
 };
 
-    await tableClient.createEntity(entity);
+  toolName: body.toolName || "",
+  companyName: body.companyName || "",
+  requestorName: body.requestorName || "",
+  practiceArea: body.practiceArea || "",
+
+  createdBy: body.createdBy || "",
+
+  requestedDate: body.requestedDate || "",
+  step: body.step || 0,
+  toolType: body.toolType || "New"
+};
+
+ await tableClient.upsertEntity(entity);
 
     context.res = {
       status: 200,
