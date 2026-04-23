@@ -32,22 +32,36 @@ function addAuditEntry(question, action) {
 
 // ================= SIGN OFF ROW =================
 function signOffRow(btn, question) {
+
   const row = btn.closest("tr");
   const ownerInput = row.querySelector(".owner-input");
-
   const user = document.getElementById("userAvatar")?.innerText || "NA";
 
-  if (!ownerInput.value) {
-    ownerInput.value = user;
+  const isSigned = btn.classList.contains("signed");
+
+  if (isSigned) {
+    // 🔁 UNDO
+    btn.classList.remove("signed");
+    btn.innerText = "Sign Off";
+
+    row.querySelectorAll("input, select").forEach(el => el.disabled = false);
+    row.style.backgroundColor = "";
+
+  } else {
+    // ✅ SIGN
+    btn.classList.add("signed");
+
+    if (!ownerInput.value) {
+      ownerInput.value = user;
+    }
+
+    row.querySelectorAll("input, select").forEach(el => el.disabled = true);
+
+    btn.innerText = "✔ Signed";
+    row.style.backgroundColor = "#e6fffa";
+
+    addAuditEntry(question, "Signed Off");
   }
-
-  row.querySelectorAll("input, select").forEach(el => el.disabled = true);
-
-  btn.disabled = true;
-
-  row.style.backgroundColor = "#e6fffa";
-
-  addAuditEntry(question, "Signed Off");
 }
 
 let loggedInUser = "";
@@ -1056,11 +1070,11 @@ function loadITChecklist() {
       class="owner-input border rounded p-1 w-20"
     >
 
-    <button 
-      onclick="signOffRow(this, '${item.question.replace(/'/g, "")}')"
-      class="bg-green-600 text-white px-2 py-1 rounded text-xs">
-      ✔
-    </button>
+<button 
+  onclick="signOffRow(this, '${item.question.replace(/'/g, "")}')"
+  class="bg-green-600 text-white px-2 py-1 rounded text-xs">
+  Sign Off
+</button>
 
   </div>
 </td>
