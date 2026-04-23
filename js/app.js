@@ -1313,17 +1313,23 @@ function renderDTChecklist() {
 
 function signOff(button) {
 
-const userName = loggedInUser;// replace later with logged-in user
+  const row = button.closest("tr");
 
-  const initials = userName
-    .split(" ")
-    .map(n => n[0])
-    .join("")
-    .toUpperCase();
+  // check if already signed
+  const isSigned = button.classList.contains("signed");
 
-  const cell = button.parentElement;
+  if (isSigned) {
+    // 🔁 undo
+    button.classList.remove("signed");
+    button.innerText = "Sign Off";
+    row.style.backgroundColor = "";
+  } else {
+    // ✅ sign
+    button.classList.add("signed");
+    button.innerText = "✔ Signed";
+    row.style.backgroundColor = "#e6fffa";
+  }
 
-  cell.innerHTML = `<span class="font-semibold text-green-700">${initials}</span>`;
 }
 
 function signOffIT() {
