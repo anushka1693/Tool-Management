@@ -1670,7 +1670,50 @@ async function showAudit(toolId) {
   }
 }
 
+}
+  
+// 👇 PASTE HERE (immediately after showAudit ends)
 
+async function showDataDump(toolId) {
+  try {
+    const res = await fetch(`/api/getFiles?toolId=${toolId}`);
+    const data = await res.json();
+
+    if (!data.length) {
+      alert("No files found");
+      return;
+    }
+
+    const grouped = {};
+
+    data.forEach(file => {
+      if (!grouped[file.step]) grouped[file.step] = [];
+      grouped[file.step].push(file);
+    });
+
+    let html = `<h2 style="font-weight:bold;">Data Dump</h2>`;
+
+    Object.keys(grouped).forEach(step => {
+      html += `<h3 style="margin-top:15px; color:#800000;">${step}</h3>`;
+
+      grouped[step].forEach(file => {
+        html += `
+          <div style="border-bottom:1px solid #ddd; padding:8px;">
+            <b>${file.fileName}</b><br/>
+            <small>${file.user}</small>
+          </div>
+        `;
+      });
+    });
+
+    const win = window.open("", "DataDump", "width=600,height=500");
+    win.document.write(html);
+
+  } catch (err) {
+    console.error(err);
+    alert("Error loading files");
+  }
+}
 
 // ======================
 // Run on Page Load
