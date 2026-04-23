@@ -90,28 +90,6 @@ function getUserInitials() {
     .toUpperCase();
 }
 
-async function addAuditLog({ step, question, action, value }) {
-
-  try {
-    await fetch("/api/logAudit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        toolId: tools[currentToolIndex]?.name || "unknown",
-        step,
-        action,
-        details: `${question || ""} ${value || ""}`,
-        user: getUserInitials()
-      })
-    });
-  } catch (err) {
-    console.error("Audit failed:", err);
-  }
-}
-
-
 // =======================
 // SECTION PROGRESS LOGIC
 // =======================
@@ -1431,59 +1409,33 @@ function toggleRolloutRow(checkbox) {
 
 }
 
-async function handleFileUpload(input){
+async function addAuditLog({ step, question, action, value }) {
 
-  const container = input.parentElement.querySelector(".file-list");
+  try {
 
-  const stepName = input.closest("section")?.id || "Unknown Step";
+    const toolId =
+      tools[currentToolIndex]?.name ||
+      document.getElementById("toolName")?.value ||
+      "unknown";
 
-  for (const file of input.files) {
+    await fetch("/api/logAudit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        toolId,
+        step,
+        action,
+        details: `${question || ""} ${value || ""}`,
+        user: getUserInitials()
+      })
+    });
 
-    // UI display (same as before)
-    const url = URL.createObjectURL(file);
-
-    const row = document.createElement("div");
-    row.className = "flex items-center gap-2";
-
-    row.innerHTML = `
-      <span>${file.name}</span>
-
-      <a href="${url}" target="_blank" class="text-blue-600 underline">
-        Open
-      </a>
-
-      <a href="${url}" download class="text-green-600 underline">
-        Download
-      </a>
-
-      <button onclick="this.parentElement.remove()" class="text-red-600 underline">
-        Remove
-      </button>
-    `;
-
-    container.appendChild(row);
-
-    // 🔥 SAVE TO AZURE TABLE
-    try {
-      await fetch("/api/uploadFile", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          toolId: tools[currentToolIndex]?.name || "unknown",
-          fileName: file.name,
-          step: stepName,
-          user: getUserInitials()
-        })
-      });
-    } catch (err) {
-      console.error("File save failed:", err);
-    }
-
+  } catch (err) {
+    console.error("Audit failed:", err);
   }
 }
-
 // =======================
 // INIT
 // =======================
