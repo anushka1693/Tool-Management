@@ -464,6 +464,9 @@ async function loadTools() {
   type: t.toolType || "New",
   step: t.step || 0,
   requestedDate: t.requestedDate || "-"
+
+  partitionKey: t.partitionKey,
+  rowKey: t.rowKey
 }));
 
     render();
@@ -508,15 +511,16 @@ function render() {
         <td class="p-2">${percent}%</td>
 
         <td class="p-2">
-        8<select onchange="handleAction(this.value, '${t.name}')"
-      class="border px-2 py-1 rounded">
-    
-      <option value="">Select</option>
-      <option value="view">View</option>
-      <option value="audit">Audit Trail</option>
-      <option value="dump">Data Dump</option>
-    
-    </select>
+<select onchange="handleAction(this.value, ${i})"
+  class="border px-2 py-1 rounded">
+
+  <option value="">Select</option>
+  <option value="view">View</option>
+  <option value="audit">Audit Trail</option>
+  <option value="dump">Data Dump</option>
+  <option value="delete">Delete</option>
+
+</select>
         </td>
       </tr>
       `;
@@ -941,6 +945,53 @@ function updateMiniDonuts(step) {
 
 function toggleAddMenu() {
   document.getElementById("addToolMenu").classList.toggle("hidden");
+}
+
+// ✅ ADD THIS FUNCTION HERE
+async function handleAction(action, index) {
+
+  if (!action) return;
+
+  const tool = tools[index];
+
+  if (action === "view") {
+    openTool(index);
+  }
+
+  if (action === "audit") {
+    alert("Audit Trail coming soon");
+  }
+
+  if (action === "dump") {
+    alert("Data Dump coming soon");
+  }
+
+  if (action === "delete") {
+
+    const confirmDelete = confirm(`Delete "${tool.name}"?`);
+    if (!confirmDelete) return;
+
+    try {
+      await fetch(`/api/deleteTool`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          partitionKey: tool.partitionKey,
+          rowKey: tool.rowKey
+        })
+      });
+
+      alert("Deleted successfully");
+
+      await loadTools();
+
+    } catch (err) {
+      console.error(err);
+      alert("Delete failed");
+    }
+  }
 }
 
 function selectToolType(type) {
