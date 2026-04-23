@@ -62,7 +62,7 @@ function signOffRow(btn, question) {
 
     addAuditEntry(question, "Signed Off");
     addAuditLog({
-  step: "IT Clearance",
+  step: getCurrentStepName(),
   question,
   action: "Signed Off",
   value: user
