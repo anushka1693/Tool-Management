@@ -45,6 +45,20 @@
     background-color: #198754 !important;
     color: white;
   }
+
+  #sidebar {
+  width: 240px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+#sidebar.collapsed {
+  width: 60px;
+}
+
+#sidebar.collapsed .menu-text {
+  display: none;
+}
 </style>
 
 </head>
@@ -55,6 +69,13 @@
 <div class="bg-white border-b px-6 py-3 flex items-center justify-between shadow-sm">
 
   <div class="flex items-center gap-4">
+
+     <!-- ⭐ ADD THIS BUTTON -->
+  <button onclick="toggleSidebar()" id="toggleBtn"
+    class="text-xl px-2 py-1 border rounded">
+    ⬅
+  </button>
+    
     <img src="/css/knav-logo.png" class="h-7">
    <div class="font-semibold text-gray-800 text-lg">Tool Clearance Hub</div>
   </div>
@@ -95,7 +116,7 @@
 <div class="flex min-h-screen">
 
 <!-- ================= LEFT SIDEBAR ================= -->
-<div class="w-60 bg-white p-4 shadow h-screen flex flex-col">
+<div id="sidebar" class="w-60 bg-white p-4 shadow h-screen flex flex-col">
 
   <!-- ADD TOOL -->
   <div class="relative mb-4">
@@ -119,8 +140,8 @@
   </div>
 
   <!-- DASHBOARD -->
-  <div onclick="closeToolForm()" class="font-semibold cursor-pointer mb-4">
-    Dashboard
+   <div onclick="closeToolForm()" class="font-semibold cursor-pointer mb-4">
+    <span class="menu-text">Dashboard</span>
   </div>
 
   <!-- WORKFLOW SIDEBAR -->
@@ -132,62 +153,62 @@
 
       <div id="step-0" onclick="goToStep(0)" class="workflow-item">
   <div class="donut" data-progress="0"></div>
-  <span>Tool Details</span>
+  <span class="menu-text">Tool Details</span>
 </div>
 
       <div id="step-1" onclick="goToStep(1)" class="workflow-item">
         <div class="donut" data-progress="0"></div>
-        <span>Demo</span>
+        <span class="menu-text">Demo</span>
       </div>
 
       <div id="step-2" onclick="goToStep(2)" class="workflow-item">
         <div class="donut" data-progress="0"></div>
-        <span>Vendor Questionnaire</span>
+         <span class="menu-text">Vendor Questionnaire</span>
       </div>
 
       <div id="step-3" onclick="goToStep(3)" class="workflow-item">
         <div class="donut" data-progress="0"></div>
-        <span>IT Clearance</span>
+         <span class="menu-text">IT Clearance</span>
       </div>
 
       <div id="step-4" onclick="goToStep(4)" class="workflow-item">
         <div class="donut" data-progress="0"></div>
-        <span>Partner Clearance</span>
+         <span class="menu-text">Partner Clearance</span>
       </div>
 
       <div id="step-5" onclick="goToStep(5)" class="workflow-item">
         <div class="donut" data-progress="0"></div>
-        <span>Pilot</span>
+         <span class="menu-text">Pilot</span>
       </div>
 
       <div id="step-6" onclick="goToStep(6)" class="workflow-item">
         <div class="donut" data-progress="0"></div>
-        <span>DT Clearance</span>
+         <span class="menu-text">DT Clearance</span>
       </div>
 
       <div id="step-7" onclick="goToStep(7)" class="workflow-item">
   <div class="donut" data-progress="0"></div>
-  <span>AI Clearance</span>
+   <span class="menu-text">AI Clearance</span>
 </div>
 
       <div id="step-8" onclick="goToStep(8)" class="workflow-item">
         <div class="donut" data-progress="0"></div>
-        <span>Tool Memo</span>
+         <span class="menu-text">Tool Memo</span>
       </div>
 
       <div id="step-9" onclick="goToStep(9)" class="workflow-item">
         <div class="donut" data-progress="0"></div>
-        <span>QC Clearance</span>
+         <span class="menu-text">QC Clearance</span>
       </div>
 
       <div id="step-10" onclick="goToStep(10)" class="workflow-item">
   <div class="donut" data-progress="0"></div>
-  <span>NDA / MSA / SOW</span>
+   <span class="menu-text">NDA / MSA / SOW</span>
 </div>
 
 <div id="step-11" onclick="goToStep(11)" class="workflow-item">
   <div class="donut" data-progress="0"></div>
-  <span>Rollout</span>
+   <span class="menu-text">Rollout</span>
 </div>
 
     </div>
