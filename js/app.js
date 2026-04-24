@@ -834,7 +834,7 @@ if (step === 9) {
 // NEXT STEP
 // =======================
 
-function nextStep() {
+async function nextStep() {
 
   let currentStep = 0;
 
@@ -859,10 +859,29 @@ while (currentStep < 11) {
 }
 
   // update tool state if exists
-  if (currentToolIndex !== null) {
-    tools[currentToolIndex].step = currentStep;
-    localStorage.setItem("tools", JSON.stringify(tools));
+if (currentToolIndex !== null) {
+
+  const tool = tools[currentToolIndex];
+
+  try {
+    await fetch("/api/updateStep", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        partitionKey: tool.partitionKey,
+        rowKey: tool.rowKey,
+        step: currentStep
+      })
+    });
+
+    await loadTools(); // refresh from backend
+
+  } catch (err) {
+    console.error("Step update failed:", err);
   }
+}
 
   // show next section
   showSection(currentStep);
@@ -873,7 +892,7 @@ while (currentStep < 11) {
 // CLICK SIDE STEP
 // =======================
 
-function goToStep(step) {
+async function goToStep(step) {
 
   if (currentToolIndex === null) {
     showSection(step);
@@ -881,9 +900,26 @@ function goToStep(step) {
     return;
   }
 
-  tools[currentToolIndex].step = step;
+const tool = tools[currentToolIndex];
 
-  localStorage.setItem("tools", JSON.stringify(tools));
+try {
+  await fetch("/api/updateStep", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      partitionKey: tool.partitionKey,
+      rowKey: tool.rowKey,
+      step: step
+    })
+  });
+
+  await loadTools();
+
+} catch (err) {
+  console.error("Step update failed:", err);
+}
 
   showSection(step);
 
