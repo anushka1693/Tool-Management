@@ -54,10 +54,29 @@
 
 #sidebar.collapsed {
   width: 60px;
+  padding: 10px 5px;
 }
 
+/* Hide text */
 #sidebar.collapsed .menu-text {
   display: none;
+}
+
+/* Center workflow items */
+#sidebar.collapsed .workflow-item {
+  justify-content: center;
+}
+
+/* Center donuts */
+#sidebar.collapsed .donut {
+  margin: 0 auto;
+}
+
+#toggleBtn {
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
 }
 </style>
 
@@ -116,7 +135,7 @@
 <div class="flex min-h-screen">
 
 <!-- ================= LEFT SIDEBAR ================= -->
-<div id="sidebar" class="w-60 bg-white p-4 shadow h-screen flex flex-col">
+<div id="sidebar" class="bg-white p-4 shadow h-screen flex flex-col">
 
   <!-- ADD TOOL -->
   <div class="relative mb-4">
