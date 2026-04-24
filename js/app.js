@@ -671,59 +671,65 @@ function render() {
 
 function openTool(index) {
 
-  currentToolIndex = index;
-  const tool = tools[index];
+    currentToolIndex = index;
+    const tool = tools[index];
 
-  document.getElementById("toolDetailsSection").classList.remove("hidden");
-  document.getElementById("dashboardSection").style.display = "none";
-  document.getElementById("workflowSidebar").classList.remove("hidden");
+    document.getElementById("toolDetailsSection").classList.remove("hidden");
+    document.getElementById("dashboardSection").style.display = "none";
+    document.getElementById("workflowSidebar").classList.remove("hidden");
 
-  document.getElementById("toolName").value = tool.name || "";
-  document.getElementById("companyName").value = tool.company || "";
-  document.getElementById("requestorName").value = tool.requestor || "";
-  document.getElementById("practiceArea").value = tool.practice || "";
+    //Section 1 (Tool Details)
+    document.getElementById("toolName").value = tool.name || "";
+    document.getElementById("companyName").value = tool.company || "";
+    document.getElementById("requestorName").value = tool.requestor || "";
+    document.getElementById("practiceArea").value = tool.practice || "";
 
-  document.getElementById("ndaValidityTo").value = tool.ndaExpiryDate || "";
-  document.getElementById("msaValidityTo").value = tool.msaExpiryDate || "";
+    //Section 2 (Demo)
+    document.getElementById("demoDate").value = tool.demoDate || "";
+    document.getElementById("demoAttendees").value = tool.demoAttendees || "";
+    document.getElementById("demoLink").value = tool.demoLink || "";
 
-  // ✅ LOAD ALL FIELDS BACK INTO UI
-Object.keys(tool).forEach(key => {
-  const el = document.getElementById(key);
-  if (el && el.type !== "file") {
-    el.value = tool[key];
-  }
-});
+    document.getElementById("ndaValidityTo").value = tool.ndaExpiryDate || "";
+    document.getElementById("msaValidityTo").value = tool.msaExpiryDate || "";
 
-  // ✅ LOAD IT CHECKLIST DATA PROPERLY
-setTimeout(() => {
-  for (let i = 0; i < 50; i++) {
-
-    const ans = document.getElementById(`it_answer_${i}`);
-    const owner = document.getElementById(`it_owner_${i}`);
-    const status = document.getElementById(`it_status_${i}`);
-
-    if (ans && tool[`it_answer_${i}`]) {
-      ans.value = tool[`it_answer_${i}`];
+    // ✅ LOAD ALL FIELDS BACK INTO UI
+  Object.keys(tool).forEach(key => {
+    const el = document.getElementById(key);
+    if (el && el.type !== "file") {
+      el.value = tool[key];
     }
+  });
 
-    if (owner && tool[`it_owner_${i}`]) {
-      owner.value = tool[`it_owner_${i}`];
+    // ✅ LOAD IT CHECKLIST DATA PROPERLY
+  setTimeout(() => {
+    for (let i = 0; i < 50; i++) {
+
+      const ans = document.getElementById(`it_answer_${i}`);
+      const owner = document.getElementById(`it_owner_${i}`);
+      const status = document.getElementById(`it_status_${i}`);
+
+      if (ans && tool[`it_answer_${i}`]) {
+        ans.value = tool[`it_answer_${i}`];
+      }
+
+      if (owner && tool[`it_owner_${i}`]) {
+        owner.value = tool[`it_owner_${i}`];
+      }
+
+      if (status && tool[`it_status_${i}`]) {
+        status.value = tool[`it_status_${i}`];
+      }
     }
+  }, 200);
 
-    if (status && tool[`it_status_${i}`]) {
-      status.value = tool[`it_status_${i}`];
+    // Trigger progress update after loading data
+  setTimeout(() => {
+    for (let i = 1; i <= 12; i++) {
+      updateSectionProgress("section" + i, i - 1);
     }
-  }
-}, 200);
+  }, 100);
 
-  // Trigger progress update after loading data
-setTimeout(() => {
-  for (let i = 1; i <= 12; i++) {
-    updateSectionProgress("section" + i, i - 1);
-  }
-}, 100);
-
-  showSection(tool.step || 0);
+    showSection(tool.step || 0);
 }
 
 // =======================
