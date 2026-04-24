@@ -78,6 +78,15 @@
   border-radius: 6px;
   cursor: pointer;
 }
+
+  #sidebar.collapsed .btn-primary {
+    justify-content: center;
+    padding: 10px;
+  }
+
+  #sidebar.collapsed .btn-primary span {
+    display: none;
+  }  
 </style>
 
 </head>
@@ -139,11 +148,13 @@
 
   <!-- ADD TOOL -->
   <div class="relative mb-4">
-    <button onclick="toggleAddMenu()" 
-      class="btn-primary w-full flex justify-between items-center px-4 py-2 rounded">
-      <span>+ Add Tool</span>
-      <span>▼</span>
-    </button>
+<button onclick="toggleAddMenu()" 
+  class="btn-primary w-full flex justify-between items-center px-4 py-2 rounded">
+
+  <span class="menu-text">+ Add Tool</span>
+  <span class="menu-text">▼</span>
+
+</button>
 
     <div id="addToolMenu" 
       class="hidden absolute left-0 w-full bg-white border rounded shadow mt-1 z-10">
@@ -166,7 +177,7 @@
   <!-- WORKFLOW SIDEBAR -->
   <div id="workflowSidebar" class="hidden flex-grow overflow-y-auto">
 
-    <h3 class="font-bold mb-3">Workflow</h3>
+    <h3 class="font-bold mb-3 menu-text">Workflow</h3>
 
     <div class="space-y-3 text-sm">
 
