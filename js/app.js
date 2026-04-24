@@ -105,8 +105,6 @@ function getExpiryAlert(dateString, type) {
   return "";
 }
 
-  return "";
-}
 let currentToolIndex = null;
 
 // =======================
