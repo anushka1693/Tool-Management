@@ -431,80 +431,91 @@ function closeToolForm() {
 
 async function saveToolDetails() {
 
-  const name = document.getElementById("toolName").value;
-  const company = document.getElementById("companyName").value;
-  const requestor = document.getElementById("requestorName").value;
-  const practice = document.getElementById("practiceArea").value;
+    //Section 1 (Tool Details)
+    const name = document.getElementById("toolName").value;
+    const company = document.getElementById("companyName").value;
+    const requestor = document.getElementById("requestorName").value;
+    const practice = document.getElementById("practiceArea").value;
 
-  if (!name) {
-    alert("Tool Name is required");
+    if (!name) {
+      alert("Tool Name is required");
+      return;
+    }
+
+  const today = new Date().toLocaleDateString();
+
+  //Section 2 (Demo)
+  const demoDate = document.getElementById("demoDate").value;
+  const demoAttendees = document.getElementById("demoAttendees").value;
+  const demoLink = document.getElementById("demoLink").value;
+
+
+  const isEdit = currentToolIndex !== null;
+  const existingTool = isEdit ? tools[currentToolIndex] : null;
+    
+  const toolData = {
+    toolName: name,
+    companyName: company,
+    requestorName: requestor,
+    practiceArea: practice,
+    createdBy: loggedInUser,
+
+    requestedDate: today,
+
+    demoDate: demoDate,
+    demoAttendees: demoAttendees,
+    demoLink: demoLink
+  step: existingTool?.step ?? 0,
+    toolType: selectedToolType
+  };
+
+  const url = isEdit ? "/api/updateTool" : "/api/createRequest";
+    
+    try {
+
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+       body: JSON.stringify({
+    ...toolData,
+    partitionKey: existingTool?.partitionKey,
+    rowKey: existingTool?.rowKey
+  })
+      });
+
+      let result = null;
+
+  if (res.ok){
+    const text = await res.text();
+    console.log("API response:", text);
+  } else {
+    const text = await res.text();
+    console.error("API error:", text);
+    alert("Error saving tool");
     return;
   }
 
-const today = new Date().toLocaleDateString();
+  console.log("Saved:", result);
 
-const isEdit = currentToolIndex !== null;
-const existingTool = isEdit ? tools[currentToolIndex] : null;
-  
-const toolData = {
-  toolName: name,
-  companyName: company,
-  requestorName: requestor,
-  practiceArea: practice,
-  createdBy: loggedInUser,
+  // ADD TOOL TO DASHBOARD STATE
 
-  requestedDate: today,
-step: existingTool?.step ?? 0,
-  toolType: selectedToolType
-};
+  const today = new Date().toLocaleDateString(); 
+  await loadTools();
 
-const url = isEdit ? "/api/updateTool" : "/api/createRequest";
-  
-  try {
+  alert("Tool saved successfully!");
 
-    const res = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-     body: JSON.stringify({
-  ...toolData,
-  partitionKey: existingTool?.partitionKey,
-  rowKey: existingTool?.rowKey
-})
-    });
+  closeToolForm();
 
-    let result = null;
+    } catch (err) {
 
-if (res.ok){
-  const text = await res.text();
-  console.log("API response:", text);
-} else {
-  const text = await res.text();
-  console.error("API error:", text);
-  alert("Error saving tool");
-  return;
-}
+      console.error(err);
+      alert("Error saving tool");
 
-console.log("Saved:", result);
-
-// ADD TOOL TO DASHBOARD STATE
-
-const today = new Date().toLocaleDateString(); 
-await loadTools();
-
-alert("Tool saved successfully!");
-
-closeToolForm();
-
-  } catch (err) {
-
-    console.error(err);
-    alert("Error saving tool");
+    }
 
   }
-
-}
 
 // =======================
 // SAVE NDA / MSA DATA
