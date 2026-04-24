@@ -1188,7 +1188,7 @@ function loadITChecklist() {
       <td class="p-2 border">${item.team}</td>
       <td class="p-2 border">${item.question}</td>
       <td class="p-2 border">
-      <input type="text" placeholder="Answer" class="answer-input w-full border rounded p-1">
+      <input id="it_answer_${index}" type="text" placeholder="Answer" class="answer-input w-full border rounded p-1">
     </td>
       <td class="p-2 border">
 
@@ -1204,11 +1204,7 @@ function loadITChecklist() {
       <td class="p-2 border">
   <div style="display:flex; gap:6px; align-items:center;">
     
-    <input 
-      type="text" 
-      placeholder="Owner" 
-      class="owner-input border rounded p-1 w-20"
-    >
+    <input id="it_owner_${index}" type="text" placeholder="Owner" class="owner-input border rounded p-1 w-20">
 
 <button 
   onclick="signOffRow(this, '${item.question.replace(/'/g, "")}')"
@@ -1219,7 +1215,7 @@ function loadITChecklist() {
   </div>
 </td>
       <td class="p-2 border">
-        <select class="status-select w-full border rounded p-1">
+      <select id="it_status_${index}" class="status-select w-full border rounded p-1">
           <option value="">Select Status</option>
           <option value="pending">Pending</option>
           <option value="in-progress">In Progress</option>
@@ -1379,24 +1375,34 @@ function loadQCChecklist() {
   const tbody = document.getElementById("qcChecklist");
   if (!tbody) return;
 
-  tbody.innerHTML = qcChecklistData.map(item => `
-    <tr class="border-b">
-      <td class="p-2">${item.section}</td>
-      <td class="p-2">${item.team}</td>
-      <td class="p-2">${item.question}</td>
-      <td class="p-2"><input type="text" placeholder="Answer" class="w-full border rounded p-1"></td>
-      <td class="p-2"><input type="file" class="w-full"></td>
-      <td class="p-2"><input type="text" placeholder="Owner" class="w-full border rounded p-1"></td>
-      <td class="p-2">
-        <select class="w-full border rounded p-1">
-          <option value="">Select Status</option>
-          <option value="pending">Pending</option>
-          <option value="in-progress">In Progress</option>
-          <option value="completed">Completed</option>
-        </select>
-      </td>
-    </tr>
-  `).join("");
+tbody.innerHTML = qcChecklistData.map((item, index) => `
+  <tr class="border-b">
+    <td class="p-2">${item.section}</td>
+    <td class="p-2">${item.team}</td>
+    <td class="p-2">${item.question}</td>
+
+    <td class="p-2">
+      <input id="qc_answer_${index}" type="text" class="w-full border rounded p-1">
+    </td>
+
+    <td class="p-2">
+      <input type="file" class="w-full">
+    </td>
+
+    <td class="p-2">
+      <input id="qc_owner_${index}" type="text" class="w-full border rounded p-1">
+    </td>
+
+    <td class="p-2">
+      <select id="qc_status_${index}" class="w-full border rounded p-1">
+        <option value="">Select Status</option>
+        <option value="pending">Pending</option>
+        <option value="in-progress">In Progress</option>
+        <option value="completed">Completed</option>
+      </select>
+    </td>
+  </tr>
+`).join("");
 }
 
 
