@@ -169,9 +169,7 @@ const sectionFieldMap = {
     "dtClearance"
   ],
 
-  itClearanceSection: [
-    // optional: skip for now OR define key fields
-  ],
+itClearanceSection: [],
 
   partnerClearanceSection: [
     "partnerDecision"
@@ -681,6 +679,28 @@ Object.keys(tool).forEach(key => {
     el.value = tool[key];
   }
 });
+
+  // ✅ LOAD IT CHECKLIST DATA PROPERLY
+setTimeout(() => {
+  for (let i = 0; i < 50; i++) {
+
+    const ans = document.getElementById(`it_answer_${i}`);
+    const owner = document.getElementById(`it_owner_${i}`);
+    const status = document.getElementById(`it_status_${i}`);
+
+    if (ans && tool[`it_answer_${i}`]) {
+      ans.value = tool[`it_answer_${i}`];
+    }
+
+    if (owner && tool[`it_owner_${i}`]) {
+      owner.value = tool[`it_owner_${i}`];
+    }
+
+    if (status && tool[`it_status_${i}`]) {
+      status.value = tool[`it_status_${i}`];
+    }
+  }
+}, 200);
 
   // Trigger progress update after loading data
 setTimeout(() => {
