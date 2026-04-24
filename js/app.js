@@ -574,31 +574,34 @@ async function loadTools() {
 
   try {
 
-    const res = await fetch("/api/getTools");
+  const res = await fetch("/api/getTools");
 
-    // ✅ ADD THIS SAFETY CHECK
-    if (!res.ok) {
-      console.warn("API not available, skipping...");
-      return;
-    }
+  // ✅ ADD THIS SAFETY CHECK
+  if (!res.ok) {
+    console.warn("API not available, skipping...");
+    return;
+  }
 
-    const data = await res.json();
+  const data = await res.json();
 
-   tools = data.map(t => ({
+  tools = data.map(t => ({
   ...t,   // ✅ KEEP EVERYTHING FROM BACKEND
 
   // optional mapping for UI
   name: t.toolName,
   company: t.companyName,
   requestor: t.requestorName,
-  practice: t.practiceArea
-}));
-  
-    render();
+  practice: t.practiceArea,
+  demoDate: t.demoDate,
+  demoAttendees: t.demoAttendees,
+  demoLink: t.demoLink
+  }));
+
+  render();
 
   } catch (err) {
 
-    console.error("Error loading tools:", err);
+  console.error("Error loading tools:", err);
 
   }
 
