@@ -79,8 +79,8 @@ trackChange("Step", oldEntity.step, body.step);
       step: body.step ?? oldEntity.step ?? 0,
       createdBy: body.createdBy,
 
-      ndaExpiryDate: body.ndaExpiryDate || "",
-      msaExpiryDate: body.msaExpiryDate || ""
+  ndaExpiryDate: body.ndaExpiryDate ?? oldEntity.ndaExpiryDate ?? "",
+  msaExpiryDate: body.msaExpiryDate ?? oldEntity.msaExpiryDate ?? ""
     }, "Merge");
 
     // Save audit logs AFTER update
