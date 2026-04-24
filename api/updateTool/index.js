@@ -24,10 +24,16 @@ module.exports = async function (context, req) {
     "AuditLogs"
   );
   
-  const oldEntity = await client.getEntity(
+let oldEntity = {};
+
+try {
+  oldEntity = await client.getEntity(
     body.partitionKey,
     body.rowKey
   );
+} catch (err) {
+  oldEntity = {};
+}
 
     const changes = [];
 
@@ -59,10 +65,6 @@ trackChange("NDA Expiry", oldEntity.ndaExpiryDate, body.ndaExpiryDate);
 trackChange("MSA Expiry", oldEntity.msaExpiryDate, body.msaExpiryDate);
 
 trackChange("Step", oldEntity.step, body.step);
-
-for (const change of changes) {
-  await auditClient.createEntity(change);
-}
     
     await client.updateEntity({
       partitionKey: body.partitionKey,
@@ -74,13 +76,17 @@ for (const change of changes) {
       practiceArea: body.practiceArea,
       toolType: body.toolType,
       requestedDate: body.requestedDate,
-      step: body.step,
+      step: body.step ?? oldEntity.step ?? 0,
       createdBy: body.createdBy,
 
       ndaExpiryDate: body.ndaExpiryDate || "",
       msaExpiryDate: body.msaExpiryDate || ""
     }, "Merge");
 
+    // Save audit logs AFTER update
+for (const change of changes) {
+  await auditClient.createEntity(change);
+}
     context.res = {
       status: 200,
       body: "Updated successfully"
