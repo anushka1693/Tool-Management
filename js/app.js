@@ -127,71 +127,45 @@ function getUserInitials() {
 
 const sectionFieldMap = {
 
-  toolDetailsSection: [
-    "toolName",
-    "companyName",
-    "requestorName",
-    "practiceArea"
-  ],
+  section1: ["toolName", "companyName", "requestorName", "practiceArea"],
 
-  demoSection: [
-    "demoLink",
-    "demoOwner"
-  ],
+  section2: ["demoLink", "demoOwner"],
 
-  questionnaireSection: [
-    "dtClearance"
-  ],
+  section3: ["dtClearance"],
 
-  itClearanceSection: [
-    // optional: skip for now OR define key fields
-  ],
+  section4: [],
 
-  partnerClearanceSection: [
-    "partnerDecision"
-  ],
+  section5: ["partnerDecision"],
 
-  pilotSection: [
-    // dynamic → leave for now
-  ],
+  section6: [],
 
-  dtClearanceSection: [
-    // can refine later
-  ],
+  section7: [],
 
-  aiClearanceSection: [
-    // can refine later
-  ],
+  section8: [],
 
-  toolMemoSection: [
-    // add if needed
-  ],
+  section9: [],
 
-  qcClearanceSection: [
-    // add later
-  ],
+  section10: [],
 
-  msaSection: [
-    "sowType"
-  ],
+  section11: ["sowType"],
 
-  rolloutSection: [
-    // optional
-  ]
+  section12: []
 };
 
 function calculateSectionProgress(sectionId) {
 
   let inputs = [];
   
-if (sectionFieldMap[sectionId] && sectionFieldMap[sectionId].length > 0) {
+if (sectionId === "section1") {
 
+  // Only use saved fields
   inputs = sectionFieldMap[sectionId]
     .map(id => document.getElementById(id))
     .filter(el => el !== null);
 
 } else {
 
+  // Use visible inputs (UI-based)
   const section = document.getElementById(sectionId);
   if (!section) return 0;
 
@@ -339,6 +313,7 @@ function loadPilotSection() {
   for (let i = 0; i < 3; i++) {
     addTestCase();
   }
+  attachProgressTracking("section6", 5);
 }
 
 // =======================
@@ -638,7 +613,15 @@ function openTool(index) {
   document.getElementById("msaValidityTo").value = tool.msaExpiryDate || "";
 
   showSection(tool.step);
+
+  setTimeout(() => {
+  for (let i = 0; i < 12; i++) {
+    updateSectionProgress("section" + (i + 1), i);
+  }
+}, 200);
 }
+
+
 
 // =======================
 // TOOL MEMO GENERATION
@@ -975,6 +958,12 @@ if (currentToolIndex !== null) {
 
     await loadTools(); // refresh from backend
 
+    setTimeout(() => {
+  for (let i = 0; i < 12; i++) {
+    updateSectionProgress("section" + (i + 1), i);
+  }
+}, 300);
+
   } catch (err) {
     console.error("Step update failed:", err);
   }
@@ -1220,6 +1209,7 @@ function loadITChecklist() {
     `;
     tbody.appendChild(tr);
   });
+  attachProgressTracking("section4", 3);
 }
 
 attachITAuditListeners();
@@ -1597,9 +1587,7 @@ loadPilotSection();
 attachProgressTracking("section1", 0);
 attachProgressTracking("section2", 1);
 attachProgressTracking("section3", 2);
-attachProgressTracking("section4", 3);
 attachProgressTracking("section5", 4);
-attachProgressTracking("section6", 5);
 attachProgressTracking("section7", 6);
 attachProgressTracking("section8", 7);
 attachProgressTracking("section9", 8);
