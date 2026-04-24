@@ -30,7 +30,7 @@ module.exports = async function (context, req) {
       toolType: body.toolType,
       requestedDate: body.requestedDate,
       step: body.step,
-      createdBy: body.createdBy
+      createdBy: body.createdBy,
 
       ndaExpiryDate: body.ndaExpiryDate || "",
       msaExpiryDate: body.msaExpiryDate || ""
