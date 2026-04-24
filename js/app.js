@@ -1006,6 +1006,15 @@ if (currentToolIndex !== null) {
   const tool = tools[currentToolIndex];
 
   try {
+const sectionData = {};
+
+document.querySelectorAll("input, textarea, select").forEach(el => {
+  if (!el.id) return;
+  if (el.type === "file") return;
+
+  sectionData[el.id] = el.value;
+});
+
 await fetch("/api/updateTool", {
   method: "POST",
   headers: {
@@ -1015,15 +1024,11 @@ await fetch("/api/updateTool", {
     partitionKey: tool.partitionKey,
     rowKey: tool.rowKey,
 
-    toolName: document.getElementById("toolName")?.value || "",
-    companyName: document.getElementById("companyName")?.value || "",
-    requestorName: document.getElementById("requestorName")?.value || "",
-    practiceArea: document.getElementById("practiceArea")?.value || "",
+    ...sectionData,   // ✅ saves EVERYTHING
 
     step: currentStep
   })
 });
-
     await loadTools(); // refresh from backend
 
   } catch (err) {
