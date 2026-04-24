@@ -575,20 +575,14 @@ async function loadTools() {
 
     const data = await res.json();
 
-    tools = data.map(t => ({
+   tools = data.map(t => ({
+  ...t,   // ✅ KEEP EVERYTHING FROM BACKEND
+
+  // optional mapping for UI
   name: t.toolName,
   company: t.companyName,
   requestor: t.requestorName,
-  practice: t.practiceArea,
-  type: t.toolType || "New",
-  step: t.step || 0,
-  requestedDate: t.requestedDate || "-",
-
-  ndaExpiryDate: t.ndaExpiryDate || "",
-  msaExpiryDate: t.msaExpiryDate || "",    
-      
-  partitionKey: t.partitionKey,
-  rowKey: t.rowKey
+  practice: t.practiceArea
 }));
   
     render();
@@ -679,6 +673,14 @@ function openTool(index) {
 
   document.getElementById("ndaValidityTo").value = tool.ndaExpiryDate || "";
   document.getElementById("msaValidityTo").value = tool.msaExpiryDate || "";
+
+  // ✅ LOAD ALL FIELDS BACK INTO UI
+Object.keys(tool).forEach(key => {
+  const el = document.getElementById(key);
+  if (el && el.type !== "file") {
+    el.value = tool[key];
+  }
+});
 
   // Trigger progress update after loading data
 setTimeout(() => {
