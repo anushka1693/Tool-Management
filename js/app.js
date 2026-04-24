@@ -105,16 +105,6 @@ function getExpiryAlert(dateString, type) {
   return "";
 }
 
-function calculateOverallProgress(tool) {
-  let total = 0;
-  let filled = 0;
-
-  function check(val) {
-    total++;
-    if (val !== null && val !== undefined && val !== "") {
-      filled++;
-    }
-  }
 
   // TOOL DETAILS
   check(tool.name);
@@ -705,8 +695,14 @@ function openTool(index) {
 
   goToStep(tool.step || 0);
 
-  setTimeout(() => {
+setTimeout(() => {
   updateMiniDonuts(tool.step || 0);
+
+  // 🔥 ADD THIS LOOP
+  for (let i = 0; i < 12; i++) {
+    updateSectionProgress("section" + (i + 1), i);
+  }
+
 }, 300);
 }
 
@@ -974,7 +970,8 @@ updateSectionProgress(sectionId, step);
 
   if (step === 5) {
     loadPilotSection();
-  }
+     attachProgressTracking("section6", 5);
+} 
 
 if (step === 7) {
   loadAIChecklist();
@@ -1043,8 +1040,6 @@ if (currentToolIndex !== null) {
       })
     });
 
-    await loadTools(); // refresh from backend
-
   } catch (err) {
     console.error("Step update failed:", err);
   }
@@ -1081,8 +1076,6 @@ try {
       step: step
     })
   });
-
-  await loadTools();
 
 } catch (err) {
   console.error("Step update failed:", err);
@@ -1688,9 +1681,14 @@ async function loadUser() {
   try {
     const res = await fetch("/.auth/me");
 
-    if (!res.ok) {
-      throw new Error("Auth API failed");
-    }
+if (!res.ok) {
+  console.error("API failed");
+
+  document.getElementById("tableBody").innerHTML =
+    "<tr><td colspan='7'>Failed to load data</td></tr>";
+
+  return;
+}
 
     const data = await res.json();
     console.log("AUTH RESPONSE:", data);
