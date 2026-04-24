@@ -508,7 +508,7 @@ function render() {
         <td class="p-2">${percent}%</td>
 
         <td class="p-2">
-        8<select onchange="handleAction(this.value, '${t.name}')"
+        <select onchange="handleAction(this.value, '${t.name}')"
       class="border px-2 py-1 rounded">
     
       <option value="">Select</option>
