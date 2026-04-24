@@ -930,6 +930,11 @@ if (step === 9) {
 }
 
   updateWorkflowUI(step);
+  const sectionId = "section" + (step + 1);
+
+setTimeout(() => {
+  updateSectionProgress(sectionId, step);
+}, 100);
 }
 
 // =======================
