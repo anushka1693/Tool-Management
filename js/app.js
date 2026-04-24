@@ -276,15 +276,11 @@ function updateSectionProgress(sectionId, stepIndex) {
       donut.style.color = "#800000";
     }
 
-  }
-
-}
-
-if (currentToolIndex !== null) {
+    if (currentToolIndex !== null) {
 
   const tool = tools[currentToolIndex];
 
-  fetch("/api/updateStep", {
+  fetch("/api/updateTool", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -292,9 +288,11 @@ if (currentToolIndex !== null) {
     body: JSON.stringify({
       partitionKey: tool.partitionKey,
       rowKey: tool.rowKey,
-      step: stepIndex
+      step: stepIndex,
+      [`progress_section${stepIndex + 1}`]: percent
     })
-  }).catch(err => console.error("Auto step save failed", err));
+  }).catch(() => {});
+}
 
 }
 
@@ -586,7 +584,7 @@ async function loadTools() {
 
     const data = await res.json();
 
-    tools = data.map(t => ({
+tools = data.map(t => ({
   name: t.toolName,
   company: t.companyName,
   requestor: t.requestorName,
@@ -596,8 +594,22 @@ async function loadTools() {
   requestedDate: t.requestedDate || "-",
 
   ndaExpiryDate: t.ndaExpiryDate || "",
-  msaExpiryDate: t.msaExpiryDate || "",    
-      
+  msaExpiryDate: t.msaExpiryDate || "",
+
+  // ⭐ ADD THIS (IMPORTANT)
+  progress_section1: t.progress_section1 || 0,
+  progress_section2: t.progress_section2 || 0,
+  progress_section3: t.progress_section3 || 0,
+  progress_section4: t.progress_section4 || 0,
+  progress_section5: t.progress_section5 || 0,
+  progress_section6: t.progress_section6 || 0,
+  progress_section7: t.progress_section7 || 0,
+  progress_section8: t.progress_section8 || 0,
+  progress_section9: t.progress_section9 || 0,
+  progress_section10: t.progress_section10 || 0,
+  progress_section11: t.progress_section11 || 0,
+  progress_section12: t.progress_section12 || 0,
+
   partitionKey: t.partitionKey,
   rowKey: t.rowKey
 }));
@@ -692,6 +704,10 @@ function openTool(index) {
   document.getElementById("msaValidityTo").value = tool.msaExpiryDate || "";
 
   goToStep(tool.step || 0);
+
+  setTimeout(() => {
+  updateMiniDonuts(tool.step || 0);
+}, 300);
 }
 
 // =======================
@@ -947,6 +963,11 @@ if (current && !current.classList.contains("hidden-by-type")) {
   current.style.display = "block";
 }
 
+const sectionId = "section" + (step + 1);
+  
+attachProgressTracking(sectionId, step);
+updateSectionProgress(sectionId, step);
+
   if (step === 4) {
   updatePartnerDecisionOptions();
 }
@@ -1010,7 +1031,7 @@ if (currentToolIndex !== null) {
   const tool = tools[currentToolIndex];
 
   try {
-    await fetch("/api/updateStep", {
+    await fetch("/api/updateTool", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -1049,7 +1070,7 @@ async function goToStep(step) {
 const tool = tools[currentToolIndex];
 
 try {
-  await fetch("/api/updateStep", {
+  await fetch("/api/updateTool", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -1108,9 +1129,13 @@ function updateMiniDonuts(step) {
 
     let percent = 0;
 
-  if (i < step) percent = 100;
-  else if (i === step) percent = 0;
-  else percent = 0;
+const tool = tools[currentToolIndex];
+
+if (tool && tool[`progress_section${i+1}`] !== undefined) {
+  percent = tool[`progress_section${i+1}`];
+} else {
+  percent = 0;
+}
 
     donut.innerText = percent + "%";
 
