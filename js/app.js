@@ -582,8 +582,6 @@ function render() {
   document.getElementById("tableBody").innerHTML =
     filtered.map((t, i) => {
 
-      let percent = Math.round((t.step / (stepsList.length - 1)) * 100);
-
       return `
       <tr class="border-b">
         <td class="p-2">
@@ -600,14 +598,6 @@ function render() {
         <td class="p-2">${t.type}</td>
         <td class="p-2">${t.requestedDate || "-"}</td>
         <td class="p-2">${stepsList[t.step]}</td>
-
-        <td class="p-2">
-          <div class="w-full bg-gray-200 h-3 rounded">
-            <div class="bg-[#800000] h-3 rounded" style="width:${percent}%"></div>
-          </div>
-        </td>
-
-        <td class="p-2">${percent}%</td>
 
         <td class="p-2">
   <select onchange="handleAction(this.value, ${i})"
