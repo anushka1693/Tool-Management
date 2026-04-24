@@ -105,22 +105,6 @@ function getExpiryAlert(dateString, type) {
   return "";
 }
 
-
-  // TOOL DETAILS
-  check(tool.name);
-  check(tool.company);
-  check(tool.requestor);
-  check(tool.practice);
-
-  // NDA / MSA
-  check(tool.ndaExpiryDate);
-  check(tool.msaExpiryDate);
-
-  if (total === 0) return 0;
-
-  return Math.round((filled / total) * 100);
-}
-
 let currentToolIndex = null;
 
 // =======================
@@ -266,23 +250,7 @@ function updateSectionProgress(sectionId, stepIndex) {
       donut.style.color = "#800000";
     }
 
-    if (currentToolIndex !== null) {
-
-  const tool = tools[currentToolIndex];
-
-  fetch("/api/updateTool", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      partitionKey: tool.partitionKey,
-      rowKey: tool.rowKey,
-      step: stepIndex,
-      [`progress_section${stepIndex + 1}`]: percent
-    })
-  }).catch(() => {});
-}
+  }
 
 }
 
@@ -455,7 +423,7 @@ const toolData = {
   createdBy: loggedInUser,
 
   requestedDate: today,
-step: existingTool?.step ?? 0,
+  step: existingTool?.step ?? 0,
   toolType: selectedToolType
 };
 
@@ -574,7 +542,7 @@ async function loadTools() {
 
     const data = await res.json();
 
-tools = data.map(t => ({
+    tools = data.map(t => ({
   name: t.toolName,
   company: t.companyName,
   requestor: t.requestorName,
@@ -584,22 +552,8 @@ tools = data.map(t => ({
   requestedDate: t.requestedDate || "-",
 
   ndaExpiryDate: t.ndaExpiryDate || "",
-  msaExpiryDate: t.msaExpiryDate || "",
-
-  // ⭐ ADD THIS (IMPORTANT)
-  progress_section1: t.progress_section1 || 0,
-  progress_section2: t.progress_section2 || 0,
-  progress_section3: t.progress_section3 || 0,
-  progress_section4: t.progress_section4 || 0,
-  progress_section5: t.progress_section5 || 0,
-  progress_section6: t.progress_section6 || 0,
-  progress_section7: t.progress_section7 || 0,
-  progress_section8: t.progress_section8 || 0,
-  progress_section9: t.progress_section9 || 0,
-  progress_section10: t.progress_section10 || 0,
-  progress_section11: t.progress_section11 || 0,
-  progress_section12: t.progress_section12 || 0,
-
+  msaExpiryDate: t.msaExpiryDate || "",    
+      
   partitionKey: t.partitionKey,
   rowKey: t.rowKey
 }));
@@ -628,7 +582,7 @@ function render() {
   document.getElementById("tableBody").innerHTML =
     filtered.map((t, i) => {
 
-    let percent = calculateOverallProgress(t);
+      let percent = Math.round((t.step / (stepsList.length - 1)) * 100);
 
       return `
       <tr class="border-b">
@@ -693,17 +647,7 @@ function openTool(index) {
   document.getElementById("ndaValidityTo").value = tool.ndaExpiryDate || "";
   document.getElementById("msaValidityTo").value = tool.msaExpiryDate || "";
 
-  goToStep(tool.step || 0);
-
-setTimeout(() => {
-  updateMiniDonuts(tool.step || 0);
-
-  // 🔥 ADD THIS LOOP
-  for (let i = 0; i < 12; i++) {
-    updateSectionProgress("section" + (i + 1), i);
-  }
-
-}, 300);
+  showSection(tool.step);
 }
 
 // =======================
@@ -959,19 +903,13 @@ if (current && !current.classList.contains("hidden-by-type")) {
   current.style.display = "block";
 }
 
-const sectionId = "section" + (step + 1);
-  
-attachProgressTracking(sectionId, step);
-updateSectionProgress(sectionId, step);
-
   if (step === 4) {
   updatePartnerDecisionOptions();
 }
 
   if (step === 5) {
     loadPilotSection();
-     attachProgressTracking("section6", 5);
-} 
+  }
 
 if (step === 7) {
   loadAIChecklist();
@@ -1028,7 +966,7 @@ if (currentToolIndex !== null) {
   const tool = tools[currentToolIndex];
 
   try {
-    await fetch("/api/updateTool", {
+    await fetch("/api/updateStep", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -1039,6 +977,8 @@ if (currentToolIndex !== null) {
         step: currentStep
       })
     });
+
+    await loadTools(); // refresh from backend
 
   } catch (err) {
     console.error("Step update failed:", err);
@@ -1065,7 +1005,7 @@ async function goToStep(step) {
 const tool = tools[currentToolIndex];
 
 try {
-  await fetch("/api/updateTool", {
+  await fetch("/api/updateStep", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -1076,6 +1016,8 @@ try {
       step: step
     })
   });
+
+  await loadTools();
 
 } catch (err) {
   console.error("Step update failed:", err);
@@ -1122,13 +1064,9 @@ function updateMiniDonuts(step) {
 
     let percent = 0;
 
-const tool = tools[currentToolIndex];
-
-if (tool && tool[`progress_section${i+1}`] !== undefined) {
-  percent = tool[`progress_section${i+1}`];
-} else {
-  percent = 0;
-}
+  if (i < step) percent = 100;
+  else if (i === step) percent = 0;
+  else percent = 0;
 
     donut.innerText = percent + "%";
 
@@ -1681,14 +1619,9 @@ async function loadUser() {
   try {
     const res = await fetch("/.auth/me");
 
-if (!res.ok) {
-  console.error("API failed");
-
-  document.getElementById("tableBody").innerHTML =
-    "<tr><td colspan='7'>Failed to load data</td></tr>";
-
-  return;
-}
+    if (!res.ok) {
+      throw new Error("Auth API failed");
+    }
 
     const data = await res.json();
     console.log("AUTH RESPONSE:", data);
@@ -1957,4 +1890,3 @@ function renderITAuditTrail() {
     tbody.appendChild(tr);
   });
 }
-
