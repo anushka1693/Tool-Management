@@ -473,6 +473,9 @@ async function loadTools() {
   step: t.step || 0,
   requestedDate: t.requestedDate || "-",
 
+  ndaExpiryDate: t.ndaExpiryDate || "",
+  msaExpiryDate: t.msaExpiryDate || "",    
+      
   partitionKey: t.partitionKey,
   rowKey: t.rowKey
 }));
