@@ -87,10 +87,13 @@ trackChange("Step", oldEntity.step, body.step);
 for (const change of changes) {
   await auditClient.createEntity(change);
 }
+
     context.res = {
-      status: 200,
-      body: "Updated successfully"
-    };
+  status: 200,
+  body: {
+    message: "Updated successfully"
+  }
+};
 
   } catch (err) {
 
