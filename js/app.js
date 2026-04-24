@@ -105,6 +105,32 @@ function getExpiryAlert(dateString, type) {
   return "";
 }
 
+function calculateOverallProgress(tool) {
+  let total = 0;
+  let filled = 0;
+
+  function check(val) {
+    total++;
+    if (val !== null && val !== undefined && val !== "") {
+      filled++;
+    }
+  }
+
+  // TOOL DETAILS
+  check(tool.name);
+  check(tool.company);
+  check(tool.requestor);
+  check(tool.practice);
+
+  // NDA / MSA
+  check(tool.ndaExpiryDate);
+  check(tool.msaExpiryDate);
+
+  if (total === 0) return 0;
+
+  return Math.round((filled / total) * 100);
+}
+
 let currentToolIndex = null;
 
 // =======================
@@ -251,6 +277,24 @@ function updateSectionProgress(sectionId, stepIndex) {
     }
 
   }
+
+}
+
+if (currentToolIndex !== null) {
+
+  const tool = tools[currentToolIndex];
+
+  fetch("/api/updateStep", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      partitionKey: tool.partitionKey,
+      rowKey: tool.rowKey,
+      step: stepIndex
+    })
+  }).catch(err => console.error("Auto step save failed", err));
 
 }
 
@@ -423,7 +467,7 @@ const toolData = {
   createdBy: loggedInUser,
 
   requestedDate: today,
-  step: existingTool?.step ?? 0,
+step: existingTool?.step ?? 0,
   toolType: selectedToolType
 };
 
@@ -582,7 +626,7 @@ function render() {
   document.getElementById("tableBody").innerHTML =
     filtered.map((t, i) => {
 
-      let percent = Math.round((t.step / (stepsList.length - 1)) * 100);
+    let percent = calculateOverallProgress(t);
 
       return `
       <tr class="border-b">
@@ -647,7 +691,7 @@ function openTool(index) {
   document.getElementById("ndaValidityTo").value = tool.ndaExpiryDate || "";
   document.getElementById("msaValidityTo").value = tool.msaExpiryDate || "";
 
-  showSection(tool.step);
+  goToStep(tool.step || 0);
 }
 
 // =======================
