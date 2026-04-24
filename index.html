@@ -205,584 +205,585 @@ div class="page-wrapper">
     <h2 class="text-xl font-bold mb-4">Tool Workflow</h2>
 
     <!-- SECTION 1 -->
-    <div id="section1" class="section mb-6 active">
-      <h3 class="font-bold mb-2">Section 1: Tool Details</h3>
+<div id="section1" class="section mb-6 active">
 
-      <input id="toolName" class="border p-2 w-full mb-2" placeholder="Tool Name">
-      <input id="companyName" class="border p-2 w-full mb-2" placeholder="Company Name">
-      <input id="requestorName" class="border p-2 w-full mb-2" placeholder="Requestor Name">
-      <input id="practiceArea" class="border p-2 w-full mb-2" placeholder="Practice Area">
-    </div>
+  <div class="card">
+    <div class="card-title">Section 1: Tool Details</div>
+
+    <input id="toolName" class="border p-2 w-full mb-2" placeholder="Tool Name">
+    <input id="companyName" class="border p-2 w-full mb-2" placeholder="Company Name">
+    <input id="requestorName" class="border p-2 w-full mb-2" placeholder="Requestor Name">
+    <input id="practiceArea" class="border p-2 w-full mb-2" placeholder="Practice Area">
+  </div>
+
+</div>
+``
 
     <!-- SECTION 2 -->
-    <div id="section2" class="section mb-6">
-      <h3 class="font-bold mb-2">Section 2: Demo</h3>
+<div id="section2" class="section mb-6">
 
-      <input type="date" id="demoDate" class="border p-2 w-full mb-2">
-      <input id="demoAttendees" class="border p-2 w-full mb-2" placeholder="Demo Attended By">
-      <input id="demoLink" class="border p-2 w-full" placeholder="Recording Link">
+  <div class="card">
+    <div class="card-title">Section 2: Demo</div>
 
+    <input type="date" id="demoDate" class="border p-2 w-full mb-2">
+    <input id="demoAttendees" class="border p-2 w-full mb-2" placeholder="Demo Attended By">
+    <input id="demoLink" class="border p-2 w-full" placeholder="Recording Link">
+  </div>
+
+</div>
+
+<!-- SECTION 3 -->
+<div id="section3" class="section mb-6">
+
+  <div class="card">
+    <div class="card-title">Section 3: Vendor Questionnaire</div>
+
+    <!-- Questionnaire Subsection -->
+    <div id="questionnaireSection" class="mb-4">
+      <div class="mb-4 p-3 bg-blue-50 border border-blue-200 rounded">
+
+        <p class="text-sm text-gray-700 mb-2">
+          Vendor Questionnaire clearance is uploaded on GRC Hub.
+        </p>
+
+        <a 
+          href="https://knavgrc.knavus.com/kyc/client-questionnaire/question-set"
+          target="_blank"
+          class="text-blue-600 underline text-sm font-medium"
+        >
+          Open Vendor Questionnaire in GRC Hub →
+        </a>
+
+        <div class="mt-4">
+          <label class="font-semibold text-sm">Has DT provided clearance?</label>
+
+          <select id="dtClearance" onchange="updateDTStatus()" class="border p-2 w-full mt-1">
+            <option value="">Select</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+
+      </div>
     </div>
 
-    <!-- SECTION 3 -->
-<div id="section3" class="section mb-6">
-  <h3 class="font-bold mb-2">Section 3: Vendor Questionnaire</h3>
+  </div>
 
-  <!-- Questionnaire Subsection -->
-  <div id="questionnaireSection" class="mb-4">
-  <div class="mb-4 p-3 bg-blue-50 border border-blue-200 rounded">
-
-  <p class="text-sm text-gray-700 mb-2">
-    Vendor Questionnaire clearance is uploaded on GRC Hub.
-  </p>
-
-  <a 
-    href="https://knavgrc.knavus.com/kyc/client-questionnaire/question-set"
-    target="_blank"
-    class="text-blue-600 underline text-sm font-medium"
-  >
-    Open Vendor Questionnaire in GRC Hub →
-  </a>
-<div class="mt-4">
-  <label class="font-semibold text-sm">Has DT provided clearance?</label>
-
-  <select id="dtClearance" onchange="updateDTStatus()" class="border p-2 w-full mt-1">
-    <option value="">Select</option>
-    <option value="yes">Yes</option>
-    <option value="no">No</option>
-  </select>
 </div>
-
-</div>  
-</div>
-</div>
+``
   
-    <!-- SECTION 4 -->
-    <div id="section4" class="section mb-6">
+   <!-- SECTION 4 -->
+<div id="section4" class="section mb-6">
 
-      <h3 class="font-bold mb-2">Section 4: IT Clearance</h3>
+  <div class="card">
+    <div class="card-title">Section 4: IT Clearance</div>
 
-<button onclick="toggleAuditIT()" 
-  class="bg-gray-700 text-white px-3 py-1 rounded mb-3 ml-2">
-  View Audit Trail
-</button>
-      
-      <table class="w-full text-sm border">
-        <thead class="bg-gray-200">
-          <tr>
-            <th class="p-2">Section</th>
-            <th class="p-2">Team</th>
-            <th class="p-2">Question</th>
-            <th class="p-2">Answer</th>
-            <th class="p-2">Evidence</th>
-            <th class="p-2">Owner</th>
-            <th class="p-2">Status</th>
-            
-          </tr>
-        </thead>
-        <tbody id="itChecklist"></tbody>
-      </table>
-  <!-- ================= AUDIT TRAIL (IT) ================= -->
-<div id="auditITContainer" class="mt-6 bg-gray-50 border rounded p-4" style="display:none;">
+    <button onclick="toggleAuditIT()" 
+      class="bg-gray-700 text-white px-3 py-1 rounded mb-3 ml-2">
+      View Audit Trail
+    </button>
 
-  <h4 class="font-semibold mb-3">📜 Audit Trail — IT Clearance</h4>
+    <table class="w-full text-sm border">
+      ...
+    </table>
 
-  <div class="max-h-60 overflow-y-auto">
-    <table class="w-full text-xs border">
+    <!-- ================= AUDIT TRAIL (IT) ================= -->
+    <div id="auditITContainer" class="mt-6 bg-gray-50 border rounded p-4" style="display:none;">
+      ...
+    </div>
 
-      <thead class="bg-gray-200 sticky top-0">
+  </div>
+
+</div>
+    
+    <!-- SECTION 5 -->
+<div id="section5" class="section mb-6">
+
+  <div class="card">
+    <div class="card-title">Section 5: Partner Clearance</div>
+
+    <div class="mb-4">
+      <label class="font-semibold">Practice Area Partner Name</label>
+
+      <select class="border p-2 w-full mt-1">
+        <option value="">Select Partner</option>
+        <option>Partner 1</option>
+        <option>Partner 2</option>
+        <option>Partner 3</option>
+      </select>
+    </div>
+
+    <div class="mb-4">
+      <label class="font-semibold">Partner Approval Decision</label>
+
+      <select id="partnerDecision" class="border p-2 w-full mt-1">
+        <option value="">Select Decision</option>
+        <option>Procure the Tool</option>
+        <option>Get the Quotation</option>
+        <option>Develop the Tool</option>
+        <option>Not Approved</option>
+      </select>
+    </div>
+
+    <div class="mb-4">
+      <label class="font-semibold">Comments (Optional)</label>
+
+      <textarea
+        class="border p-2 w-full mt-1"
+        rows="3"
+        placeholder="Enter any additional remarks if required">
+      </textarea>
+    </div>
+  </div>
+
+</div>
+
+    <!-- SECTION 6 -->
+<div id="section6" class="section mb-6">
+
+  <div class="card">
+    <div class="card-title">Section 6: Pilot</div>
+
+    <div id="testCasesContainer"></div>
+
+    <button onclick="addTestCase()" class="bg-blue-600 text-white px-4 py-2 rounded">
+      + Add Additional Test Case
+    </button>
+
+    <div class="mt-5">
+      <label class="font-semibold">
+        Overall Comments (considering all the undergone test cases)
+      </label>
+      <textarea class="border p-2 w-full mt-2" rows="4"></textarea>
+    </div>
+  </div>
+
+</div>
+
+   <!-- SECTION 7 -->
+<div id="section7" class="section mb-6">
+
+  <div class="card">
+    <div class="card-title">Section 7: DT Clearance</div>
+
+    <table class="w-full text-sm border">
+      <thead class="bg-gray-200">
         <tr>
-          <th class="p-2 border">Time</th>
-          <th class="p-2 border">User</th>
-          <th class="p-2 border">Action</th>
-          <th class="p-2 border">Question</th>
+          <th class="p-2">Section</th>
+          <th class="p-2">Team</th>
+          <th class="p-2">Question</th>
+          <th class="p-2">Answer</th>
+          <th class="p-2">Evidence</th>
+          <th class="p-2">Owner</th>
+          <th class="p-2">Status</th>
         </tr>
       </thead>
-
-      <tbody id="auditITBody"></tbody>
-
+      <tbody id="dtChecklist"></tbody>
     </table>
   </div>
 
 </div>
-      
-    </div>
-
-    <!-- SECTION 5 -->
-    <div id="section5" class="section mb-6">
-    <h3 class="font-bold mb-2">Section 5: Partner Clearance</h3>
-
-      <!-- Practice Area Partner -->
-    <div class="mb-4">
-    <label class="font-semibold">Practice Area Partner Name</label>
-    
-    <select class="border p-2 w-full mt-1">
-    <option value="">Select Partner</option>
-    <option>Partner 1</option>
-    <option>Partner 2</option>
-    <option>Partner 3</option>
-    </select>
-    
-    </div>
-    
-    <!-- Partner Decision -->
-    <div class="mb-4">
-    <label class="font-semibold">Partner Approval Decision</label>
-    
-    <select id="partnerDecision" class="border p-2 w-full mt-1">
-    <option value="">Select Decision</option>
-    <option>Procure the Tool</option>
-    <option>Get the Quotation</option>
-    <option>Develop the Tool</option>
-    <option>Not Approved</option>
-    </select>
-    
-    </div>
-
-<!-- Comments -->
-<div class="mb-4">
-<label class="font-semibold">Comments (Optional)</label>
-
-<textarea
-class="border p-2 w-full mt-1"
-rows="3"
-placeholder="Enter any additional remarks if required">
-</textarea>
-
-</div>
-      
-    </div>
-
-    <!-- SECTION 6 -->
-      <div id="section6" class="section mb-6">
-      
-      <h3 class="font-bold mb-4">Section 6: Pilot</h3>
-      
-      <div id="testCasesContainer"></div>
-      
-      <button onclick="addTestCase()" class="bg-blue-600 text-white px-4 py-2 rounded">
-      + Add Additional Test Case
-      </button>
-      
-      <div class="mt-5">
-      <label class="font-semibold">Overall Comments (considering all the undergone test cases)</label>
-      <textarea class="border p-2 w-full mt-2" rows="4"></textarea>
-      </div>
-      
-      </div>
-
-    <!-- SECTION 7 -->
-    <div id="section7" class="section mb-6">
-      <h3 class="font-bold mb-2">Section 7: DT Clearance</h3>
-
-      <table class="w-full text-sm border">
-        <thead class="bg-gray-200">
-          <tr>
-            <th class="p-2">Section</th>
-             <th class="p-2">Team</th>
-            <th class="p-2">Question</th>
-            <th class="p-2">Answer</th>
-            <th class="p-2">Evidence</th>
-            <th class="p-2">Owner</th>
-            <th class="p-2">Status</th>
-          </tr>
-        </thead>
-        <tbody id="dtChecklist"></tbody>
-      </table>
-    </div>
 
 
-    <!-- SECTION 8 -->
+  <!-- SECTION 8 -->
 <div id="section8" class="section mb-6">
-  <h3 class="font-bold mb-2">Section 8: AI Clearance</h3>
 
-  <table class="w-full text-sm border">
-    <thead class="bg-gray-200">
-      <tr>
-        <th class="p-2">Section</th>
-        <th class="p-2">Team</th>
-        <th class="p-2">Question</th>
-        <th class="p-2">Answer</th>
-        <th class="p-2">Evidence Upload</th>
-        <th class="p-2">Owner</th>
-        <th class="p-2">Status</th>
-      </tr>
-    </thead>
-    <tbody id="aiChecklist"></tbody>
-  </table>
+  <div class="card">
+    <div class="card-title">Section 8: AI Clearance</div>
+
+    <table class="w-full text-sm border">
+      <thead class="bg-gray-200">
+        <tr>
+          <th class="p-2">Section</th>
+          <th class="p-2">Team</th>
+          <th class="p-2">Question</th>
+          <th class="p-2">Answer</th>
+          <th class="p-2">Evidence Upload</th>
+          <th class="p-2">Owner</th>
+          <th class="p-2">Status</th>
+        </tr>
+      </thead>
+      <tbody id="aiChecklist"></tbody>
+    </table>
+  </div>
+
 </div>
 
     <!-- SECTION 9 -->
-    <div id="section9" class="section mb-6">
-  <h3 class="font-bold mb-2">Section 9: Tool Memo</h3>
+<div id="section9" class="section mb-6">
 
-<div id="toolMemoSection">
+  <div class="card">
+    <div class="card-title">Section 9: Tool Memo</div>
 
-  <!-- DOWNLOAD BUTTONS -->
-  <div class="flex gap-3 mb-4">
+    <div id="toolMemoSection">
 
-    <button onclick="downloadPDF()" 
-      class="bg-red-600 text-white px-4 py-2 rounded">
-      Download PDF
-    </button>
+      <div class="flex gap-3 mb-4">
+        <button onclick="downloadPDF()" class="bg-red-600 text-white px-4 py-2 rounded">
+          Download PDF
+        </button>
 
-    <button onclick="downloadWord()" 
-      class="bg-blue-600 text-white px-4 py-2 rounded">
-      Download Word
-    </button>
+        <button onclick="downloadWord()" class="bg-blue-600 text-white px-4 py-2 rounded">
+          Download Word
+        </button>
+      </div>
 
-  </div>
+      <div id="toolMemoContent"
+        class="bg-white p-8 border rounded shadow text-sm leading-relaxed">
+      </div>
 
-  <!-- MEMO CONTENT -->
-  <div 
-    id="toolMemoContent"
-    class="bg-white p-8 border rounded shadow text-sm leading-relaxed">
-  </div>
-
-</div>
-</div>
-
-    <!-- SECTION 10 -->
-    <div id="section10" class="section mb-6">
-      <h3 class="font-bold mb-2">Section 10: QC Clearance</h3>
-
-     <table class="w-full border">
-  <thead>
-    <tr class="bg-gray-200">
-      <th>Section</th>
-      <th>Team</th>
-      <th>Question</th>
-      <th>Answer</th>
-      <th>Evidence Upload</th>
-      <th>Owner</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody id="qcChecklist"></tbody>
-</table> 
-</div>
-
-    <!-- SECTION 11 -->
-<div id="section11" class="section mb-6">
-
-<h3 class="font-bold mb-4">Section 11: NDA / MSA / SOW</h3>
-
-<!-- ================= NDA ================= -->
-<div id="ndaSection" class="mb-6">
-  <h4 class="font-semibold mb-2">NDA Section</h4>
-
-  <table class="table-auto w-full border text-sm">
-    <thead>
-      <tr>
-        <th class="border p-2">Document</th>
-        <th class="border p-2">Date</th>
-        <th class="border p-2">Validity</th>
-        <th class="border p-2">Upload</th>
-        <th class="border p-2">Signed Copy</th>
-        <th class="border p-2">Company</th>
-        <th class="border p-2">Owner</th>
-        <th class="border p-2">Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="border p-2">NDA</td>
-        <td class="border p-2"><input type="date" class="w-full border p-1"></td>
-       <td class="border p-2 flex gap-1">
-        <input type="date" id="ndaValidityFrom" class="w-full border p-1">
-        <span>→</span>
-        <input type="date" id="ndaValidityTo" class="w-full border p-1">
-      </td>
-        <td class="border p-2"><input type="file"></td>
-        <td class="border p-2"><input type="file"></td>
-        <td class="border p-2"><input type="text" class="w-full border p-1"></td>
-        <td class="border p-2"><input type="text" class="w-full border p-1"></td>
-        <td class="border p-2">
-          <select class="w-full border p-1">
-            <option>Pending</option>
-            <option>Completed</option>
-          </select>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<!-- ================= MSA ================= -->
-<div id="msaSubSection" class="mb-6">
-  <h4 class="font-semibold mb-2">MSA Section</h4>
-
-  <table class="table-auto w-full border text-sm">
-    <thead>
-      <tr>
-        <th class="border p-2">Document</th>
-        <th class="border p-2">Date</th>
-        <th class="border p-2">Validity</th>
-        <th class="border p-2">Upload</th>
-        <th class="border p-2">Signed Copy</th>
-        <th class="border p-2">Company</th>
-        <th class="border p-2">Owner</th>
-        <th class="border p-2">Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="border p-2">MSA</td>
-        <td class="border p-2"><input type="date" class="w-full border p-1"></td>
-        <td class="border p-2 flex gap-1">
-          <input type="date" class="w-full border p-1">
-          <span>→</span>
-          <input type="date" class="w-full border p-1">
-        </td>
-        <td class="border p-2"><input type="file"></td>
-        <td class="border p-2"><input type="file"></td>
-        <td class="border p-2"><input type="text" class="w-full border p-1"></td>
-        <td class="border p-2"><input type="text" class="w-full border p-1"></td>
-        <td class="border p-2">
-          <select class="w-full border p-1">
-            <option>Pending</option>
-            <option>Completed</option>
-          </select>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<!-- ================= SOW ================= -->
-<div id="sowMainSection">
-  <h4 class="font-semibold mb-2">SOW Section</h4>
-
-  <!-- Question -->
-  <div class="mb-4">
-    <label class="font-semibold">Is development done by in-house team?</label>
-    <select id="sowType" class="border p-2 w-full mt-1">
-      <option value="">Select</option>
-      <option value="yes">Yes</option>
-      <option value="no">No</option>
-    </select>
-  </div>
-
-  <!-- Conditional SOW -->
-  <div id="sowSection" class="hidden">
-
-    <div class="mb-4">
-      <label class="font-semibold">SOW Amount</label>
-      <input type="number" class="border p-2 w-full mt-1">
     </div>
-
-    <div class="mb-4">
-      <label class="font-semibold">Upload SOW Document</label>
-      <input type="file" class="w-full border p-2 mt-1">
-    </div>
-
   </div>
 
 </div>
+    
+   <!-- SECTION 10 -->
+<div id="section10" class="section mb-6">
 
-</div>
+  <div class="card">
+    <div class="card-title">Section 10: QC Clearance</div>
 
-    <!-- SECTION 12 -->
-<div id="section12" class="section mb-6">
-
-<h3 class="font-bold mb-4">Section 12: Rollout</h3>
-
-<div class="overflow-x-auto">
-
-<table class="w-full border border-gray-300 text-sm">
-
-<thead class="bg-gray-100">
-<tr>
-<th class="border p-2">Phases</th>
-<th class="border p-2">Applicability checkbox</th>
-<th class="border p-2">Date</th>
-<th class="border p-2">Comments</th>
-<th class="border p-2">Revised Dates, if any</th>
-<th class="border p-2">Sign off - DT team</th>
-</tr>
-</thead>
-
-<tbody>
-
-<tr>
-<td class="border p-2 text-center">1</td>
-<td class="border p-2 text-center"><input type="checkbox" onclick="toggleRolloutRow(this)"></td>
-<td class="border p-2"><input type="date" class="w-full border p-1 rollout-field bg-gray-200" disabled></td>
-<td class="border p-2"><input type="text" class="w-full border p-1 rollout-field bg-gray-200" disabled></td>
-<td class="border p-2"><input type="date" class="w-full border p-1 rollout-field bg-gray-200" disabled></td>
-
-<td class="border p-2 text-center">
-<button onclick="signOff(this)"
-class="bg-green-600 text-white px-2 py-1 rounded text-xs rollout-field">
-Sign Off
-</button>
-</td>
-
-</tr>
-
-<tr>
-<td class="border p-2 text-center">2</td>
-<td class="border p-2 text-center"><input type="checkbox" onclick="toggleRolloutRow(this)"></td>
-<td class="border p-2"><input type="date" class="w-full border p-1 rollout-field bg-gray-200" disabled></td>
-<td class="border p-2"><input type="text" class="w-full border p-1 rollout-field bg-gray-200" disabled></td>
-<td class="border p-2"><input type="date" class="w-full border p-1 rollout-field bg-gray-200" disabled></td>
-
-<td class="border p-2 text-center">
-<button onclick="signOff(this)"
-class="bg-green-600 text-white px-2 py-1 rounded text-xs rollout-field"
-disabled>
-Sign Off
-</button>
-</td>
-
-</tr>
-
-<tr>
-<td class="border p-2 text-center">3</td>
-<td class="border p-2 text-center"><input type="checkbox" onclick="toggleRolloutRow(this)"></td>
-<td class="border p-2"><input type="date" class="w-full border p-1 rollout-field bg-gray-200" disabled></td>
-<td class="border p-2"><input type="text" class="w-full border p-1 rollout-field bg-gray-200" disabled></td>
-<td class="border p-2"><input type="date" class="w-full border p-1 rollout-field bg-gray-200" disabled></td>
-
-<td class="border p-2 text-center">
-<button onclick="signOff(this)"
-class="bg-green-600 text-white px-2 py-1 rounded text-xs rollout-field"
-disabled>
-Sign Off
-</button>
-</td>
-
-</tr>
-
-<tr>
-<td class="border p-2 font-semibold">Full-roll out</td>
-<td class="border p-2 text-center"><input type="checkbox" onclick="toggleRolloutRow(this)"></td>
-<td class="border p-2"><input type="date" class="w-full border p-1 rollout-field bg-gray-200" disabled></td>
-<td class="border p-2"><input type="text" class="w-full border p-1 rollout-field bg-gray-200" disabled></td>
-<td class="border p-2"><input type="date" class="w-full border p-1 rollout-field bg-gray-200" disabled></td>
-
-<td class="border p-2 text-center">
-<button onclick="signOff(this)"
-class="bg-green-600 text-white px-2 py-1 rounded text-xs rollout-field"
-disabled>
-Sign Off
-</button>
-</td>
-
-</tr>
-
-</tbody>
-</table>
-
-</div>
-  <div class="mt-8">
-
-<h4 class="font-semibold mb-3">Subscription Update (GRCHub)</h4>
-
-<table class="w-full text-sm border">
-
-<thead class="bg-gray-200">
-<tr>
-<th class="p-2">Question</th>
-<th class="p-2">Answer</th>
-<th class="p-2">Evidence Upload</th>
-<th class="p-2">Owner</th>
-<th class="p-2">Status</th>
-</tr>
-</thead>
-
-<tbody>
-
-<tr>
-<td class="p-2 border">
-Has the subscription been updated in GRCHub?
-</td>
-
-<td class="p-2 border">
-<select class="border p-2 w-full">
-<option>Yes</option>
-<option>No</option>
-</select>
-</td>
-
-<td class="p-2 border">
-<input type="file" class="w-full text-sm">
-</td>
-
-<td class="p-2 border">
-<input type="text" class="border p-2 w-full" placeholder="Owner name">
-</td>
-
-<td class="p-2 border">
-<select class="border p-2 w-full">
-<option>Pending</option>
-<option>Completed</option>
-</select>
-</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-</div>
-
-    <!-- BUTTONS -->
-    <div class="flex gap-2">
-      <button onclick="saveToolDetails()" class="btn-primary flex-1">Save</button>
-      <button onclick="nextStep()" class="bg-green-600 text-white px-4 py-2 rounded">
-        Next →
-      </button>
-    </div>
-
-  </div>
-
-  <!-- ================= DASHBOARD ================= -->
-  <div id="dashboardSection">
-
-  <!-- SEARCH BAR -->
-<div class="mb-4 flex justify-between items-center">
-
-  <input
-    id="searchTool"
-    type="text"
-    placeholder="Search tool..."
-    class="border rounded px-3 py-2 w-72 text-sm"
-    onkeyup="searchTool()"
-  >
-
-</div>
-</div>
-
-
-    <div class="mb-4 flex gap-2">
-      <button onclick="setFilter('all')" class="filter-btn px-4 py-2 rounded bg-gray-200">All</button>
-      <button onclick="setFilter('progress')" class="filter-btn px-4 py-2 rounded bg-blue-200">In Progress</button>
-      <button onclick="setFilter('completed')" class="filter-btn px-4 py-2 rounded bg-green-200">Completed</button>
-      <button onclick="setFilter('new')" class="filter-btn px-4 py-2 rounded bg-gray-400 text-white">Not Started</button>
-    </div>
-
-     <table id="table" class="w-full bg-white rounded shadow">
+    <table class="w-full border">
       <thead>
-        <tr class="border-b">
-          <th class="p-2">Tool</th>
-          <th class="p-2">Type</th>
-          <th class="p-2">Requested Date</th>
-          <th class="p-2">Step</th>
-          <th class="p-2">Progress</th>
-          <th class="p-2">%</th>
-          <th class="p-2">Action</th>
+        <tr class="bg-gray-200">
+          <th>Section</th>
+          <th>Team</th>
+          <th>Question</th>
+          <th>Answer</th>
+          <th>Evidence Upload</th>
+          <th>Owner</th>
+          <th>Status</th>
         </tr>
       </thead>
-      <tbody id="tableBody"></tbody>
+      <tbody id="qcChecklist"></tbody>
     </table>
-
   </div>
 
 </div>
 
+<!-- SECTION 11 -->
+<div id="section11" class="section mb-6">
+
+  <div class="card">
+    <div class="card-title">Section 11: NDA / MSA / SOW</div>
+
+    <!-- ================= NDA ================= -->
+    <div id="ndaSection" class="mb-6">
+      <h4 class="font-semibold mb-2">NDA Section</h4>
+
+      <table class="table-auto w-full border text-sm">
+        <thead>
+          <tr>
+            <th class="border p-2">Document</th>
+            <th class="border p-2">Date</th>
+            <th class="border p-2">Validity</th>
+            <th class="border p-2">Upload</th>
+            <th class="border p-2">Signed Copy</th>
+            <th class="border p-2">Company</th>
+            <th class="border p-2">Owner</th>
+            <th class="border p-2">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="border p-2">NDA</td>
+
+            <td class="border p-2">
+              <input type="date" class="w-full border p-1">
+            </td>
+
+            <td class="border p-2 flex gap-1">
+              <input type="date" id="ndaValidityFrom" class="w-full border p-1">
+              <span>→</span>
+              <input type="date" id="ndaValidityTo" class="w-full border p-1">
+            </td>
+
+            <td class="border p-2">
+              <input type="file">
+            </td>
+
+            <td class="border p-2">
+              <input type="file">
+            </td>
+
+            <td class="border p-2">
+              <input type="text" class="w-full border p-1">
+            </td>
+
+            <td class="border p-2">
+              <input type="text" class="w-full border p-1">
+            </td>
+
+            <td class="border p-2">
+              <select class="w-full border p-1">
+                <option>Pending</option>
+                <option>Completed</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ================= MSA ================= -->
+    <div id="msaSubSection" class="mb-6">
+      <h4 class="font-semibold mb-2">MSA Section</h4>
+
+      <table class="table-auto w-full border text-sm">
+        <thead>
+          <tr>
+            <th class="border p-2">Document</th>
+            <th class="border p-2">Date</th>
+            <th class="border p-2">Validity</th>
+            <th class="border p-2">Upload</th>
+            <th class="border p-2">Signed Copy</th>
+            <th class="border p-2">Company</th>
+            <th class="border p-2">Owner</th>
+            <th class="border p-2">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="border p-2">MSA</td>
+
+            <td class="border p-2">
+              <input type="date" class="w-full border p-1">
+            </td>
+
+            <td class="border p-2 flex gap-1">
+              <input type="date" class="w-full border p-1">
+              <span>→</span>
+              <input type="date" class="w-full border p-1">
+            </td>
+
+            <td class="border p-2">
+              <input type="file">
+            </td>
+
+            <td class="border p-2">
+              <input type="file">
+            </td>
+
+            <td class="border p-2">
+              <input type="text" class="w-full border p-1">
+            </td>
+
+            <td class="border p-2">
+              <input type="text" class="w-full border p-1">
+            </td>
+
+            <td class="border p-2">
+              <select class="w-full border p-1">
+                <option>Pending</option>
+                <option>Completed</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ================= SOW ================= -->
+    <div id="sowMainSection">
+      <h4 class="font-semibold mb-2">SOW Section</h4>
+
+      <div class="mb-4">
+        <label class="font-semibold">Is development done by in-house team?</label>
+        <select id="sowType" class="border p-2 w-full mt-1">
+          <option value="">Select</option>
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+
+      <div id="sowSection" class="hidden">
+
+        <div class="mb-4">
+          <label class="font-semibold">SOW Amount</label>
+          <input type="number" class="border p-2 w-full mt-1">
+        </div>
+
+        <div class="mb-4">
+          <label class="font-semibold">Upload SOW Document</label>
+          <input type="file" class="w-full border p-2 mt-1">
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
 </div>
+``
+
+<!-- SECTION 12 -->
+<div id="section12" class="section mb-6">
+
+  <div class="card">
+    <div class="card-title">Section 12: Rollout</div>
+
+    <!-- ================= ROLLOUT PHASES ================= -->
+    <div class="overflow-x-auto">
+      <table class="w-full border border-gray-300 text-sm">
+
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="border p-2">Phases</th>
+            <th class="border p-2">Applicability checkbox</th>
+            <th class="border p-2">Date</th>
+            <th class="border p-2">Comments</th>
+            <th class="border p-2">Revised Dates, if any</th>
+            <th class="border p-2">Sign off - DT team</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <!-- Phase 1 -->
+          <tr>
+            <td class="border p-2 text-center">1</td>
+            <td class="border p-2 text-center">
+              <input type="checkbox" onclick="toggleRolloutRow(this)">
+            </td>
+            <td class="border p-2">
+              <input type="date" class="w-full border p-1 rollout-field bg-gray-200" disabled>
+            </td>
+            <td class="border p-2">
+              <input type="text" class="w-full border p-1 rollout-field bg-gray-200" disabled>
+            </td>
+            <td class="border p-2">
+              <input type="date" class="w-full border p-1 rollout-field bg-gray-200" disabled>
+            </td>
+            <td class="border p-2 text-center">
+              <button onclick="signOff(this)"
+                class="bg-green-600 text-white px-2 py-1 rounded text-xs rollout-field">
+                Sign Off
+              </button>
+            </td>
+          </tr>
+
+          <!-- Phase 2 -->
+          <tr>
+            <td class="border p-2 text-center">2</td>
+            <td class="border p-2 text-center">
+              <input type="checkbox" onclick="toggleRolloutRow(this)">
+            </td>
+            <td class="border p-2">
+              <input type="date" class="w-full border p-1 rollout-field bg-gray-200" disabled>
+            </td>
+            <td class="border p-2">
+              <input type="text" class="w-full border p-1 rollout-field bg-gray-200" disabled>
+            </td>
+            <td class="border p-2">
+              <input type="date" class="w-full border p-1 rollout-field bg-gray-200" disabled>
+            </td>
+            <td class="border p-2 text-center">
+              <button onclick="signOff(this)"
+                class="bg-green-600 text-white px-2 py-1 rounded text-xs rollout-field"
+                disabled>
+                Sign Off
+              </button>
+            </td>
+          </tr>
+
+          <!-- Phase 3 -->
+          <tr>
+            <td class="border p-2 text-center">3</td>
+            <td class="border p-2 text-center">
+              <input type="checkbox" onclick="toggleRolloutRow(this)">
+            </td>
+            <td class="border p-2">
+              <input type="date" class="w-full border p-1 rollout-field bg-gray-200" disabled>
+            </td>
+            <td class="border p-2">
+              <input type="text" class="w-full border p-1 rollout-field bg-gray-200" disabled>
+            </td>
+            <td class="border p-2">
+              <input type="date" class="w-full border p-1 rollout-field bg-gray-200" disabled>
+            </td>
+            <td class="border p-2 text-center">
+              <button onclick="signOff(this)"
+                class="bg-green-600 text-white px-2 py-1 rounded text-xs rollout-field"
+                disabled>
+                Sign Off
+              </button>
+            </td>
+          </tr>
+
+          <!-- Full Rollout -->
+          <tr>
+            <td class="border p-2 font-semibold">Full-roll out</td>
+            <td class="border p-2 text-center">
+              <input type="checkbox" onclick="toggleRolloutRow(this)">
+            </td>
+            <td class="border p-2">
+              <input type="date" class="w-full border p-1 rollout-field bg-gray-200" disabled>
+            </td>
+            <td class="border p-2">
+              <input type="text" class="w-full border p-1 rollout-field bg-gray-200" disabled>
+            </td>
+            <td class="border p-2">
+              <input type="date" class="w-full border p-1 rollout-field bg-gray-200" disabled>
+            </td>
+            <td class="border p-2 text-center">
+              <button onclick="signOff(this)"
+                class="bg-green-600 text-white px-2 py-1 rounded text-xs rollout-field"
+                disabled>
+                Sign Off
+              </button>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ================= SUBSCRIPTION UPDATE ================= -->
+    <div class="mt-8">
+      <h4 class="font-semibold mb-3">Subscription Update (GRCHub)</h4>
+
+      <table class="w-full text-sm border">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="p-2">Question</th>
+            <th class="p-2">Answer</th>
+            <th class="p-2">Evidence Upload</th>
+            <th class="p-2">Owner</th>
+            <th class="p-2">Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td class="p-2 border">
+              Has the subscription been updated in GRCHub?
+            </td>
+            <td class="p-2 border">
+              <select class="border p-2 w-full">
+                <option>Yes</option>
+                <option>No</option>
+              </select>
+            </td>
+            <td class="p-2 border">
+              <input type="file" class="w-full text-sm">
+            </td>
+            <td class="p-2 border">
+              <input type="text" class="border p-2 w-full" placeholder="Owner name">
+            </td>
+            <td class="p-2 border">
+              <select class="border p-2 w-full">
+                <option>Pending</option>
+                <option>Completed</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+``
 
 <script>
   // Helper functions to toggle sections based on workflow clicks
