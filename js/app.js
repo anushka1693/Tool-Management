@@ -464,7 +464,7 @@ async function saveToolDetails() {
 
     demoDate: demoDate,
     demoAttendees: demoAttendees,
-    demoLink: demoLink
+    demoLink: demoLink,
   step: existingTool?.step ?? 0,
     toolType: selectedToolType
   };
