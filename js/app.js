@@ -80,6 +80,30 @@ let tools = [];
 let auditTrail = [];
 let selectedToolType = "new";
 let filter = "all";
+
+function getExpiryAlert(dateString) {
+  if (!dateString) return "";
+
+  const today = new Date();
+  const expiry = new Date(dateString);
+
+  const diffTime = expiry - today;
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  if (diffDays < 0) {
+    return "❌ Expired";
+  }
+
+  if (diffDays <= 10) {
+    return `🚨 Due in ${diffDays} days`;
+  }
+
+  if (diffDays <= 15) {
+    return `⚠️ Due in ${diffDays} days`;
+  }
+
+  return "";
+}
 let currentToolIndex = null;
 
 // =======================
@@ -549,7 +573,17 @@ function render() {
 
       return `
       <tr class="border-b">
-        <td class="p-2"><b>${t.name}</b></td>
+        <td class="p-2">
+        <b>${t.name}</b><br/>
+      
+        <span style="color:red; font-size:12px;">
+          ${getExpiryAlert(t.ndaExpiryDate)}
+        </span><br/>
+      
+        <span style="color:orange; font-size:12px;">
+          ${getExpiryAlert(t.msaExpiryDate)}
+        </span>
+      </td>
         <td class="p-2">${t.type}</td>
         <td class="p-2">${t.requestedDate || "-"}</td>
         <td class="p-2">${stepsList[t.step]}</td>
