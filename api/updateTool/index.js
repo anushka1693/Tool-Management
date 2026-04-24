@@ -66,22 +66,10 @@ trackChange("MSA Expiry", oldEntity.msaExpiryDate, body.msaExpiryDate);
 
 trackChange("Step", oldEntity.step, body.step);
     
-    await client.updateEntity({
-      partitionKey: body.partitionKey,
-      rowKey: body.rowKey,
-
-      toolName: body.toolName,
-      companyName: body.companyName,
-      requestorName: body.requestorName,
-      practiceArea: body.practiceArea,
-      toolType: body.toolType,
-      requestedDate: body.requestedDate,
-      step: body.step ?? oldEntity.step ?? 0,
-      createdBy: body.createdBy,
-
-  ndaExpiryDate: body.ndaExpiryDate ?? oldEntity.ndaExpiryDate ?? "",
-  msaExpiryDate: body.msaExpiryDate ?? oldEntity.msaExpiryDate ?? ""
-    }, "Merge");
+ await client.updateEntity({
+  ...oldEntity,   // keep existing data
+  ...body         // ⭐ THIS SAVES ALL FIELDS (including IT)
+}, "Merge");
 
     // Save audit logs AFTER update
 for (const change of changes) {
