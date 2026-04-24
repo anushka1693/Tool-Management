@@ -447,6 +447,47 @@ closeToolForm();
 }
 
 // =======================
+// SAVE NDA / MSA DATA
+// =======================
+async function saveNDAData() {
+
+  if (currentToolIndex === null) {
+    alert("No tool selected");
+    return;
+  }
+
+  const tool = tools[currentToolIndex];
+
+  const ndaExpiryDate = document.getElementById("ndaValidityTo")?.value || "";
+  const msaExpiryDate = document.getElementById("msaValidityTo")?.value || "";
+
+  try {
+
+    await fetch("/api/updateTool", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        partitionKey: tool.partitionKey,
+        rowKey: tool.rowKey,
+        ndaExpiryDate: ndaExpiryDate,
+        msaExpiryDate: msaExpiryDate
+      })
+    });
+
+    alert("NDA/MSA saved");
+
+    await loadTools();
+
+  } catch (err) {
+    console.error(err);
+    alert("Save failed");
+  }
+}
+
+
+// =======================
 // RENDER TABLE
 // =======================
 
