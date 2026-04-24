@@ -19,6 +19,51 @@ module.exports = async function (context, req) {
       "ToolRequests"
     );
 
+    const auditClient = TableClient.fromConnectionString(
+    process.env.STORAGE_CONNECTION_STRING,
+    "AuditLogs"
+  );
+  
+  const oldEntity = await client.getEntity(
+    body.partitionKey,
+    body.rowKey
+  );
+
+    const changes = [];
+
+function trackChange(field, oldVal, newVal) {
+  if ((oldVal || "") !== (newVal || "")) {
+    changes.push({
+      partitionKey: "audit",
+      rowKey: Date.now().toString() + Math.random(),
+
+      toolId: body.rowKey,
+      step: body.step ?? oldEntity.step ?? "",
+
+      field: field,
+      oldValue: oldVal || "",
+      newValue: newVal || "",
+
+      changedBy: body.createdBy || oldEntity.createdBy || "User",
+      changedAt: new Date().toISOString()
+    });
+  }
+}
+
+trackChange("Tool Name", oldEntity.toolName, body.toolName);
+trackChange("Company", oldEntity.companyName, body.companyName);
+trackChange("Requestor", oldEntity.requestorName, body.requestorName);
+trackChange("Practice Area", oldEntity.practiceArea, body.practiceArea);
+
+trackChange("NDA Expiry", oldEntity.ndaExpiryDate, body.ndaExpiryDate);
+trackChange("MSA Expiry", oldEntity.msaExpiryDate, body.msaExpiryDate);
+
+trackChange("Step", oldEntity.step, body.step);
+
+for (const change of changes) {
+  await auditClient.createEntity(change);
+}
+    
     await client.updateEntity({
       partitionKey: body.partitionKey,
       rowKey: body.rowKey,
