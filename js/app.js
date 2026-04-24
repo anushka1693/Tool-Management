@@ -280,24 +280,6 @@ function updateSectionProgress(sectionId, stepIndex) {
 
 }
 
-if (currentToolIndex !== null) {
-
-  const tool = tools[currentToolIndex];
-
-  fetch("/api/updateStep", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      partitionKey: tool.partitionKey,
-      rowKey: tool.rowKey,
-      step: stepIndex
-    })
-  }).catch(err => console.error("Auto step save failed", err));
-
-}
-
 function attachProgressTracking(sectionId, stepIndex) {
 
   const section = document.getElementById(sectionId);
@@ -423,7 +405,14 @@ function updatePartnerDecisionOptions() {
 // =======================
 
 function addTool() {
+
   currentToolIndex = null;
+
+  // ✅ CLEAR ALL INPUTS
+  document.querySelectorAll("input, textarea, select").forEach(el => {
+    if (el.type === "file") return; // skip file inputs
+    el.value = "";
+  });
 
   document.getElementById("toolDetailsSection").classList.remove("hidden");
   document.getElementById("dashboardSection").style.display = "none";
@@ -691,7 +680,14 @@ function openTool(index) {
   document.getElementById("ndaValidityTo").value = tool.ndaExpiryDate || "";
   document.getElementById("msaValidityTo").value = tool.msaExpiryDate || "";
 
-  goToStep(tool.step || 0);
+  // Trigger progress update after loading data
+setTimeout(() => {
+  for (let i = 1; i <= 12; i++) {
+    updateSectionProgress("section" + i, i - 1);
+  }
+}, 100);
+
+  showSection(tool.step || 0);
 }
 
 // =======================
@@ -1010,17 +1006,23 @@ if (currentToolIndex !== null) {
   const tool = tools[currentToolIndex];
 
   try {
-    await fetch("/api/updateStep", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        partitionKey: tool.partitionKey,
-        rowKey: tool.rowKey,
-        step: currentStep
-      })
-    });
+await fetch("/api/updateTool", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    partitionKey: tool.partitionKey,
+    rowKey: tool.rowKey,
+
+    toolName: document.getElementById("toolName")?.value || "",
+    companyName: document.getElementById("companyName")?.value || "",
+    requestorName: document.getElementById("requestorName")?.value || "",
+    practiceArea: document.getElementById("practiceArea")?.value || "",
+
+    step: currentStep
+  })
+});
 
     await loadTools(); // refresh from backend
 
@@ -1031,51 +1033,23 @@ if (currentToolIndex !== null) {
 
   // show next section
   showSection(currentStep);
-  render();
 }
 
 // =======================
 // CLICK SIDE STEP
 // =======================
 
-async function goToStep(step) {
-
-  if (currentToolIndex === null) {
-    showSection(step);
-    updateWorkflowUI(step);
-    return;
-  }
-
-const tool = tools[currentToolIndex];
-
-try {
-  await fetch("/api/updateStep", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      partitionKey: tool.partitionKey,
-      rowKey: tool.rowKey,
-      step: step
-    })
-  });
-
-  await loadTools();
-
-} catch (err) {
-  console.error("Step update failed:", err);
-}
+function goToStep(step) {
 
   showSection(step);
 
-  // LOAD PILOT TEST CASES
+  updateWorkflowUI(step);
+
   if (step === 5) {
     loadPilotSection();
   }
-  render();
-}
 
+}
 // =======================
 // WORKFLOW UI (FIXED)
 // =======================
@@ -1099,27 +1073,6 @@ function updateWorkflowUI(step) {
 // =======================
 // MINI DONUTS (FIXED)
 // =======================
-
-function updateMiniDonuts(step) {
-
-  const donuts = document.querySelectorAll(".donut");
-
-  donuts.forEach((donut, i) => {
-
-    let percent = 0;
-
-  if (i < step) percent = 100;
-  else if (i === step) percent = 0;
-  else percent = 0;
-
-    donut.innerText = percent + "%";
-
-    donut.style.background =
-      `conic-gradient(#800000 ${percent}%, #e5e5e5 ${percent}%)`;
-
-    donut.style.transition = "all 0.4s ease";
-  });
-}
 
 // =======================
 // DROPDOWN
@@ -1636,7 +1589,7 @@ loadITChecklist();    // Populate IT Checklist
 renderDTChecklist();  // DT Checklist
 loadAIChecklist();
 loadQCChecklist();
-updateMiniDonuts(0);  // Workflow donuts
+//updateMiniDonuts(0);  // Workflow donuts
 loadPilotSection();  
 
 // =======================
