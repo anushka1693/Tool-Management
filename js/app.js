@@ -1815,6 +1815,13 @@ window.onload = function () {
   loadUser();
   loadTools(); // keep this here
 
+  setTimeout(() => {
+  for (let i = 0; i < 12; i++) {
+    const sectionId = "section" + (i + 1);
+    updateSectionProgress(sectionId, i);
+  }
+}, 500);
+
   // ✅ SHOW DASHBOARD BY DEFAULT
   const dashboard = document.getElementById("dashboardSection");
   const toolForm = document.getElementById("toolDetailsSection");
