@@ -169,7 +169,15 @@ if (sectionId === "section1") {
   const section = document.getElementById(sectionId);
   if (!section) return 0;
 
-  inputs = section.querySelectorAll("input, textarea, select");
+inputs = Array.from(
+  section.querySelectorAll("input, textarea, select")
+).filter(el => {
+
+  // Only ignore hidden fields
+  if (el.offsetParent === null) return false;
+
+  return true;
+});
 }
 
   const total = inputs.length;
