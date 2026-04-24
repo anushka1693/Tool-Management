@@ -597,6 +597,9 @@ function openTool(index) {
   document.getElementById("requestorName").value = tool.requestor || "";
   document.getElementById("practiceArea").value = tool.practice || "";
 
+  document.getElementById("ndaValidityTo").value = tool.ndaExpiryDate || "";
+  document.getElementById("msaValidityTo").value = tool.msaExpiryDate || "";
+
   showSection(tool.step);
 }
 
