@@ -399,14 +399,22 @@ const toolData = {
   toolType: selectedToolType
 };
 
+const isEdit = currentToolIndex !== null;
+const existingTool = isEdit ? tools[currentToolIndex] : null;
+const url = isEdit ? "/api/updateTool" : "/api/createRequest";
+  
   try {
 
-    const res = await fetch("/api/createRequest", {
+    const res = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(toolData)
+     body: JSON.stringify({
+  ...toolData,
+  partitionKey: existingTool?.partitionKey,
+  rowKey: existingTool?.rowKey
+})
     });
 
     let result = null;
