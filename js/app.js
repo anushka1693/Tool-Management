@@ -464,8 +464,11 @@ async function loadTools() {
   type: t.toolType || "New",
   step: t.step || 0,
   requestedDate: t.requestedDate || "-"
-}));
 
+  partitionKey: t.partitionKey,
+  rowKey: t.rowKey
+}));
+  
     render();
 
   } catch (err) {
@@ -508,15 +511,16 @@ function render() {
         <td class="p-2">${percent}%</td>
 
         <td class="p-2">
-        <select onchange="handleAction(this.value, '${t.name}')"
-      class="border px-2 py-1 rounded">
-    
-      <option value="">Select</option>
-      <option value="view">View</option>
-      <option value="audit">Audit Trail</option>
-      <option value="dump">Data Dump</option>
-    
-    </select>
+  <select onchange="handleAction(this.value, ${i})"
+  class="border px-2 py-1 rounded">
+
+  <option value="">Select</option>
+  <option value="view">View</option>
+  <option value="audit">Audit Trail</option>
+  <option value="dump">Data Dump</option>
+  <option value="delete">Delete</option>
+
+</select>
         </td>
       </tr>
       `;
@@ -1561,20 +1565,51 @@ function logout() {
   window.location.href = "/.auth/logout";
 }
 
-function handleAction(action, toolId) {
+async function handleAction(action, index) {
+
+  if (!action) return;
+
+  const tool = tools[index];
 
   if (action === "view") {
-    const index = tools.findIndex(t => t.name === toolId);
     openTool(index);
   }
 
   if (action === "audit") {
-    showAudit(toolId);
+    showAudit(tool.name);
   }
 
- if (action === "dump") {
-  showDataDump(toolId);
-}
+  if (action === "dump") {
+    showDataDump(tool.name);
+  }
+
+  if (action === "delete") {
+
+    const confirmDelete = confirm(`Delete "${tool.name}"?`);
+    if (!confirmDelete) return;
+
+    try {
+
+      await fetch("/api/deleteTool", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          partitionKey: tool.partitionKey,
+          rowKey: tool.rowKey
+        })
+      });
+
+      alert("Deleted successfully");
+
+      await loadTools(); // reload from backend
+
+    } catch (err) {
+      console.error(err);
+      alert("Delete failed");
+    }
+  }
 }
 
 async function showAudit(toolId) {
