@@ -4,6 +4,37 @@ body {
 }
 
 /* =========================
+   PAGE LAYOUT
+========================= */
+
+.page-wrapper {
+  padding: 20px 24px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.page-header {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 18px;
+}
+
+.page-title {
+  font-size: 14pt;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.page-subtitle {
+  font-size: 10pt;
+  color: #6b7280;
+}
+``
+
+
+/* =========================
    BUTTONS
 ========================= */
 
