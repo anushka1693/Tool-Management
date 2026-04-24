@@ -31,6 +31,9 @@ module.exports = async function (context, req) {
       requestedDate: body.requestedDate,
       step: body.step,
       createdBy: body.createdBy
+
+      ndaExpiryDate: body.ndaExpiryDate || "",
+      msaExpiryDate: body.msaExpiryDate || ""
     }, "Merge");
 
     context.res = {
