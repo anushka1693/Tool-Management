@@ -463,7 +463,7 @@ async function loadTools() {
   practice: t.practiceArea,
   type: t.toolType || "New",
   step: t.step || 0,
-  requestedDate: t.requestedDate || "-"
+  requestedDate: t.requestedDate || "-",
 
   partitionKey: t.partitionKey,
   rowKey: t.rowKey
