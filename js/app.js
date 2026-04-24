@@ -412,6 +412,9 @@ async function saveToolDetails() {
 
 const today = new Date().toLocaleDateString();
 
+const isEdit = currentToolIndex !== null;
+const existingTool = isEdit ? tools[currentToolIndex] : null;
+  
 const toolData = {
   toolName: name,
   companyName: company,
@@ -420,12 +423,10 @@ const toolData = {
   createdBy: loggedInUser,
 
   requestedDate: today,
-  step: 0,
+  step: existingTool?.step ?? 0,
   toolType: selectedToolType
 };
 
-const isEdit = currentToolIndex !== null;
-const existingTool = isEdit ? tools[currentToolIndex] : null;
 const url = isEdit ? "/api/updateTool" : "/api/createRequest";
   
   try {
@@ -444,11 +445,14 @@ const url = isEdit ? "/api/updateTool" : "/api/createRequest";
 
     let result = null;
 
-if (res.ok) {
-  result = await res.json();
+if (res.ok){
+  const text = await res.text();
+  console.log("API response:", text);
 } else {
   const text = await res.text();
   console.error("API error:", text);
+  alert("Error saving tool");
+  return;
 }
 
 console.log("Saved:", result);
@@ -488,18 +492,26 @@ async function saveNDAData() {
 
   try {
 
-    await fetch("/api/updateTool", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        partitionKey: tool.partitionKey,
-        rowKey: tool.rowKey,
-        ndaExpiryDate: ndaExpiryDate,
-        msaExpiryDate: msaExpiryDate
-      })
-    });
+   const res = await fetch("/api/updateTool", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    partitionKey: tool.partitionKey,
+    rowKey: tool.rowKey,
+    ndaExpiryDate: ndaExpiryDate,
+    msaExpiryDate: msaExpiryDate,
+    step: 10
+  })
+});
+
+if (!res.ok) {
+  const text = await res.text();
+  console.error("Save error:", text);
+  alert("Error saving NDA/MSA");
+  return;
+}
 
     alert("NDA/MSA saved");
 
