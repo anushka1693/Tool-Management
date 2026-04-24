@@ -105,6 +105,32 @@ function getExpiryAlert(dateString, type) {
   return "";
 }
 
+function calculateOverallProgress(tool) {
+  let total = 0;
+  let filled = 0;
+
+  function check(val) {
+    total++;
+    if (val !== null && val !== undefined && val !== "") {
+      filled++;
+    }
+  }
+
+  // TOOL DETAILS
+  check(tool.name);
+  check(tool.company);
+  check(tool.requestor);
+  check(tool.practice);
+
+  // NDA / MSA
+  check(tool.ndaExpiryDate);
+  check(tool.msaExpiryDate);
+
+  if (total === 0) return 0;
+
+  return Math.round((filled / total) * 100);
+}
+
 let currentToolIndex = null;
 
 // =======================
@@ -127,57 +153,75 @@ function getUserInitials() {
 
 const sectionFieldMap = {
 
-  section1: ["toolName", "companyName", "requestorName", "practiceArea"],
+  toolDetailsSection: [
+    "toolName",
+    "companyName",
+    "requestorName",
+    "practiceArea"
+  ],
 
-  section2: ["demoLink", "demoOwner"],
+  demoSection: [
+    "demoLink",
+    "demoOwner"
+  ],
 
-  section3: ["dtClearance"],
+  questionnaireSection: [
+    "dtClearance"
+  ],
 
-  section4: [],
+  itClearanceSection: [
+    // optional: skip for now OR define key fields
+  ],
 
-  section5: ["partnerDecision"],
+  partnerClearanceSection: [
+    "partnerDecision"
+  ],
 
-  section6: [],
+  pilotSection: [
+    // dynamic → leave for now
+  ],
 
-  section7: [],
+  dtClearanceSection: [
+    // can refine later
+  ],
 
-  section8: [],
+  aiClearanceSection: [
+    // can refine later
+  ],
 
-  section9: [],
+  toolMemoSection: [
+    // add if needed
+  ],
 
-  section10: [],
+  qcClearanceSection: [
+    // add later
+  ],
 
-  section11: ["sowType"],
+  msaSection: [
+    "sowType"
+  ],
 
-  section12: []
+  rolloutSection: [
+    // optional
+  ]
 };
 
 function calculateSectionProgress(sectionId) {
 
   let inputs = [];
   
-if (sectionId === "section1") {
+if (sectionFieldMap[sectionId] && sectionFieldMap[sectionId].length > 0) {
 
-  // Only use saved fields
   inputs = sectionFieldMap[sectionId]
     .map(id => document.getElementById(id))
     .filter(el => el !== null);
 
 } else {
 
-  // Use visible inputs (UI-based)
   const section = document.getElementById(sectionId);
   if (!section) return 0;
 
-inputs = Array.from(
-  section.querySelectorAll("input, textarea, select")
-).filter(el => {
-
-  // Only ignore hidden fields
-  if (el.offsetParent === null) return false;
-
-  return true;
-});
+  inputs = section.querySelectorAll("input, textarea, select");
 }
 
   const total = inputs.length;
@@ -233,6 +277,24 @@ function updateSectionProgress(sectionId, stepIndex) {
     }
 
   }
+
+}
+
+if (currentToolIndex !== null) {
+
+  const tool = tools[currentToolIndex];
+
+  fetch("/api/updateStep", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      partitionKey: tool.partitionKey,
+      rowKey: tool.rowKey,
+      step: stepIndex
+    })
+  }).catch(err => console.error("Auto step save failed", err));
 
 }
 
@@ -321,7 +383,6 @@ function loadPilotSection() {
   for (let i = 0; i < 3; i++) {
     addTestCase();
   }
-  attachProgressTracking("section6", 5);
 }
 
 // =======================
@@ -406,7 +467,7 @@ const toolData = {
   createdBy: loggedInUser,
 
   requestedDate: today,
-  step: existingTool?.step ?? 0,
+step: existingTool?.step ?? 0,
   toolType: selectedToolType
 };
 
@@ -565,6 +626,8 @@ function render() {
   document.getElementById("tableBody").innerHTML =
     filtered.map((t, i) => {
 
+    let percent = calculateOverallProgress(t);
+
       return `
       <tr class="border-b">
         <td class="p-2">
@@ -581,6 +644,14 @@ function render() {
         <td class="p-2">${t.type}</td>
         <td class="p-2">${t.requestedDate || "-"}</td>
         <td class="p-2">${stepsList[t.step]}</td>
+
+        <td class="p-2">
+          <div class="w-full bg-gray-200 h-3 rounded">
+            <div class="bg-[#800000] h-3 rounded" style="width:${percent}%"></div>
+          </div>
+        </td>
+
+        <td class="p-2">${percent}%</td>
 
         <td class="p-2">
   <select onchange="handleAction(this.value, ${i})"
@@ -620,16 +691,8 @@ function openTool(index) {
   document.getElementById("ndaValidityTo").value = tool.ndaExpiryDate || "";
   document.getElementById("msaValidityTo").value = tool.msaExpiryDate || "";
 
-  showSection(tool.step);
-
-  setTimeout(() => {
-  for (let i = 0; i < 12; i++) {
-    updateSectionProgress("section" + (i + 1), i);
-  }
-}, 200);
+  goToStep(tool.step || 0);
 }
-
-
 
 // =======================
 // TOOL MEMO GENERATION
@@ -911,11 +974,6 @@ if (step === 9) {
 }
 
   updateWorkflowUI(step);
-  const sectionId = "section" + (step + 1);
-
-setTimeout(() => {
-  updateSectionProgress(sectionId, step);
-}, 100);
 }
 
 // =======================
@@ -965,12 +1023,6 @@ if (currentToolIndex !== null) {
     });
 
     await loadTools(); // refresh from backend
-
-    setTimeout(() => {
-  for (let i = 0; i < 12; i++) {
-    updateSectionProgress("section" + (i + 1), i);
-  }
-}, 300);
 
   } catch (err) {
     console.error("Step update failed:", err);
@@ -1217,7 +1269,6 @@ function loadITChecklist() {
     `;
     tbody.appendChild(tr);
   });
-  attachProgressTracking("section4", 3);
 }
 
 attachITAuditListeners();
@@ -1595,7 +1646,9 @@ loadPilotSection();
 attachProgressTracking("section1", 0);
 attachProgressTracking("section2", 1);
 attachProgressTracking("section3", 2);
+attachProgressTracking("section4", 3);
 attachProgressTracking("section5", 4);
+attachProgressTracking("section6", 5);
 attachProgressTracking("section7", 6);
 attachProgressTracking("section8", 7);
 attachProgressTracking("section9", 8);
@@ -1801,13 +1854,6 @@ window.onload = function () {
   loadUser();
   loadTools(); // keep this here
 
-  setTimeout(() => {
-  for (let i = 0; i < 12; i++) {
-    const sectionId = "section" + (i + 1);
-    updateSectionProgress(sectionId, i);
-  }
-}, 500);
-
   // ✅ SHOW DASHBOARD BY DEFAULT
   const dashboard = document.getElementById("dashboardSection");
   const toolForm = document.getElementById("toolDetailsSection");
@@ -1887,19 +1933,4 @@ function renderITAuditTrail() {
 
     tbody.appendChild(tr);
   });
-}
-
-function toggleSidebar() {
-  const sidebar = document.getElementById("sidebar");
-  const btn = document.getElementById("toggleBtn");
-
-  if (!sidebar) return;
-
-  sidebar.classList.toggle("collapsed");
-
-  if (sidebar.classList.contains("collapsed")) {
-    btn.innerText = "➡";
-  } else {
-    btn.innerText = "⬅";
-  }
 }
