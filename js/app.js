@@ -516,8 +516,8 @@ function render() {
 
   <option value="">Select</option>
   <option value="view">View</option>
-  <option value="audit">Audit Trail</option>
-  <option value="dump">Data Dump</option>
+  <option value="audit">Audit Log</option>
+  <option value="dump">Data Folder</option>
   <option value="delete">Delete</option>
 
 </select>
