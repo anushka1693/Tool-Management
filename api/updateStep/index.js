@@ -19,14 +19,12 @@ module.exports = async function (context, req) {
       "ToolRequests"
     );
 
-    // Get existing record
-    const entity = await client.getEntity(partitionKey, rowKey);
-
-    // Update step
-    entity.step = step;
-
-    // Save back
-    await client.updateEntity(entity, "Replace");
+    // ✅ SIMPLE & SAFE UPDATE
+    await client.updateEntity({
+      partitionKey,
+      rowKey,
+      step
+    }, "Merge");
 
     context.res = {
       status: 200,
@@ -35,7 +33,7 @@ module.exports = async function (context, req) {
 
   } catch (err) {
 
-    context.log.error(err);
+    context.log.error("UPDATE STEP ERROR:", err);
 
     context.res = {
       status: 500,
