@@ -1892,3 +1892,18 @@ function renderITAuditTrail() {
     tbody.appendChild(tr);
   });
 }
+
+function toggleSidebar() {
+  const sidebar = document.getElementById("sidebar");
+  const btn = document.getElementById("toggleBtn");
+
+  if (!sidebar) return;
+
+  sidebar.classList.toggle("collapsed");
+
+  if (sidebar.classList.contains("collapsed")) {
+    btn.innerText = "➡";
+  } else {
+    btn.innerText = "⬅";
+  }
+}
