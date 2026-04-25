@@ -771,7 +771,7 @@ async function loadTools() {
   demoLink: t.demoLink,
 
 
-  dtClearance: t.dtClearance
+  dtClearance: t.dtClearance,
 
 
   it_answer_0: t.it_answer_0,
