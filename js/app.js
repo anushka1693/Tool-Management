@@ -1871,13 +1871,14 @@ function openTool(index) {
   document.getElementById("msaStatus").value = tool.msaStatus || "";
 
   document.getElementById("sowType").value = tool.sowType || "";
-   // SOW logic
-  // const dropdown = document.getElementById("sowType");
-  // const sowSection = document.getElementById("sowSection");
+  // SOW logic
+  const dropdown = document.getElementById("sowType");
+  const sowSection = document.getElementById("sowSection");
+  sowSection.classList.toggle("hidden", tool.sowType !== "yes");
   
   // if (dropdown && sowSection) {
   //   function toggleSOW() {
-  //     sowSection.classList.toggle("hidden", dropdown.value !== "yes");
+  //     sowSection.classList.toggle("hidden", tool.sowType !== "yes");
   //   }
   //   dropdown.addEventListener("change", toggleSOW);
   //   toggleSOW();
