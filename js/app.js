@@ -1074,6 +1074,8 @@ async function saveToolDetails() {
     msaValidityTo: msaValidityTo,
     msaSignOff: msaSignOff,
     msaStatus: msaStatus,
+
+    sowType: sowType,
     
   step: existingTool?.step ?? 0,
     toolType: selectedToolType
