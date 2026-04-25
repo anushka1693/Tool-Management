@@ -66,6 +66,12 @@ trackChange("MSA Expiry", oldEntity.msaExpiryDate, body.msaExpiryDate);
 
 trackChange("Step", oldEntity.step, body.step);
     
+trackChange(
+  "SignOffData",
+  JSON.stringify(oldEntity.signOffData),
+  JSON.stringify(body.signOffData)
+);
+    
  await client.updateEntity({
   ...oldEntity,   // keep existing data
   ...body         // ⭐ THIS SAVES ALL FIELDS (including IT)
