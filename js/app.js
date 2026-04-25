@@ -2580,7 +2580,7 @@ tbody.innerHTML = qcChecklistData.map((item, index) => `
     </td>
 
     <td class="p-2">
-      <input type="file" class="w-full">
+      <input id="qc_file_${index}" type="file" class="w-full">
     </td>
 
     <td class="p-2">
