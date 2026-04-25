@@ -2610,7 +2610,7 @@ function loadAIChecklist() {
 
   tbody.innerHTML = "";
 
-  aiChecklistData.forEach((item, index) => {
+  aiChecklistData.forEach((item, i) => {
     const tr = document.createElement("tr");
     tr.classList.add(index % 2 === 0 ? "bg-white" : "bg-gray-50");
 
