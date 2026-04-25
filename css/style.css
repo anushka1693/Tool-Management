@@ -344,7 +344,7 @@ table td {
 table tbody tr:hover {
   background-color: #f9fafb;
 }
-``
+
 
 /* =========================
    STEP 3: INPUTS & SELECTS
@@ -369,7 +369,7 @@ textarea:focus {
   border-color: #7A1E2C;
   box-shadow: 0 0 0 1px rgba(122, 30, 44, 0.2);
 }
-``
+
 /* =========================
    STEP 4: BUTTON STYLING
 ========================= */
@@ -398,7 +398,7 @@ button {
 button.bg-green-600:hover {
   background-color: #15803d;
 }
-``
+
 
 /* =========================
    STEP 5: WORKFLOW SIDEBAR
@@ -431,6 +431,7 @@ button.bg-green-600:hover {
 
 /* Add spacing between workflow sections */
 .section {
+  display: block
   margin-bottom: 28px;
 }
 
