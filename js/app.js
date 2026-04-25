@@ -1537,7 +1537,15 @@ function render() {
          ${getExpiryAlert(t.msaExpiryDate, "MSA")}
         </span>
       </td>
-        <td class="p-2">${t.type}</td>
+      <td class="p-2">
+          ${
+            t.toolType === "new"
+              ? "Build New Tool"
+              : t.toolType === "existing"
+              ? "Onboard External Tool"
+              : "-"
+          }
+        </td>
         <td class="p-2">${t.requestedDate || "-"}</td>
         <td class="p-2">${stepsList[t.step]}</td>
 
