@@ -65,6 +65,42 @@ trackChange("NDA Expiry", oldEntity.ndaExpiryDate, body.ndaExpiryDate);
 trackChange("MSA Expiry", oldEntity.msaExpiryDate, body.msaExpiryDate);
 
 trackChange("Step", oldEntity.step, body.step);
+
+// ================= DYNAMIC TRACKING (ALL FIELDS) =================
+for (const key in body) {
+
+  if (["partitionKey", "rowKey"].includes(key)) continue;
+
+  // skip already tracked fields (avoid duplicate logs)
+  const skipFields = [
+    "toolName", "companyName", "requestorName", "practiceArea",
+    "ndaExpiryDate", "msaExpiryDate", "step", "signOffData"
+  ];
+
+  if (skipFields.includes(key)) continue;
+
+  const oldVal = oldEntity[key];
+  const newVal = body[key];
+
+  if ((oldVal || "") !== (newVal || "")) {
+
+    changes.push({
+      partitionKey: "audit",
+      rowKey: Date.now().toString() + Math.random(),
+
+      toolId: body.rowKey,
+      step: body.step ?? oldEntity.step ?? "",
+
+      field: key,
+      oldValue: oldVal || "",
+      newValue: newVal || "",
+
+      changedBy: body.createdBy || oldEntity.createdBy || "User",
+      changedAt: new Date().toISOString()
+    });
+
+  }
+}
     
 trackChange(
   "SignOffData",
