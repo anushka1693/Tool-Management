@@ -5,7 +5,7 @@ function toggleAuditIT() {
   if (!el) {
     console.log("Audit container not found ❌");
     return;
-f  }
+}
 
   el.style.display = el.style.display === "none" ? "block" : "none";
 }
