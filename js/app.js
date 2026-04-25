@@ -31,42 +31,81 @@ function addAuditEntry(question, action) {
 }
 
 // ================= SIGN OFF ROW =================
-function signOffRow(btn, question) {
+async function signOffRow(btn, question) {
+
+  if (currentToolIndex === null) {
+    alert("No tool selected");
+    return;
+  }
+
+  const tool = tools[currentToolIndex];
+  const user = document.getElementById("userName")?.innerText || "User";
 
   const row = btn.closest("tr");
-  const ownerInput = row.querySelector(".owner-input");
-  const user = document.getElementById("userAvatar")?.innerText || "NA";
+  const rowIndex = Array.from(row.parentNode.children).indexOf(row);
+
+  const sectionId = btn.closest("table").id || "unknown";
+  const signedAt = new Date().toISOString();
+
+  const key = sectionId + "_row_" + rowIndex;
 
   const isSigned = btn.classList.contains("signed");
 
   if (isSigned) {
-    // 🔁 UNDO
+    // ❌ UNDO (optional)
     btn.classList.remove("signed");
     btn.innerText = "Sign Off";
+    btn.title = "";
 
-    row.querySelectorAll("input, select").forEach(el => el.disabled = false);
-    row.style.backgroundColor = "";
+    return;
+  }
 
-  } else {
-    // ✅ SIGN
-    btn.classList.add("signed");
+  // ✅ UI update
+  btn.classList.add("signed");
+  btn.innerText = "✔ Signed";
+  btn.title = `Signed by: ${user}`;
+  btn.disabled = true;
 
-    if (!ownerInput.value) {
-      ownerInput.value = user;
+  row.style.backgroundColor = "#e6fffa";
+
+  // ✅ Prepare backend object
+  const signOffData = {
+    ...(tool.signOffData || {}),
+    [key]: {
+      signedBy: user,
+      signedAt: signedAt,
+      question: question
     }
+  };
 
-    row.querySelectorAll("input, select").forEach(el => el.disabled = true);
+  try {
 
-    btn.innerText = "✔ Signed";
-    row.style.backgroundColor = "#e6fffa";
+    await fetch("/api/updateTool", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        partitionKey: tool.partitionKey,
+        rowKey: tool.rowKey,
+        signOffData: signOffData
+      })
+    });
 
-    addAuditEntry(question, "Signed Off");
+    // ✅ update local state
+    tool.signOffData = signOffData;
+
+    // ✅ audit (you already have this)
     addAuditLog({
-  step: getCurrentStepName(),
-  question,
-  action: "Signed Off",
-  value: user
-});
+      step: getCurrentStepName(),
+      question,
+      action: "Signed Off",
+      value: user
+    });
+
+  } catch (err) {
+    console.error(err);
+    alert("Sign-off failed");
   }
 }
 
@@ -1207,7 +1246,8 @@ function openTool(index) {
     }
   }, 100);
 
-    showSection(tool.step || 0);
+  showSection(tool.step || 0);
+  loadAllSignOffs();
  }
 
 // =======================
@@ -2416,5 +2456,37 @@ function renderITAuditTrail() {
     `;
 
     tbody.appendChild(tr);
+  });
+}
+
+function loadAllSignOffs() {
+
+  if (currentToolIndex === null) return;
+
+  const tool = tools[currentToolIndex];
+  const data = tool.signOffData || {};
+
+  document.querySelectorAll("table").forEach(table => {
+
+    const sectionId = table.id;
+
+    table.querySelectorAll("tbody tr").forEach((row, index) => {
+
+      const key = sectionId + "_row_" + index;
+      const btn = row.querySelector("button");
+
+      if (data[key] && btn) {
+        const { signedBy } = data[key];
+
+        btn.innerText = "✔ Signed";
+        btn.classList.add("signed");
+        btn.title = "Signed by: " + signedBy;
+        btn.disabled = true;
+
+        row.style.backgroundColor = "#e6fffa";
+      }
+
+    });
+
   });
 }
