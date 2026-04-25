@@ -625,6 +625,73 @@ async function saveToolDetails() {
   const dt_status_12 = document.getElementById("dt_status_12").value;
 
   //Section 8 (AI Clearance)
+  const ai_answer_0 = document.getElementById("ai_answer_0").value;
+  const ai_owner_0 = document.getElementById("ai_owner_0").value;
+  const ai_status_0 = document.getElementById("ai_status_0").value;
+
+  const ai_answer_1 = document.getElementById("ai_answer_1").value;
+  const ai_owner_1 = document.getElementById("ai_owner_1").value;
+  const ai_status_1 = document.getElementById("ai_status_1").value;
+
+  const ai_answer_2 = document.getElementById("ai_answer_2").value;
+  const ai_owner_2 = document.getElementById("ai_owner_2").value;
+  const ai_status_2 = document.getElementById("ai_status_2").value;
+
+  const ai_answer_3 = document.getElementById("ai_answer_3").value;
+  const ai_owner_3 = document.getElementById("ai_owner_3").value;
+  const ai_status_3 = document.getElementById("ai_status_3").value;
+
+  const ai_answer_4 = document.getElementById("ai_answer_4").value;
+  const ai_owner_4 = document.getElementById("ai_owner_4").value;
+  const ai_status_4 = document.getElementById("ai_status_4").value;
+
+  const ai_answer_5 = document.getElementById("ai_answer_5").value;
+  const ai_owner_5 = document.getElementById("ai_owner_5").value;
+  const ai_status_5 = document.getElementById("ai_status_5").value;
+
+  const ai_answer_6 = document.getElementById("ai_answer_6").value;
+  const ai_owner_6 = document.getElementById("ai_owner_6").value;
+  const ai_status_6 = document.getElementById("ai_status_6").value;
+
+  const ai_answer_7 = document.getElementById("ai_answer_7").value;
+  const ai_owner_7 = document.getElementById("ai_owner_7").value;
+  const ai_status_7 = document.getElementById("ai_status_7").value;
+
+  const ai_answer_8 = document.getElementById("ai_answer_8").value;
+  const ai_owner_8 = document.getElementById("ai_owner_8").value;
+  const ai_status_8 = document.getElementById("ai_status_8").value;
+
+  const ai_answer_9 = document.getElementById("ai_answer_9").value;
+  const ai_owner_9 = document.getElementById("ai_owner_9").value;
+  const ai_status_9 = document.getElementById("ai_status_9").value;
+
+  const ai_answer_10 = document.getElementById("ai_answer_10").value;
+  const ai_owner_10 = document.getElementById("ai_owner_10").value;
+  const ai_status_10 = document.getElementById("ai_status_10").value;
+
+  const ai_answer_11 = document.getElementById("ai_answer_11").value;
+  const ai_owner_11 = document.getElementById("ai_owner_11").value;
+  const ai_status_11 = document.getElementById("ai_status_11").value;
+
+  const ai_answer_12 = document.getElementById("ai_answer_12").value;
+  const ai_owner_12 = document.getElementById("ai_owner_12").value;
+  const ai_status_12 = document.getElementById("ai_status_12").value;
+
+  const ai_answer_13 = document.getElementById("ai_answer_13").value;
+  const ai_owner_13 = document.getElementById("ai_owner_13").value;
+  const ai_status_13 = document.getElementById("ai_status_13").value;
+
+  const ai_answer_14 = document.getElementById("ai_answer_14").value;
+  const ai_owner_14 = document.getElementById("ai_owner_14").value;
+  const ai_status_14 = document.getElementById("ai_status_14").value;
+
+  const ai_answer_15 = document.getElementById("ai_answer_15").value;
+  const ai_owner_15 = document.getElementById("ai_owner_15").value;
+  const ai_status_15 = document.getElementById("ai_status_15").value;
+
+  const ai_answer_16 = document.getElementById("ai_answer_16").value;
+  const ai_owner_16 = document.getElementById("ai_owner_16").value;
+  const ai_status_16 = document.getElementById("ai_status_16").value;
 
   //Section 10 (QC)
   const qc_answer_0 = document.getElementById("qc_answer_0").value;
@@ -863,6 +930,75 @@ async function saveToolDetails() {
     dt_answer_12: dt_answer_12,
     dt_owner_12: dt_owner_12,
     dt_status_12: dt_status_12,
+
+
+    ai_answer_0: ai_answer_0,
+    ai_owner_0: ai_owner_0,
+    ai_status_0: ai_status_0,
+
+    ai_answer_1: ai_answer_1,
+    ai_owner_1: ai_owner_1,
+    ai_status_1: ai_status_1,
+
+    ai_answer_2: ai_answer_2,
+    ai_owner_2: ai_owner_2,
+    ai_status_2: ai_status_2,
+
+    ai_answer_3: ai_answer_3,
+    ai_owner_3: ai_owner_3,
+    ai_status_3: ai_status_3,
+
+    ai_answer_4: ai_answer_4,
+    ai_owner_4: ai_owner_4,
+    ai_status_4: ai_status_4,
+
+    ai_answer_5: ai_answer_5,
+    ai_owner_5: ai_owner_5,
+    ai_status_5: ai_status_5,
+
+    ai_answer_6: ai_answer_6,
+    ai_owner_6: ai_owner_6,
+    ai_status_6: ai_status_6,
+
+    ai_answer_7: ai_answer_7,
+    ai_owner_7: ai_owner_7,
+    ai_status_7: ai_status_7,
+
+    ai_answer_8: ai_answer_8,
+    ai_owner_8: ai_owner_8,
+    ai_status_8: ai_status_8,
+
+    ai_answer_9: ai_answer_9,
+    ai_owner_9: ai_owner_9,
+    ai_status_9: ai_status_9,
+
+    ai_answer_10: ai_answer_10,
+    ai_owner_10: ai_owner_10,
+    ai_status_10: ai_status_10,
+
+    ai_answer_11: ai_answer_11,
+    ai_owner_11: ai_owner_11,
+    ai_status_11: ai_status_11,
+
+    ai_answer_12: ai_answer_12,
+    ai_owner_12: ai_owner_12,
+    ai_status_12: ai_status_12,
+
+    ai_answer_13: ai_answer_13,
+    ai_owner_13: ai_owner_13,
+    ai_status_13: ai_status_13,
+
+    ai_answer_14: ai_answer_14,
+    ai_owner_14: ai_owner_14,
+    ai_status_14: ai_status_14,
+
+    ai_answer_15: ai_answer_15,
+    ai_owner_15: ai_owner_15,
+    ai_status_15: ai_status_15,
+
+    ai_answer_16: ai_answer_16,
+    ai_owner_16: ai_owner_16,
+    ai_status_16: ai_status_16,
 
 
     qc_answer_0: qc_answer_0,
@@ -1198,6 +1334,75 @@ async function loadTools() {
   dt_answer_12: t.dt_answer_12,
   dt_owner_12: t.dt_owner_12,
   dt_status_12: t.dt_status_12,
+
+
+  ai_answer_0: t.ai_answer_0,
+  ai_owner_0: t.ai_owner_0,
+  ai_status_0: t.ai_status_0,
+
+  ai_answer_1: t.ai_answer_1,
+  ai_owner_1: t.ai_owner_1,
+  ai_status_1: t.ai_status_1,
+
+  ai_answer_2: t.ai_answer_2,
+  ai_owner_2: t.ai_owner_2,
+  ai_status_2: t.ai_status_2,
+
+  ai_answer_3: t.ai_answer_3,
+  ai_owner_3: t.ai_owner_3,
+  ai_status_3: t.ai_status_3,
+
+  ai_answer_4: t.ai_answer_4,
+  ai_owner_4: t.ai_owner_4,
+  ai_status_4: t.ai_status_4,
+
+  ai_answer_5: t.ai_answer_5,
+  ai_owner_5: t.ai_owner_5,
+  ai_status_5: t.ai_status_5,
+
+  ai_answer_6: t.ai_answer_6,
+  ai_owner_6: t.ai_owner_6,
+  ai_status_6: t.ai_status_6,
+
+  ai_answer_7: t.ai_answer_7,
+  ai_owner_7: t.ai_owner_7,
+  ai_status_7: t.ai_status_7,
+
+  ai_answer_8: t.ai_answer_8,
+  ai_owner_8: t.ai_owner_8,
+  ai_status_8: t.ai_status_8,
+
+  ai_answer_9: t.ai_answer_9,
+  ai_owner_9: t.ai_owner_9,
+  ai_status_9: t.ai_status_9,
+
+  ai_answer_10: t.ai_answer_10,
+  ai_owner_10: t.ai_owner_10,
+  ai_status_10: t.ai_status_10,
+
+  ai_answer_11: t.ai_answer_11,
+  ai_owner_11: t.ai_owner_11,
+  ai_status_11: t.ai_status_11,
+
+  ai_answer_12: t.ai_answer_12,
+  ai_owner_12: t.ai_owner_12,
+  ai_status_12: t.ai_status_12,
+
+  ai_answer_13: t.ai_answer_13,
+  ai_owner_13: t.ai_owner_13,
+  ai_status_13: t.ai_status_13,
+
+  ai_answer_14: t.ai_answer_14,
+  ai_owner_14: t.ai_owner_14,
+  ai_status_14: t.ai_status_14,
+
+  ai_answer_15: t.ai_answer_15,
+  ai_owner_15: t.ai_owner_15,
+  ai_status_15: t.ai_status_15,
+
+  ai_answer_16: t.ai_answer_16,
+  ai_owner_16: t.ai_owner_16,
+  ai_status_16: t.ai_status_16,
     
 
   qc_answer_0: t.qc_answer_0,
@@ -1498,6 +1703,73 @@ function openTool(index) {
     document.getElementById("dt_status_12").value = tool.dt_status_12 || "";
 
     //Section 8 (AI Clearance)
+    document.getElementById("ai_answer_0").value = tool.ai_answer_0 || "";
+    document.getElementById("ai_owner_0").value = tool.ai_owner_0 || "";
+    document.getElementById("ai_status_0").value = tool.ai_status_0 || "";
+
+    document.getElementById("ai_answer_1").value = tool.ai_answer_1 || "";
+    document.getElementById("ai_owner_1").value = tool.ai_owner_1 || "";
+    document.getElementById("ai_status_1").value = tool.ai_status_1 || "";
+
+    document.getElementById("ai_answer_2").value = tool.ai_answer_2 || "";
+    document.getElementById("ai_owner_2").value = tool.ai_owner_2 || "";
+    document.getElementById("ai_status_2").value = tool.ai_status_2 || "";
+
+    document.getElementById("ai_answer_3").value = tool.ai_answer_3 || "";
+    document.getElementById("ai_owner_3").value = tool.ai_owner_3 || "";
+    document.getElementById("ai_status_3").value = tool.ai_status_3 || "";
+
+    document.getElementById("ai_answer_4").value = tool.ai_answer_4 || "";
+    document.getElementById("ai_owner_4").value = tool.ai_owner_4 || "";
+    document.getElementById("ai_status_4").value = tool.ai_status_4 || "";
+
+    document.getElementById("ai_answer_5").value = tool.ai_answer_5 || "";
+    document.getElementById("ai_owner_5").value = tool.ai_owner_5 || "";
+    document.getElementById("ai_status_5").value = tool.ai_status_5 || "";
+
+    document.getElementById("ai_answer_6").value = tool.ai_answer_6 || "";
+    document.getElementById("ai_owner_6").value = tool.ai_owner_6 || "";
+    document.getElementById("ai_status_6").value = tool.ai_status_6 || "";
+
+    document.getElementById("ai_answer_7").value = tool.ai_answer_7 || "";
+    document.getElementById("ai_owner_7").value = tool.ai_owner_7 || "";
+    document.getElementById("ai_status_7").value = tool.ai_status_7 || "";
+
+    document.getElementById("ai_answer_8").value = tool.ai_answer_8 || "";
+    document.getElementById("ai_owner_8").value = tool.ai_owner_8 || "";
+    document.getElementById("ai_status_8").value = tool.ai_status_8 || "";
+
+    document.getElementById("ai_answer_9").value = tool.ai_answer_9 || "";
+    document.getElementById("ai_owner_9").value = tool.ai_owner_9 || "";
+    document.getElementById("ai_status_9").value = tool.ai_status_9 || "";
+
+    document.getElementById("ai_answer_10").value = tool.ai_answer_10 || "";
+    document.getElementById("ai_owner_10").value = tool.ai_owner_10 || "";
+    document.getElementById("ai_status_10").value = tool.ai_status_10 || "";
+
+    document.getElementById("ai_answer_11").value = tool.ai_answer_11 || "";
+    document.getElementById("ai_owner_11").value = tool.ai_owner_11 || "";
+    document.getElementById("ai_status_11").value = tool.ai_status_11 || "";
+
+    document.getElementById("ai_answer_12").value = tool.ai_answer_12 || "";
+    document.getElementById("ai_owner_12").value = tool.ai_owner_12 || "";
+    document.getElementById("ai_status_12").value = tool.ai_status_12 || "";
+
+    document.getElementById("ai_answer_13").value = tool.ai_answer_13 || "";
+    document.getElementById("ai_owner_13").value = tool.ai_owner_13 || "";
+    document.getElementById("ai_status_13").value = tool.ai_status_13 || "";
+
+    document.getElementById("ai_answer_14").value = tool.ai_answer_14 || "";
+    document.getElementById("ai_owner_14").value = tool.ai_owner_14 || "";
+    document.getElementById("ai_status_14").value = tool.ai_status_14 || "";
+
+    document.getElementById("ai_answer_15").value = tool.ai_answer_15 || "";
+    document.getElementById("ai_owner_15").value = tool.ai_owner_15 || "";
+    document.getElementById("ai_status_15").value = tool.ai_status_15 || "";
+
+    document.getElementById("ai_answer_16").value = tool.ai_answer_16 || "";
+    document.getElementById("ai_owner_16").value = tool.ai_owner_16 || "";
+    document.getElementById("ai_status_16").value = tool.ai_status_16 || "";
 
     //Section 9 (Tool Menu)
 
@@ -2346,11 +2618,11 @@ function loadAIChecklist() {
       <td class="p-2 border">${item.section}</td>
       <td class="p-2 border">${item.team}</td>
       <td class="p-2 border">${item.question}</td>
-      <td class="p-2 border"><input type="text" placeholder="Answer" class="w-full border rounded p-1"></td>
-      <td class="p-2 border"><input type="file" class="w-full"></td>
-      <td class="p-2 border"><input type="text" placeholder="Owner" class="w-full border rounded p-1"></td>
+      <td class="p-2 border"><input type="text" id="ai_answer_${i}" placeholder="Answer" class="w-full border rounded p-1"></td>
+      <td class="p-2 border"><input type="file" id="ai_file_${i}" class="w-full"></td>
+      <td class="p-2 border"><input type="text" id="ai_owner_${i}" placeholder="Owner" class="w-full border rounded p-1"></td>
       <td class="p-2 border">
-        <select class="w-full border rounded p-1">
+        <select id="ai_status_${i}" class="w-full border rounded p-1">
           <option value="">Select Status</option>
           <option value="pending">Pending</option>
           <option value="in-progress">In Progress</option>
