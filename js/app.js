@@ -5,7 +5,7 @@ function toggleAuditIT() {
   if (!el) {
     console.log("Audit container not found ❌");
     return;
-  }
+f  }
 
   el.style.display = el.style.display === "none" ? "block" : "none";
 }
@@ -80,18 +80,19 @@ async function signOffRow(btn, question) {
 
   try {
 
-    await fetch("/api/updateTool", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        partitionKey: tool.partitionKey,
-        rowKey: tool.rowKey,
-        signOffData: signOffData
-      })
-    });
-
+await fetch("/api/updateTool", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    partitionKey: tool.partitionKey,
+    rowKey: tool.rowKey,
+    signOffData: signOffData,
+    step: getCurrentStepName(),
+    createdBy: user
+  })
+});
     // ✅ update local state
     tool.signOffData = signOffData;
 
