@@ -671,11 +671,161 @@ async function saveToolDetails() {
     practiceArea: practice,
     createdBy: loggedInUser,
 
+    
     requestedDate: today,
 
+    
     demoDate: demoDate,
     demoAttendees: demoAttendees,
     demoLink: demoLink,
+
+    
+    dtClearance: dtClearance,
+
+
+    it_answer_0: it_answer_0,
+    it_owner_0: it_owner_0,
+    it_status_0: it_status_0,
+
+    it_answer_1: it_answer_1,
+    it_owner_1: it_owner_1,
+    it_status_1: it_status_1,
+
+    it_answer_2: it_answer_2,
+    it_owner_2: it_owner_2,
+    it_status_2: it_status_2,
+
+    it_answer_3: it_answer_3,
+    it_owner_3: it_owner_3,
+    it_status_3: it_status_3,
+
+    it_answer_4: it_answer_4,
+    it_owner_4: it_owner_4,
+    it_status_4: it_status_4,
+
+    it_answer_5: it_answer_5,
+    it_owner_5: it_owner_5,
+    it_status_5: it_status_5,
+
+    it_answer_6: it_answer_6,
+    it_owner_6: it_owner_6,
+    it_status_6: it_status_6,
+
+    it_answer_7: it_answer_7,
+    it_owner_7: it_owner_7,
+    it_status_7: it_status_7,
+
+    it_answer_8: it_answer_8,
+    it_owner_8: it_owner_8,
+    it_status_8: it_status_8,
+
+    it_answer_9: it_answer_9,
+    it_owner_9: it_owner_9,
+    it_status_9: it_status_9,
+
+    it_answer_10: it_answer_10,
+    it_owner_10: it_owner_10,
+    it_status_10: it_status_10,
+
+    it_answer_11: it_answer_11,
+    it_owner_11: it_owner_11,
+    it_status_11: it_status_11,
+
+    it_answer_12: it_answer_12,
+    it_owner_12: it_owner_12,
+    it_status_12: it_status_12,
+
+    it_answer_13: it_answer_13,
+    it_owner_13: it_owner_13,
+    it_status_13: it_status_13,
+
+    it_answer_14: it_answer_14,
+    it_owner_14: it_owner_14,
+    it_status_14: it_status_14,
+
+    it_answer_15: it_answer_15,
+    it_owner_15: it_owner_15,
+    it_status_15: it_status_15,
+
+    it_answer_16: it_answer_16,
+    it_owner_16: it_owner_16,
+    it_status_16: it_status_16,
+
+    it_answer_17: it_answer_17,
+    it_owner_17: it_owner_17,
+    it_status_17: it_status_17,
+
+
+    partnerDecision: partnerDecision,
+
+
+    qc_answer_0: qc_answer_0,
+    qc_owner_0: qc_owner_0,
+    qc_status_0: qc_status_0,
+
+    qc_answer_1: qc_answer_1,
+    qc_owner_1: qc_owner_1,
+    qc_status_1: qc_status_1,
+
+    qc_answer_2: qc_answer_2,
+    qc_owner_2: qc_owner_2,
+    qc_status_2: qc_status_2,
+
+    qc_answer_3: qc_answer_3,
+    qc_owner_3: qc_owner_3,
+    qc_status_3: qc_status_3,
+
+    qc_answer_4: qc_answer_4,
+    qc_owner_4: qc_owner_4,
+    qc_status_4: qc_status_4,
+
+    qc_answer_5: qc_answer_5,
+    qc_owner_5: qc_owner_5,
+    qc_status_5: qc_status_5,
+
+    qc_answer_6: qc_answer_6,
+    qc_owner_6: qc_owner_6,
+    qc_status_6: qc_status_6,
+
+    qc_answer_7: qc_answer_7,
+    qc_owner_7: qc_owner_7,
+    qc_status_7: qc_status_7,
+
+    qc_answer_8: qc_answer_8,
+    qc_owner_8: qc_owner_8,
+    qc_status_8: qc_status_8,
+
+    qc_answer_9: qc_answer_9,
+    qc_owner_9: qc_owner_9,
+    qc_status_9: qc_status_9,
+
+    qc_answer_10: qc_answer_10,
+    qc_owner_10: qc_owner_10,
+    qc_status_10: qc_status_10,
+
+    qc_answer_11: qc_answer_11,
+    qc_owner_11: qc_owner_11,
+    qc_status_11: qc_status_11,
+
+    qc_answer_12: qc_answer_12,
+    qc_owner_12: qc_owner_12,
+    qc_status_12: qc_status_12,
+
+    qc_answer_13: qc_answer_13,
+    qc_owner_13: qc_owner_13,
+    qc_status_13: qc_status_13,
+
+    qc_answer_14: qc_answer_14,
+    qc_owner_14: qc_owner_14,
+    qc_status_14: qc_status_14,
+
+    qc_answer_15: qc_answer_15,
+    qc_owner_15: qc_owner_15,
+    qc_status_15: qc_status_15,
+
+
+    ndaValidityFrom: ndaValidityFrom,
+    ndaValidityTo: ndaValidityTo,
   step: existingTool?.step ?? 0,
     toolType: selectedToolType
   };
