@@ -2612,7 +2612,7 @@ function loadAIChecklist() {
 
   aiChecklistData.forEach((item, i) => {
     const tr = document.createElement("tr");
-    tr.classList.add(index % 2 === 0 ? "bg-white" : "bg-gray-50");
+    tr.classList.add(i % 2 === 0 ? "bg-white" : "bg-gray-50");
 
     tr.innerHTML = `
       <td class="p-2 border">${item.section}</td>
