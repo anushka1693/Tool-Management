@@ -2148,7 +2148,7 @@ if (current && !current.classList.contains("hidden-by-type")) {
   }
 
 if (step === 7) {
-  loadAIChecklist();
+  //loadAIChecklist();
 }
 
 if (step === 8) {
