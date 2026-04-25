@@ -449,6 +449,178 @@ async function saveToolDetails() {
   const demoAttendees = document.getElementById("demoAttendees").value;
   const demoLink = document.getElementById("demoLink").value;
 
+  //Section 3 (Vendor)
+  const dtClearance = document.getElementById("dtClearance").value;
+
+  //Section 4 (IT Clearance)
+  const it_answer_0 = document.getElementById("it_answer_0").value;
+  const it_owner_0 = document.getElementById("it_owner_0").value;
+  const it_status_0 = document.getElementById("it_status_0").value;
+
+  const it_answer_1 = document.getElementById("it_answer_1").value;
+  const it_owner_1 = document.getElementById("it_owner_1").value;
+  const it_status_1 = document.getElementById("it_status_1").value;
+
+  const it_answer_2 = document.getElementById("it_answer_2").value;
+  const it_owner_2 = document.getElementById("it_owner_2").value;
+  const it_status_2 = document.getElementById("it_status_2").value;
+
+  const it_answer_3 = document.getElementById("it_answer_3").value;
+  const it_owner_3 = document.getElementById("it_owner_3").value;
+  const it_status_3 = document.getElementById("it_status_3").value;
+
+  const it_answer_4 = document.getElementById("it_answer_4").value;
+  const it_owner_4 = document.getElementById("it_owner_4").value;
+  const it_status_4 = document.getElementById("it_status_4").value;
+
+  const it_answer_5 = document.getElementById("it_answer_5").value;
+  const it_owner_5 = document.getElementById("it_owner_5").value;
+  const it_status_5 = document.getElementById("it_status_5").value;
+
+  const it_answer_6 = document.getElementById("it_answer_6").value;
+  const it_owner_6 = document.getElementById("it_owner_6").value;
+  const it_status_6 = document.getElementById("it_status_6").value;
+
+  const it_answer_7 = document.getElementById("it_answer_7").value;
+  const it_owner_7 = document.getElementById("it_owner_7").value;
+  const it_status_7 = document.getElementById("it_status_7").value;
+
+  const it_answer_8 = document.getElementById("it_answer_8").value;
+  const it_owner_8 = document.getElementById("it_owner_8").value;
+  const it_status_8 = document.getElementById("it_status_8").value;
+
+  const it_answer_9 = document.getElementById("it_answer_9").value;
+  const it_owner_9 = document.getElementById("it_owner_9").value;
+  const it_status_9 = document.getElementById("it_status_9").value;
+
+  const it_answer_10 = document.getElementById("it_answer_10").value;
+  const it_owner_10 = document.getElementById("it_owner_10").value;
+  const it_status_10 = document.getElementById("it_status_10").value;
+
+  const it_answer_11 = document.getElementById("it_answer_11").value;
+  const it_owner_11 = document.getElementById("it_owner_11").value;
+  const it_status_11 = document.getElementById("it_status_11").value;
+
+  const it_answer_12 = document.getElementById("it_answer_12").value;
+  const it_owner_12 = document.getElementById("it_owner_12").value;
+  const it_status_12 = document.getElementById("it_status_12").value;
+
+  const it_answer_13 = document.getElementById("it_answer_13").value;
+  const it_owner_13 = document.getElementById("it_owner_13").value;
+  const it_status_13 = document.getElementById("it_status_13").value;
+
+  const it_answer_14 = document.getElementById("it_answer_14").value;
+  const it_owner_14 = document.getElementById("it_owner_14").value;
+  const it_status_14 = document.getElementById("it_status_14").value;
+
+  const it_answer_15 = document.getElementById("it_answer_15").value;
+  const it_owner_15 = document.getElementById("it_owner_15").value;
+  const it_status_15 = document.getElementById("it_status_15").value;
+
+  const it_answer_16 = document.getElementById("it_answer_16").value;
+  const it_owner_16 = document.getElementById("it_owner_16").value;
+  const it_status_16 = document.getElementById("it_status_16").value;
+
+  const it_answer_17 = document.getElementById("it_answer_17").value;
+  const it_owner_17 = document.getElementById("it_owner_17").value;
+  const it_status_17 = document.getElementById("it_status_17").value;
+
+  //Section 5 (Partner)
+  //const dtClearance = document.getElementById("dtClearance").value;
+  const partnerDecision = document.getElementById("partnerDecision").value;
+  //const dtClearance = document.getElementById("dtClearance").value;
+
+  //Section 6 (Pilot)
+
+  //Section 7 (DT Clearance)
+
+  //Section 8 (AI Clearance)
+
+  //Section 10 (QC)
+  const qc_answer_0 = document.getElementById("qc_answer_0").value;
+  const qc_owner_0 = document.getElementById("qc_owner_0").value;
+  const qc_status_0 = document.getElementById("qc_status_0").value;
+
+  const qc_answer_1 = document.getElementById("qc_answer_1").value;
+  const qc_owner_1 = document.getElementById("qc_owner_1").value;
+  const qc_status_1 = document.getElementById("qc_status_1").value;
+
+  const qc_answer_2 = document.getElementById("qc_answer_2").value;
+  const qc_owner_2 = document.getElementById("qc_owner_2").value;
+  const qc_status_2 = document.getElementById("qc_status_2").value;
+
+  const qc_answer_3 = document.getElementById("qc_answer_3").value;
+  const qc_owner_3 = document.getElementById("qc_owner_3").value;
+  const qc_status_3 = document.getElementById("qc_status_3").value;
+
+  const qc_answer_4 = document.getElementById("qc_answer_4").value;
+  const qc_owner_4 = document.getElementById("qc_owner_4").value;
+  const qc_status_4 = document.getElementById("qc_status_4").value;
+
+  const qc_answer_5 = document.getElementById("qc_answer_5").value;
+  const qc_owner_5 = document.getElementById("qc_owner_5").value;
+  const qc_status_5 = document.getElementById("qc_status_5").value;
+
+  const qc_answer_6 = document.getElementById("qc_answer_6").value;
+  const qc_owner_6 = document.getElementById("qc_owner_6").value;
+  const qc_status_6 = document.getElementById("qc_status_6").value;
+
+  const qc_answer_7 = document.getElementById("qc_answer_7").value;
+  const qc_owner_7 = document.getElementById("qc_owner_7").value;
+  const qc_status_7 = document.getElementById("qc_status_7").value;
+
+  const qc_answer_8 = document.getElementById("qc_answer_8").value;
+  const qc_owner_8 = document.getElementById("qc_owner_8").value;
+  const qc_status_8 = document.getElementById("qc_status_8").value;
+
+  const qc_answer_9 = document.getElementById("qc_answer_9").value;
+  const qc_owner_9 = document.getElementById("qc_owner_9").value;
+  const qc_status_9 = document.getElementById("qc_status_9").value;
+
+  const qc_answer_10 = document.getElementById("qc_answer_10").value;
+  const qc_owner_10 = document.getElementById("qc_owner_10").value;
+  const qc_status_10 = document.getElementById("qc_status_10").value;
+
+  const qc_answer_11 = document.getElementById("qc_answer_11").value;
+  const qc_owner_11 = document.getElementById("qc_owner_11").value;
+  const qc_status_11 = document.getElementById("qc_status_11").value;
+
+  const qc_answer_12 = document.getElementById("qc_answer_12").value;
+  const qc_owner_12 = document.getElementById("qc_owner_12").value;
+  const qc_status_12 = document.getElementById("qc_status_12").value;
+
+  const qc_answer_13 = document.getElementById("qc_answer_13").value;
+  const qc_owner_13 = document.getElementById("qc_owner_13").value;
+  const qc_status_13 = document.getElementById("qc_status_13").value;
+
+  const qc_answer_14 = document.getElementById("qc_answer_14").value;
+  const qc_owner_14 = document.getElementById("qc_owner_14").value;
+  const qc_status_14 = document.getElementById("qc_status_14").value;
+
+  const qc_answer_15 = document.getElementById("qc_answer_15").value;
+  const qc_owner_15 = document.getElementById("qc_owner_15").value;
+  const qc_status_15 = document.getElementById("qc_status_15").value;
+
+  //Section 11 (NDA)
+  //const qc_answer_15 = document.getElementById("qc_answer_15").value;
+  const ndaValidityFrom = document.getElementById("ndaValidityFrom").value;
+  const ndaValidityTo = document.getElementById("ndaValidityTo").value;
+  //const qc_answer_15 = document.getElementById("qc_answer_15").value;
+  //const qc_answer_15 = document.getElementById("qc_answer_15").value;
+  //const qc_answer_15 = document.getElementById("qc_answer_15").value;
+
+  //const qc_answer_15 = document.getElementById("qc_answer_15").value;
+  //const ndaValidityFrom = document.getElementById("ndaValidityFrom").value;
+  //const ndaValidityTo = document.getElementById("ndaValidityTo").value;
+  //const qc_answer_15 = document.getElementById("qc_answer_15").value;
+  //const qc_answer_15 = document.getElementById("qc_answer_15").value;
+  //const qc_answer_15 = document.getElementById("qc_answer_15").value;
+
+  const sowType = document.getElementById("sowType").value;
+
+  //Section 12 (Rollout)
+
+
 
   const isEdit = currentToolIndex !== null;
   const existingTool = isEdit ? tools[currentToolIndex] : null;
@@ -515,7 +687,7 @@ async function saveToolDetails() {
 
     }
 
-  }
+}
 
 // =======================
 // SAVE NDA / MSA DATA
@@ -592,9 +764,159 @@ async function loadTools() {
   company: t.companyName,
   requestor: t.requestorName,
   practice: t.practiceArea,
+
+
   demoDate: t.demoDate,
   demoAttendees: t.demoAttendees,
-  demoLink: t.demoLink
+  demoLink: t.demoLink,
+
+
+  dtClearance: t.dtClearance
+
+
+  it_answer_0: t.it_answer_0,
+  it_owner_0: t.it_owner_0,
+  it_status_0: t.it_status_0,
+
+  it_answer_1: t.it_answer_1,
+  it_owner_1: t.it_owner_1,
+  it_status_1: t.it_status_1,
+
+  it_answer_2: t.it_answer_2,
+  it_owner_2: t.it_owner_2,
+  it_status_2: t.it_status_2,
+
+  it_answer_3: t.it_answer_3,
+  it_owner_3: t.it_owner_3,
+  it_status_3: t.it_status_3,
+
+  it_answer_4: t.it_answer_4,
+  it_owner_4: t.it_owner_4,
+  it_status_4: t.it_status_4,
+
+  it_answer_5: t.it_answer_5,
+  it_owner_5: t.it_owner_5,
+  it_status_5: t.it_status_5,
+
+  it_answer_6: t.it_answer_6,
+  it_owner_6: t.it_owner_6,
+  it_status_6: t.it_status_6,
+
+  it_answer_7: t.it_answer_7,
+  it_owner_7: t.it_owner_7,
+  it_status_7: t.it_status_7,
+
+  it_answer_8: t.it_answer_8,
+  it_owner_8: t.it_owner_8,
+  it_status_8: t.it_status_8,
+
+  it_answer_9: t.it_answer_9,
+  it_owner_9: t.it_owner_9,
+  it_status_9: t.it_status_9,
+
+  it_answer_10: t.it_answer_10,
+  it_owner_10: t.it_owner_10,
+  it_status_10: t.it_status_10,
+
+  it_answer_11: t.it_answer_11,
+  it_owner_11: t.it_owner_11,
+  it_status_11: t.it_status_11,
+
+  it_answer_12: t.it_answer_12,
+  it_owner_12: t.it_owner_12,
+  it_status_12: t.it_status_12,
+
+  it_answer_13: t.it_answer_13,
+  it_owner_13: t.it_owner_13,
+  it_status_13: t.it_status_13,
+
+  it_answer_14: t.it_answer_14,
+  it_owner_14: t.it_owner_14,
+  it_status_14: t.it_status_14,
+
+  it_answer_15: t.it_answer_15,
+  it_owner_15: t.it_owner_15,
+  it_status_15: t.it_status_15,
+
+  it_answer_16: t.it_answer_16,
+  it_owner_16: t.it_owner_16,
+  it_status_16: t.it_status_16,
+
+  it_answer_17: t.it_answer_17,
+  it_owner_17: t.it_owner_17,
+  it_status_17: t.it_status_17,
+
+
+  partnerDecision: t.partnerDecision,
+
+
+  qc_answer_0: t.qc_answer_0,
+  qc_owner_0: t.qc_owner_0,
+  qc_status_0: t.qc_status_0,
+
+  qc_answer_1: t.qc_answer_1,
+  qc_owner_1: t.qc_owner_1,
+  qc_status_1: t.qc_status_1,
+
+  qc_answer_2: t.qc_answer_2,
+  qc_owner_2: t.qc_owner_2,
+  qc_status_2: t.qc_status_2,
+
+  qc_answer_3: t.qc_answer_3,
+  qc_owner_3: t.qc_owner_3,
+  qc_status_3: t.qc_status_3,
+
+  qc_answer_4: t.qc_answer_4,
+  qc_owner_4: t.qc_owner_4,
+  qc_status_4: t.qc_status_4,
+
+  qc_answer_5: t.qc_answer_5,
+  qc_owner_5: t.qc_owner_5,
+  qc_status_5: t.qc_status_5,
+
+  qc_answer_6: t.qc_answer_6,
+  qc_owner_6: t.qc_owner_6,
+  qc_status_6: t.qc_status_6,
+
+  qc_answer_7: t.qc_answer_7,
+  qc_owner_7: t.qc_owner_7,
+  qc_status_7: t.qc_status_7,
+
+  qc_answer_8: t.qc_answer_8,
+  qc_owner_8: t.qc_owner_8,
+  qc_status_8: t.qc_status_8,
+
+  qc_answer_9: t.qc_answer_9,
+  qc_owner_9: t.qc_owner_9,
+  qc_status_9: t.qc_status_9,
+
+  qc_answer_10: t.qc_answer_10,
+  qc_owner_10: t.qc_owner_10,
+  qc_status_10: t.qc_status_10,
+
+  qc_answer_11: t.qc_answer_11,
+  qc_owner_11: t.qc_owner_11,
+  qc_status_11: t.qc_status_11,
+
+  qc_answer_12: t.qc_answer_12,
+  qc_owner_12: t.qc_owner_12,
+  qc_status_12: t.qc_status_12,
+
+  qc_answer_13: t.qc_answer_13,
+  qc_owner_13: t.qc_owner_13,
+  qc_status_13: t.qc_status_13,
+
+  qc_answer_14: t.qc_answer_14,
+  qc_owner_14: t.qc_owner_14,
+  qc_status_14: t.qc_status_14,
+
+  qc_answer_15: t.qc_answer_15,
+  qc_owner_15: t.qc_owner_15,
+  qc_status_15: t.qc_status_15,
+
+  ndaValidityFrom: t.ndaValidityFrom,
+  ndaValidityTo: t.ndaValidityTo
+
   }));
 
   render();
@@ -689,6 +1011,162 @@ function openTool(index) {
     document.getElementById("demoAttendees").value = tool.demoAttendees || "";
     document.getElementById("demoLink").value = tool.demoLink || "";
 
+    //Section 3 (Vendor)
+    document.getElementById("dtClearance").value = tool.dtClearance || "";
+
+    //Section 4 (IT Clearance)
+    document.getElementById("it_answer_0").value = tool.it_answer_0 || "";
+    document.getElementById("it_owner_0").value = tool.it_owner_0 || "";
+    document.getElementById("it_status_0").value = tool.it_status_0 || "";
+
+    document.getElementById("it_answer_1").value = tool.it_answer_1 || "";
+    document.getElementById("it_owner_1").value = tool.it_owner_1 || "";
+    document.getElementById("it_status_1").value = tool.it_status_1 || "";
+
+    document.getElementById("it_answer_2").value = tool.it_answer_2 || "";
+    document.getElementById("it_owner_2").value = tool.it_owner_2 || "";
+    document.getElementById("it_status_2").value = tool.it_status_2 || "";
+
+    document.getElementById("it_answer_3").value = tool.it_answer_3 || "";
+    document.getElementById("it_owner_3").value = tool.it_owner_3 || "";
+    document.getElementById("it_status_3").value = tool.it_status_3 || "";
+
+    document.getElementById("it_answer_4").value = tool.it_answer_4 || "";
+    document.getElementById("it_owner_4").value = tool.it_owner_4 || "";
+    document.getElementById("it_status_4").value = tool.it_status_4 || "";
+
+    document.getElementById("it_answer_5").value = tool.it_answer_5 || "";
+    document.getElementById("it_owner_5").value = tool.it_owner_5 || "";
+    document.getElementById("it_status_5").value = tool.it_status_5 || "";
+
+    document.getElementById("it_answer_6").value = tool.it_answer_6 || "";
+    document.getElementById("it_owner_6").value = tool.it_owner_6 || "";
+    document.getElementById("it_status_6").value = tool.it_status_6 || "";
+
+    document.getElementById("it_answer_7").value = tool.it_answer_7 || "";
+    document.getElementById("it_owner_7").value = tool.it_owner_7 || "";
+    document.getElementById("it_status_7").value = tool.it_status_7 || "";
+
+    document.getElementById("it_answer_8").value = tool.it_answer_8 || "";
+    document.getElementById("it_owner_8").value = tool.it_owner_8 || "";
+    document.getElementById("it_status_8").value = tool.it_status_8 || "";
+
+    document.getElementById("it_answer_9").value = tool.it_answer_9 || "";
+    document.getElementById("it_owner_9").value = tool.it_owner_9 || "";
+    document.getElementById("it_status_9").value = tool.it_status_9 || "";
+
+    document.getElementById("it_answer_10").value = tool.it_answer_10 || "";
+    document.getElementById("it_owner_10").value = tool.it_owner_10 || "";
+    document.getElementById("it_status_10").value = tool.it_status_10 || "";
+
+    document.getElementById("it_answer_11").value = tool.it_answer_11 || "";
+    document.getElementById("it_owner_11").value = tool.it_owner_11 || "";
+    document.getElementById("it_status_11").value = tool.it_status_11 || "";
+
+    document.getElementById("it_answer_12").value = tool.it_answer_12 || "";
+    document.getElementById("it_owner_12").value = tool.it_owner_12 || "";
+    document.getElementById("it_status_12").value = tool.it_status_12 || "";
+
+    document.getElementById("it_answer_13").value = tool.it_answer_13 || "";
+    document.getElementById("it_owner_13").value = tool.it_owner_13 || "";
+    document.getElementById("it_status_13").value = tool.it_status_13 || "";
+
+    document.getElementById("it_answer_14").value = tool.it_answer_14 || "";
+    document.getElementById("it_owner_14").value = tool.it_owner_14 || "";
+    document.getElementById("it_status_14").value = tool.it_status_14 || "";
+
+    document.getElementById("it_answer_15").value = tool.it_answer_15 || "";
+    document.getElementById("it_owner_15").value = tool.it_owner_15 || "";
+    document.getElementById("it_status_15").value = tool.it_status_15 || "";
+
+    document.getElementById("it_answer_16").value = tool.it_answer_16 || "";
+    document.getElementById("it_owner_16").value = tool.it_owner_16 || "";
+    document.getElementById("it_status_16").value = tool.it_status_16 || "";
+
+    document.getElementById("it_answer_17").value = tool.it_answer_17 || "";
+    document.getElementById("it_owner_17").value = tool.it_owner_17 || "";
+    document.getElementById("it_status_17").value = tool.it_status_17 || "";
+
+    //Section 5 (Partner)
+    document.getElementById("partnerDecision").value = tool.partnerDecision || "";
+
+    //Section 6 (Pilot)
+
+    //Section 7 (DT Clearance)
+
+    //Section 8 (AI Clearance)
+
+    //Section 9 (Tool Menu)
+
+    //Section 10 (QC)
+    document.getElementById("qc_answer_0").value = tool.qc_answer_0 || "";
+    document.getElementById("qc_owner_0").value = tool.qc_owner_0 || "";
+    document.getElementById("qc_status_0").value = tool.qc_status_0 || "";
+
+    document.getElementById("qc_answer_1").value = tool.qc_answer_1 || "";
+    document.getElementById("qc_owner_1").value = tool.qc_owner_1 || "";
+    document.getElementById("qc_status_1").value = tool.qc_status_1 || "";
+
+    document.getElementById("qc_answer_2").value = tool.qc_answer_2 || "";
+    document.getElementById("qc_owner_2").value = tool.qc_owner_2 || "";
+    document.getElementById("qc_status_2").value = tool.qc_status_2 || "";
+
+    document.getElementById("qc_answer_3").value = tool.qc_answer_3 || "";
+    document.getElementById("qc_owner_3").value = tool.qc_owner_3 || "";
+    document.getElementById("qc_status_3").value = tool.qc_status_3 || "";
+
+    document.getElementById("qc_answer_4").value = tool.qc_answer_4 || "";
+    document.getElementById("qc_owner_4").value = tool.qc_owner_4 || "";
+    document.getElementById("qc_status_4").value = tool.qc_status_4 || "";
+
+    document.getElementById("qc_answer_5").value = tool.qc_answer_5 || "";
+    document.getElementById("qc_owner_5").value = tool.qc_owner_5 || "";
+    document.getElementById("qc_status_5").value = tool.qc_status_5 || "";
+
+    document.getElementById("qc_answer_6").value = tool.qc_answer_6 || "";
+    document.getElementById("qc_owner_6").value = tool.qc_owner_6 || "";
+    document.getElementById("qc_status_6").value = tool.qc_status_6 || "";
+
+    document.getElementById("qc_answer_7").value = tool.qc_answer_7 || "";
+    document.getElementById("qc_owner_7").value = tool.qc_owner_7 || "";
+    document.getElementById("qc_status_7").value = tool.qc_status_7 || "";
+
+    document.getElementById("qc_answer_8").value = tool.qc_answer_8 || "";
+    document.getElementById("qc_owner_8").value = tool.qc_owner_8 || "";
+    document.getElementById("qc_status_8").value = tool.qc_status_8 || "";
+
+    document.getElementById("qc_answer_9").value = tool.qc_answer_9 || "";
+    document.getElementById("qc_owner_9").value = tool.qc_owner_9 || "";
+    document.getElementById("qc_status_9").value = tool.qc_status_9 || "";
+
+    document.getElementById("qc_answer_10").value = tool.qc_answer_10 || "";
+    document.getElementById("qc_owner_10").value = tool.qc_owner_10 || "";
+    document.getElementById("qc_status_10").value = tool.qc_status_10 || "";
+
+    document.getElementById("qc_answer_11").value = tool.qc_answer_11 || "";
+    document.getElementById("qc_owner_11").value = tool.qc_owner_11 || "";
+    document.getElementById("qc_status_11").value = tool.qc_status_11 || "";
+
+    document.getElementById("qc_answer_12").value = tool.qc_answer_12 || "";
+    document.getElementById("qc_owner_12").value = tool.qc_owner_12 || "";
+    document.getElementById("qc_status_12").value = tool.qc_status_12 || "";
+
+    document.getElementById("qc_answer_13").value = tool.qc_answer_13 || "";
+    document.getElementById("qc_owner_13").value = tool.qc_owner_13 || "";
+    document.getElementById("qc_status_13").value = tool.qc_status_13 || "";
+
+    document.getElementById("qc_answer_14").value = tool.qc_answer_14 || "";
+    document.getElementById("qc_owner_14").value = tool.qc_owner_14 || "";
+    document.getElementById("qc_status_14").value = tool.qc_status_14 || "";
+
+    document.getElementById("qc_answer_15").value = tool.qc_answer_15 || "";
+    document.getElementById("qc_owner_15").value = tool.qc_owner_15 || "";
+    document.getElementById("qc_status_15").value = tool.qc_status_15 || "";
+
+    //Section 11 (NDA)
+
+    //Section 12 (Rollout)
+
     document.getElementById("ndaValidityTo").value = tool.ndaExpiryDate || "";
     document.getElementById("msaValidityTo").value = tool.msaExpiryDate || "";
 
@@ -730,7 +1208,7 @@ function openTool(index) {
   }, 100);
 
     showSection(tool.step || 0);
-}
+ }
 
 // =======================
 // TOOL MEMO GENERATION
