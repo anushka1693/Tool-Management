@@ -5,7 +5,7 @@ function toggleAuditIT() {
   if (!el) {
     console.log("Audit container not found ❌");
     return;
-f  }
+  }
 
   el.style.display = el.style.display === "none" ? "block" : "none";
 }
@@ -80,19 +80,18 @@ async function signOffRow(btn, question) {
 
   try {
 
-await fetch("/api/updateTool", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    partitionKey: tool.partitionKey,
-    rowKey: tool.rowKey,
-    signOffData: signOffData,
-    step: getCurrentStepName(),
-    createdBy: user
-  })
-});
+    await fetch("/api/updateTool", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        partitionKey: tool.partitionKey,
+        rowKey: tool.rowKey,
+        signOffData: signOffData
+      })
+    });
+
     // ✅ update local state
     tool.signOffData = signOffData;
 
@@ -120,23 +119,6 @@ let tools = [];
 let auditTrail = [];
 let selectedToolType = "new";
 let filter = "all";
-
-const fieldMap = {
-  it_answer_0: "IT - Access Control",
-  it_status_0: "IT - Status",
-
-  it_answer_1: "IT - Data Security",
-  it_status_1: "IT - Status",
-
-  qc_answer_0: "QC - Validation",
-  qc_status_0: "QC - Status",
-
-  qc_answer_1: "QC - Data Check",
-  qc_status_1: "QC - Status",
-
-  ndaStatus: "NDA Status",
-  msaStatus: "MSA Status"
-};
 
 function getExpiryAlert(dateString, type) {
   if (!dateString) return "";
@@ -1202,43 +1184,6 @@ if (!res.ok) {
 // RENDER TABLE
 // =======================
 
-async function loadAuditLogs(tool) {
-
-  try {
-
-    const res = await fetch(`/api/getAuditLogs?toolId=${tool.rowKey}`);
-
-    if (!res.ok) {
-      console.error("Failed to fetch audit logs");
-      return;
-    }
-
-    const data = await res.json();
-
-    const tbody = document.getElementById("auditITBody");
-
-    if (!tbody) return;
-
-    tbody.innerHTML = data.map(log => `
-      <tr>
-        <td class="border p-1">
-          ${new Date(log.changedAt).toLocaleString("en-IN")}
-        </td>
-        <td class="border p-1">${log.changedBy}</td>
-        <td class="border p-1">${log.step || "-"}</td>
-        <td class="border p-1">${fieldMap[log.field] || log.field}</td>
-        <td class="border p-1">${log.oldValue || "-"}</td>
-        <td class="border p-1">${log.newValue || "-"}</td>
-      </tr>
-    `).join("");
-
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-
-
 async function loadTools() {
 
   try {
@@ -1592,15 +1537,7 @@ function render() {
          ${getExpiryAlert(t.msaExpiryDate, "MSA")}
         </span>
       </td>
-      <td class="p-2">
-          ${
-            t.toolType === "new"
-              ? "Build New Tool"
-              : t.toolType === "existing"
-              ? "Onboard External Tool"
-              : "-"
-          }
-        </td>
+        <td class="p-2">${t.type}</td>
         <td class="p-2">${t.requestedDate || "-"}</td>
         <td class="p-2">${stepsList[t.step]}</td>
 
@@ -3018,13 +2955,9 @@ async function handleAction(action, index) {
 
   const tool = tools[index];
 
-if (action === "audit") {
-
-  const el = document.getElementById("auditITContainer");
-  if (el) el.style.display = "block";
-
-  loadAuditLogs(tool);
-}
+  if (action === "view") {
+    openTool(index);
+  }
 
   if (action === "audit") {
     showAudit(tool.name);
