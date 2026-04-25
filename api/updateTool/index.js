@@ -102,11 +102,22 @@ for (const key in body) {
   }
 }
     
-trackChange(
-  "SignOffData",
-  JSON.stringify(oldEntity.signOffData),
-  JSON.stringify(body.signOffData)
-);
+if (body.signOffData) {
+  changes.push({
+    partitionKey: "audit",
+    rowKey: Date.now().toString() + Math.random(),
+
+    toolId: body.rowKey,
+    step: body.step ?? "",
+
+    field: "Sign Off",
+    oldValue: "",
+    newValue: "Row signed off",
+
+    changedBy: body.createdBy || "User",
+    changedAt: new Date().toISOString()
+  });
+}
     
  await client.updateEntity({
   ...oldEntity,   // keep existing data
