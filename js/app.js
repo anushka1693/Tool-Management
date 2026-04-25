@@ -572,6 +572,57 @@ async function saveToolDetails() {
   //Section 6 (Pilot)
 
   //Section 7 (DT Clearance)
+  const dt_answer_0 = document.getElementById("dt_answer_0").value;
+  const dt_owner_0 = document.getElementById("dt_owner_0").value;
+  const dt_status_0 = document.getElementById("dt_status_0").value;
+
+  const dt_answer_1 = document.getElementById("dt_answer_1").value;
+  const dt_owner_1 = document.getElementById("dt_owner_1").value;
+  const dt_status_1 = document.getElementById("dt_status_1").value;
+
+  const dt_answer_2 = document.getElementById("dt_answer_2").value;
+  const dt_owner_2 = document.getElementById("dt_owner_2").value;
+  const dt_status_2 = document.getElementById("dt_status_2").value;
+
+  const dt_answer_3 = document.getElementById("dt_answer_3").value;
+  const dt_owner_3 = document.getElementById("dt_owner_3").value;
+  const dt_status_3 = document.getElementById("dt_status_3").value;
+
+  const dt_answer_4 = document.getElementById("dt_answer_4").value;
+  const dt_owner_4 = document.getElementById("dt_owner_4").value;
+  const dt_status_4 = document.getElementById("dt_status_4").value;
+
+  const dt_answer_5 = document.getElementById("dt_answer_5").value;
+  const dt_owner_5 = document.getElementById("dt_owner_5").value;
+  const dt_status_5 = document.getElementById("dt_status_5").value;
+
+  const dt_answer_6 = document.getElementById("dt_answer_6").value;
+  const dt_owner_6 = document.getElementById("dt_owner_6").value;
+  const dt_status_6 = document.getElementById("dt_status_6").value;
+
+  const dt_answer_7 = document.getElementById("dt_answer_7").value;
+  const dt_owner_7 = document.getElementById("dt_owner_7").value;
+  const dt_status_7 = document.getElementById("dt_status_7").value;
+
+  const dt_answer_8 = document.getElementById("dt_answer_8").value;
+  const dt_owner_8 = document.getElementById("dt_owner_8").value;
+  const dt_status_8 = document.getElementById("dt_status_8").value;
+
+  const dt_answer_9 = document.getElementById("dt_answer_9").value;
+  const dt_owner_9 = document.getElementById("dt_owner_9").value;
+  const dt_status_9 = document.getElementById("dt_status_9").value;
+
+  const dt_answer_10 = document.getElementById("dt_answer_10").value;
+  const dt_owner_10 = document.getElementById("dt_owner_10").value;
+  const dt_status_10 = document.getElementById("dt_status_10").value;
+
+  const dt_answer_11 = document.getElementById("dt_answer_11").value;
+  const dt_owner_11 = document.getElementById("dt_owner_11").value;
+  const dt_status_11 = document.getElementById("dt_status_11").value;
+
+  const dt_answer_12 = document.getElementById("dt_answer_12").value;
+  const dt_owner_12 = document.getElementById("dt_owner_12").value;
+  const dt_status_12 = document.getElementById("dt_status_12").value;
 
   //Section 8 (AI Clearance)
 
@@ -759,6 +810,59 @@ async function saveToolDetails() {
     partnerName: partnerName,
     partnerDecision: partnerDecision,
     partnerRemark: partnerRemark,
+
+
+    dt_answer_0: dt_answer_0,
+    dt_owner_0: dt_owner_0,
+    dt_status_0: dt_status_0,
+
+    dt_answer_1: dt_answer_1,
+    dt_owner_1: dt_owner_1,
+    dt_status_1: dt_status_1,
+
+    dt_answer_2: dt_answer_2,
+    dt_owner_2: dt_owner_2,
+    dt_status_2: dt_status_2,
+
+    dt_answer_3: dt_answer_3,
+    dt_owner_3: dt_owner_3,
+    dt_status_3: dt_status_3,
+
+    dt_answer_4: dt_answer_4,
+    dt_owner_4: dt_owner_4,
+    dt_status_4: dt_status_4,
+
+    dt_answer_5: dt_answer_5,
+    dt_owner_5: dt_owner_5,
+    dt_status_5: dt_status_5,
+
+    dt_answer_6: dt_answer_6,
+    dt_owner_6: dt_owner_6,
+    dt_status_6: dt_status_6,
+
+    dt_answer_7: dt_answer_7,
+    dt_owner_7: dt_owner_7,
+    dt_status_7: dt_status_7,
+
+    dt_answer_8: dt_answer_8,
+    dt_owner_8: dt_owner_8,
+    dt_status_8: dt_status_8,
+
+    dt_answer_9: dt_answer_9,
+    dt_owner_9: dt_owner_9,
+    dt_status_9: dt_status_9,
+
+    dt_answer_10: dt_answer_10,
+    dt_owner_10: dt_owner_10,
+    dt_status_10: dt_status_10,
+
+    dt_answer_11: dt_answer_11,
+    dt_owner_11: dt_owner_11,
+    dt_status_11: dt_status_11,
+
+    dt_answer_12: dt_answer_12,
+    dt_owner_12: dt_owner_12,
+    dt_status_12: dt_status_12,
 
 
     qc_answer_0: qc_answer_0,
@@ -1041,6 +1145,59 @@ async function loadTools() {
   partnerName: t.partnerName,
   partnerDecision: t.partnerDecision,
   partnerRemark: t.partnerRemark,
+
+
+  dt_answer_0: t.dt_answer_0,
+  dt_owner_0: t.dt_owner_0,
+  dt_status_0: t.dt_status_0,
+
+  dt_answer_1: t.dt_answer_1,
+  dt_owner_1: t.dt_owner_1,
+  dt_status_1: t.dt_status_1,
+
+  dt_answer_2: t.dt_answer_2,
+  dt_owner_2: t.dt_owner_2,
+  dt_status_2: t.dt_status_2,
+
+  dt_answer_3: t.dt_answer_3,
+  dt_owner_3: t.dt_owner_3,
+  dt_status_3: t.dt_status_3,
+
+  dt_answer_4: t.dt_answer_4,
+  dt_owner_4: t.dt_owner_4,
+  dt_status_4: t.dt_status_4,
+
+  dt_answer_5: t.dt_answer_5,
+  dt_owner_5: t.dt_owner_5,
+  dt_status_5: t.dt_status_5,
+
+  dt_answer_6: t.dt_answer_6,
+  dt_owner_6: t.dt_owner_6,
+  dt_status_6: t.dt_status_6,
+
+  dt_answer_7: t.dt_answer_7,
+  dt_owner_7: t.dt_owner_7,
+  dt_status_7: t.dt_status_7,
+
+  dt_answer_8: t.dt_answer_8,
+  dt_owner_8: t.dt_owner_8,
+  dt_status_8: t.dt_status_8,
+
+  dt_answer_9: t.dt_answer_9,
+  dt_owner_9: t.dt_owner_9,
+  dt_status_9: t.dt_status_9,
+
+  dt_answer_10: t.dt_answer_10,
+  dt_owner_10: t.dt_owner_10,
+  dt_status_10: t.dt_status_10,
+
+  dt_answer_11: t.dt_answer_11,
+  dt_owner_11: t.dt_owner_11,
+  dt_status_11: t.dt_status_11,
+
+  dt_answer_12: t.dt_answer_12,
+  dt_owner_12: t.dt_owner_12,
+  dt_status_12: t.dt_status_12,
     
 
   qc_answer_0: t.qc_answer_0,
@@ -1281,13 +1438,64 @@ function openTool(index) {
     document.getElementById("it_status_17").value = tool.it_status_17 || "";
 
     //Section 5 (Partner)
-  document.getElementById("partnerName").value = tool.partnerName || "";  
-  document.getElementById("partnerDecision").value = tool.partnerDecision || "";
-  document.getElementById("partnerRemark").value = tool.partnerRemark || "";
+    document.getElementById("partnerName").value = tool.partnerName || "";  
+    document.getElementById("partnerDecision").value = tool.partnerDecision || "";
+    document.getElementById("partnerRemark").value = tool.partnerRemark || "";
 
     //Section 6 (Pilot)
 
     //Section 7 (DT Clearance)
+    document.getElementById("dt_answer_0").value = tool.dt_answer_0 || "";
+    document.getElementById("dt_owner_0").value = tool.dt_owner_0 || "";
+    document.getElementById("dt_status_0").value = tool.dt_status_0 || "";
+
+    document.getElementById("dt_answer_1").value = tool.dt_answer_1 || "";
+    document.getElementById("dt_owner_1").value = tool.dt_owner_1 || "";
+    document.getElementById("dt_status_1").value = tool.dt_status_1 || "";
+
+    document.getElementById("dt_answer_2").value = tool.dt_answer_2 || "";
+    document.getElementById("dt_owner_2").value = tool.dt_owner_2 || "";
+    document.getElementById("dt_status_2").value = tool.dt_status_2 || "";
+
+    document.getElementById("dt_answer_3").value = tool.dt_answer_3 || "";
+    document.getElementById("dt_owner_3").value = tool.dt_owner_3 || "";
+    document.getElementById("dt_status_3").value = tool.dt_status_3 || "";
+
+    document.getElementById("dt_answer_4").value = tool.dt_answer_4 || "";
+    document.getElementById("dt_owner_4").value = tool.dt_owner_4 || "";
+    document.getElementById("dt_status_4").value = tool.dt_status_4 || "";
+
+    document.getElementById("dt_answer_5").value = tool.dt_answer_5 || "";
+    document.getElementById("dt_owner_5").value = tool.dt_owner_5 || "";
+    document.getElementById("dt_status_5").value = tool.dt_status_5 || "";
+
+    document.getElementById("dt_answer_6").value = tool.dt_answer_6 || "";
+    document.getElementById("dt_owner_6").value = tool.dt_owner_6 || "";
+    document.getElementById("dt_status_6").value = tool.dt_status_6 || "";
+
+    document.getElementById("dt_answer_7").value = tool.dt_answer_7 || "";
+    document.getElementById("dt_owner_7").value = tool.dt_owner_7 || "";
+    document.getElementById("dt_status_7").value = tool.dt_status_7 || "";
+
+    document.getElementById("dt_answer_8").value = tool.dt_answer_8 || "";
+    document.getElementById("dt_owner_8").value = tool.dt_owner_8 || "";
+    document.getElementById("dt_status_8").value = tool.dt_status_8 || "";
+
+    document.getElementById("dt_answer_9").value = tool.dt_answer_9 || "";
+    document.getElementById("dt_owner_9").value = tool.dt_owner_9 || "";
+    document.getElementById("dt_status_9").value = tool.dt_status_9 || "";
+
+    document.getElementById("dt_answer_10").value = tool.dt_answer_10 || "";
+    document.getElementById("dt_owner_10").value = tool.dt_owner_10 || "";
+    document.getElementById("dt_status_10").value = tool.dt_status_10 || "";
+
+    document.getElementById("dt_answer_11").value = tool.dt_answer_11 || "";
+    document.getElementById("dt_owner_11").value = tool.dt_owner_11 || "";
+    document.getElementById("dt_status_11").value = tool.dt_status_11 || "";
+
+    document.getElementById("dt_answer_12").value = tool.dt_answer_12 || "";
+    document.getElementById("dt_owner_12").value = tool.dt_owner_12 || "";
+    document.getElementById("dt_status_12").value = tool.dt_status_12 || "";
 
     //Section 8 (AI Clearance)
 
