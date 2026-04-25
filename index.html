@@ -269,7 +269,7 @@
             <th class="p-2">Question</th>
             <th class="p-2">Answer</th>
             <th class="p-2">Evidence</th>
-            <th class="p-2">Owner</th>
+            <th class="p-2">Sign Off</th>
             <th class="p-2">Status</th>
             
           </tr>
@@ -379,7 +379,7 @@ placeholder="Enter any additional remarks if required">
             <th class="p-2">Question</th>
             <th class="p-2">Answer</th>
             <th class="p-2">Evidence</th>
-            <th class="p-2">Owner</th>
+            <th class="p-2">Sign Off</th>
             <th class="p-2">Status</th>
           </tr>
         </thead>
@@ -400,7 +400,7 @@ placeholder="Enter any additional remarks if required">
         <th class="p-2">Question</th>
         <th class="p-2">Answer</th>
         <th class="p-2">Evidence Upload</th>
-        <th class="p-2">Owner</th>
+        <th class="p-2">Sign Off</th>
         <th class="p-2">Status</th>
       </tr>
     </thead>
@@ -450,7 +450,7 @@ placeholder="Enter any additional remarks if required">
       <th>Question</th>
       <th>Answer</th>
       <th>Evidence Upload</th>
-      <th>Owner</th>
+      <th>Sign Off</th>
       <th>Status</th>
     </tr>
   </thead>
@@ -490,7 +490,12 @@ placeholder="Enter any additional remarks if required">
       </td>
         <td class="border p-2"><input type="file" id="ndaFile"></td> 
         <td class="border p-2"><input type="file" id="ndaSignedCopy"></td>
-        <td class="border p-2"><input type="text" id="ndaSignOff" class="w-full border p-1"></td>
+              <td class="border p-2 text-center">
+        <button onclick="signOffRow(this, 'NDA')"
+          class="bg-green-600 text-white px-2 py-1 rounded text-xs">
+          Sign Off
+        </button>
+      </td>
         <!-- <td class="border p-2"><input type="text" class="w-full border p-1"></td> -->
         <td class="border p-2">
           <select id="ndaStatus" class="w-full border p-1">
@@ -530,7 +535,12 @@ placeholder="Enter any additional remarks if required">
         </td>
         <td class="border p-2"><input type="file" id="msaFile"></td>
         <td class="border p-2"><input type="file" id="msaSignedCopy"></td>
-        <td class="border p-2"><input type="text" id="msaSignOff" class="w-full border p-1"></td>
+             <td class="border p-2 text-center">
+        <button onclick="signOffRow(this, 'MSA')"
+          class="bg-green-600 text-white px-2 py-1 rounded text-xs">
+          Sign Off
+        </button>
+      </td>
         <!-- <td class="border p-2"><input type="text" class="w-full border p-1"></td> -->
         <td class="border p-2">
           <select id="msaStatus" class="w-full border p-1">
@@ -680,7 +690,7 @@ Sign Off
 <th class="p-2">Question</th>
 <th class="p-2">Answer</th>
 <th class="p-2">Evidence Upload</th>
-<th class="p-2">Owner</th>
+<th class="p-2">Sign Off</th>
 <th class="p-2">Status</th>
 </tr>
 </thead>
@@ -704,7 +714,12 @@ Has the subscription been updated in GRCHub?
 </td>
 
 <td class="p-2 border">
-<input type="text" class="border p-2 w-full" placeholder="Owner name">
+<td class="p-2 border text-center">
+  <button onclick="signOffRow(this, 'Subscription Update')"
+    class="bg-green-600 text-white px-2 py-1 rounded text-xs">
+    Sign Off
+  </button>
+</td>
 </td>
 
 <td class="p-2 border">
