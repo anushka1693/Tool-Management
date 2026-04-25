@@ -482,18 +482,18 @@ placeholder="Enter any additional remarks if required">
     <tbody>
       <tr>
         <td class="border p-2">NDA</td>
-        <td class="border p-2"><input type="date" class="w-full border p-1"></td>
+        <td class="border p-2"><input id="ndaDate" type="date" class="w-full border p-1"></td>
        <td class="border p-2 flex gap-1">
         <input type="date" id="ndaValidityFrom" class="w-full border p-1">
         <span>→</span>
         <input type="date" id="ndaValidityTo" class="w-full border p-1">
       </td>
-        <td class="border p-2"><input type="file"></td>
-        <td class="border p-2"><input type="file"></td>
-        <td class="border p-2"><input type="text" class="w-full border p-1"></td>
-        <td class="border p-2"><input type="text" class="w-full border p-1"></td>
+        <td class="border p-2"><input type="file" id="ndaFile"></td> 
+        <td class="border p-2"><input type="file" id="ndaSignedCopy"></td>
+        <td class="border p-2"><input type="text" id="ndaSignOff" class="w-full border p-1"></td>
+        <!-- <td class="border p-2"><input type="text" class="w-full border p-1"></td> -->
         <td class="border p-2">
-          <select class="w-full border p-1">
+          <select id="ndaStatus" class="w-full border p-1">
             <option>Pending</option>
             <option>Completed</option>
           </select>
@@ -522,18 +522,18 @@ placeholder="Enter any additional remarks if required">
     <tbody>
       <tr>
         <td class="border p-2">MSA</td>
-        <td class="border p-2"><input type="date" class="w-full border p-1"></td>
+        <td class="border p-2"><input type="date" id="msaDate" class="w-full border p-1"></td>
         <td class="border p-2 flex gap-1">
-          <input type="date" class="w-full border p-1">
+          <input type="date" id="msaValidityFrom" class="w-full border p-1">
           <span>→</span>
-          <input type="date" class="w-full border p-1">
+          <input type="date" id="msaValidityTo" class="w-full border p-1">
         </td>
-        <td class="border p-2"><input type="file"></td>
-        <td class="border p-2"><input type="file"></td>
-        <td class="border p-2"><input type="text" class="w-full border p-1"></td>
-        <td class="border p-2"><input type="text" class="w-full border p-1"></td>
+        <td class="border p-2"><input type="file" id="msaFile"></td>
+        <td class="border p-2"><input type="file" id="msaSignedCopy"></td>
+        <td class="border p-2"><input type="text" id="msaSignOff" class="w-full border p-1"></td>
+        <!-- <td class="border p-2"><input type="text" class="w-full border p-1"></td> -->
         <td class="border p-2">
-          <select class="w-full border p-1">
+          <select id="msaStatus" class="w-full border p-1">
             <option>Pending</option>
             <option>Completed</option>
           </select>
