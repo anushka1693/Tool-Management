@@ -565,9 +565,9 @@ async function saveToolDetails() {
   const it_status_17 = document.getElementById("it_status_17").value;
 
   //Section 5 (Partner)
-  //const dtClearance = document.getElementById("dtClearance").value;
+  const partnerName = document.getElementById("partnerName").value;
   const partnerDecision = document.getElementById("partnerDecision").value;
-  //const dtClearance = document.getElementById("dtClearance").value;
+  const partnerRemark = document.getElementById("partnerRemark").value;
 
   //Section 6 (Pilot)
 
@@ -756,7 +756,9 @@ async function saveToolDetails() {
     it_status_17: it_status_17,
 
 
+    partnerName: partnerName,
     partnerDecision: partnerDecision,
+    partnerRemark: partnerRemark,
 
 
     qc_answer_0: qc_answer_0,
@@ -1036,8 +1038,10 @@ async function loadTools() {
   it_status_17: t.it_status_17,
 
 
+  partnerName: t.partnerName,
   partnerDecision: t.partnerDecision,
-
+  partnerRemark: t.partnerRemark,
+    
 
   qc_answer_0: t.qc_answer_0,
   qc_owner_0: t.qc_owner_0,
@@ -1277,7 +1281,9 @@ function openTool(index) {
     document.getElementById("it_status_17").value = tool.it_status_17 || "";
 
     //Section 5 (Partner)
-    document.getElementById("partnerDecision").value = tool.partnerDecision || "";
+  document.getElementById("partnerName").value = tool.partnerName || "";  
+  document.getElementById("partnerDecision").value = tool.partnerDecision || "";
+  document.getElementById("partnerRemark").value = tool.partnerRemark || "";
 
     //Section 6 (Pilot)
 
