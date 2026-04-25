@@ -1869,6 +1869,20 @@ function openTool(index) {
   document.getElementById("msaValidityTo").value = tool.msaValidityTo || "";
   document.getElementById("msaSignOff").value = tool.msaSignOff || "";
   document.getElementById("msaStatus").value = tool.msaStatus || "";
+
+  document.getElementById("sowType").value = tool.sowType || "";
+   // SOW logic
+  // const dropdown = document.getElementById("sowType");
+  // const sowSection = document.getElementById("sowSection");
+  
+  // if (dropdown && sowSection) {
+  //   function toggleSOW() {
+  //     sowSection.classList.toggle("hidden", dropdown.value !== "yes");
+  //   }
+  //   dropdown.addEventListener("change", toggleSOW);
+  //   toggleSOW();
+  // }
+  
   //Section 12 (Rollout)
 
 
