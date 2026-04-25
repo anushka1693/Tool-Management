@@ -1660,7 +1660,7 @@ if (current && !current.classList.contains("hidden-by-type")) {
 }
 
   if (step === 4) {
-  updatePartnerDecisionOptions();
+  //updatePartnerDecisionOptions();
 }
 
   if (step === 5) {
@@ -1682,7 +1682,7 @@ if (step === 8) {
 }
 
 if (step === 9) {
-  loadQCChecklist();
+  //loadQCChecklist();
 }
 
   updateWorkflowUI(step);
