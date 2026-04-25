@@ -60,28 +60,13 @@ async function signOffRow(btn, question) {
     return;
   }
 
-// ✅ UI update
-btn.classList.add("signed");
+  // ✅ UI update
+  btn.classList.add("signed");
+  btn.innerText = "✔ Signed";
+  btn.title = `Signed by: ${user}`;
+  btn.disabled = true;
 
-const initials = user
-  .split(" ")
-  .map(n => n[0])
-  .join("")
-  .toUpperCase();
-
-btn.innerText = initials;
-
-const formattedTime = new Date().toLocaleString("en-IN", {
-  day: "2-digit",
-  month: "short",
-  year: "numeric",
-  hour: "2-digit",
-  minute: "2-digit"
-});
-
-btn.title = `Signed by: ${user}\n${formattedTime}`;
-
-btn.disabled = true;
+  row.style.backgroundColor = "#e6fffa";
 
   // ✅ Prepare backend object
   const signOffData = {
@@ -2643,22 +2628,9 @@ function loadAllSignOffs() {
       if (data[key] && btn) {
         const { signedBy } = data[key];
 
-        const { signedBy, signedAt } = data[key];
-
-const initials = getUserInitials(signedBy);
-
-btn.innerText = initials;
-
-const formattedTime = new Date(signedAt).toLocaleString("en-IN", {
-  day: "2-digit",
-  month: "short",
-  year: "numeric",
-  hour: "2-digit",
-  minute: "2-digit"
-});
-
-btn.title = `Signed by: ${signedBy}\n${formattedTime}`;
+        btn.innerText = "✔ Signed";
         btn.classList.add("signed");
+        btn.title = "Signed by: " + signedBy;
         btn.disabled = true;
 
         row.style.backgroundColor = "#e6fffa";
