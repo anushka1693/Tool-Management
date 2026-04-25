@@ -60,9 +60,8 @@ async function signOffRow(btn, question) {
     return;
   }
 
-  // ✅ UI update
-  btn.classList.add("signed");
-  const user = document.getElementById("userName")?.innerText || "User";
+// ✅ UI update
+btn.classList.add("signed");
 
 const initials = user
   .split(" ")
@@ -71,9 +70,8 @@ const initials = user
   .toUpperCase();
 
 btn.innerText = initials;
-const signedAt = new Date();
 
-const formattedTime = signedAt.toLocaleString("en-IN", {
+const formattedTime = new Date().toLocaleString("en-IN", {
   day: "2-digit",
   month: "short",
   year: "numeric",
@@ -82,10 +80,8 @@ const formattedTime = signedAt.toLocaleString("en-IN", {
 });
 
 btn.title = `Signed by: ${user}\n${formattedTime}`;
-  btn.title = `Signed by: ${user}`;
-  btn.disabled = true;
 
-  row.style.backgroundColor = "#e6fffa";
+btn.disabled = true;
 
   // ✅ Prepare backend object
   const signOffData = {
