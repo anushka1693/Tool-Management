@@ -772,6 +772,7 @@ async function saveToolDetails() {
   const msaStatus = document.getElementById("msaStatus").value;
 
   const sowType = document.getElementById("sowType").value;
+  const sowAmt = document.getElementById("sowAmt").value;  
 
   //Section 12 (Rollout)
 
@@ -1076,6 +1077,7 @@ async function saveToolDetails() {
     msaStatus: msaStatus,
 
     sowType: sowType,
+    sowAmt: sowAmt,
     
   step: existingTool?.step ?? 0,
     toolType: selectedToolType
@@ -1489,7 +1491,10 @@ async function loadTools() {
     msaValidityFrom: t.msaValidityFrom,
     msaValidityTo: t.msaValidityTo,
     msaSignOff: t.msaSignOff,
-    msaStatus: t.msaStatus   
+    msaStatus: t.msaStatus,   
+
+    sowType: t.sowType,
+    sowAmt: t.sowAmt
 
   }));
 
@@ -1875,14 +1880,8 @@ function openTool(index) {
   const dropdown = document.getElementById("sowType");
   const sowSection = document.getElementById("sowSection");
   sowSection.classList.toggle("hidden", tool.sowType !== "yes");
-  
-  // if (dropdown && sowSection) {
-  //   function toggleSOW() {
-  //     sowSection.classList.toggle("hidden", tool.sowType !== "yes");
-  //   }
-  //   dropdown.addEventListener("change", toggleSOW);
-  //   toggleSOW();
-  // }
+
+  document.getElementById("sowAmt").value = tool.sowAmt || "";
   
   //Section 12 (Rollout)
 
