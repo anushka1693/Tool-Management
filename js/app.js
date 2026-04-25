@@ -2161,16 +2161,16 @@ function loadAIChecklist() {
 
 function renderDTChecklist() {
   const tbody = document.getElementById("dtChecklist");
-  tbody.innerHTML = dtChecklistData.map(item => `
+  tbody.innerHTML = dtChecklistData.map((item, i) => `
     <tr class="border-b">
       <td class="p-2">${item.section}</td>
       <td class="p-2">${item.team}</td>
       <td class="p-2">${item.question}</td>
-      <td class="p-2"><input type="text" placeholder="Answer" class="w-full border rounded p-1"></td>
-      <td class="p-2"><input type="file" class="w-full"></td>
-      <td class="p-2"><input type="text" placeholder="Owner" class="w-full border rounded p-1"></td>
+      <td class="p-2"><input type="text" id="dt_answer_${i}" placeholder="Answer" class="w-full border rounded p-1"></td>
+      <td class="p-2"><input type="file" id="dt_file_${i}" class="w-full"></td>
+      <td class="p-2"><input type="text" id="dt_owner_${i}" placeholder="Owner" class="w-full border rounded p-1"></td>
       <td class="p-2">
-        <select class="w-full border rounded p-1">
+        <select id="dt_status_${i}" class="w-full border rounded p-1">
           <option value="">Select Status</option>
           <option value="pending">Pending</option>
           <option value="in-progress">In Progress</option>
