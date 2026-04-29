@@ -3182,7 +3182,7 @@ function resetDonuts() {
     donut.style.background = "#ccc";
 
     // ✅ Reset text inside donut
-    donut.innerText = "0%";
+    donut.innerText = "0%"; 
   });
 
   
