@@ -2329,10 +2329,6 @@ function selectToolType(type) {
 
   selectedToolType = type;
 
-  currentToolIndex = null;
-  resetForm();
-  resetDonuts();
-
   document.getElementById("addToolMenu").classList.add("hidden");
 
   const vendorSection = document.getElementById("section3");
@@ -2368,6 +2364,9 @@ function selectToolType(type) {
     if (vendorStep) vendorStep.style.display = "flex";
   }
 
+  currentToolIndex = null;
+  resetForm();
+  resetDonuts();
   addTool();
 }
 
