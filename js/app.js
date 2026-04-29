@@ -2639,7 +2639,22 @@ function renderDTChecklist() {
       <td class="p-2">${item.question}</td>
       <td class="p-2"><input type="text" id="dt_answer_${i}" placeholder="Answer" class="w-full border rounded p-1"></td>
       <td class="p-2"><input type="file" id="dt_file_${i}" class="w-full"></td>
-      <td class="p-2"><input type="text" id="dt_owner_${i}" placeholder="Owner" class="w-full border rounded p-1"></td>
+      
+      <td class="p-2 border">
+        <div style="display:flex; gap:6px; align-items:center;">
+          
+          <input id="dt_owner_${i}" type="text" placeholder="Approver" class="owner-input border rounded p-1 w-20" disabled>
+      
+          <button id="dt_signOff_${i}" 
+            onclick="signOffRow(this, '${i.question.replace(/'/g, "")}', ${i})"
+            class="bg-green-600 text-white px-2 py-1 rounded text-xs">
+            Sign Off
+          </button>
+          
+        </div>
+      </td>
+
+      
       <td class="p-2">
         <select id="dt_status_${i}" class="w-full border rounded p-1">
           <option value="">Select Status</option>
