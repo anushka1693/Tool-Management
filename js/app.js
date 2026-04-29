@@ -3146,6 +3146,8 @@ function resetForm() {
 
 function updateSignOffButtons(owner,btnId) {
   if (owner && owner.trim() !== "") {
-    console.log("Value not empty::"+btnId)
+    const btn = document.getElementById(btnId);
+    btn.classList.add("signed");
+    btn.innerText = "✔ Signed";
   }
 }
