@@ -3178,9 +3178,14 @@ function resetDonuts() {
   donuts.forEach(donut => {
     donut.setAttribute("data-progress", 0);
 
-    // Reset visual (depends on your styling logic)
-    donut.style.background = "#ccc"; // default color
+    // Reset visual
+    donut.style.background = "#ccc";
+
+    // ✅ Reset text inside donut
+    donut.innerText = "0%";
   });
+
+  
 }
 
 function resetForm() {
