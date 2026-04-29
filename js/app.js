@@ -2329,6 +2329,7 @@ function selectToolType(type) {
 
   selectedToolType = type;
 
+  resetForm();
   resetDonuts();
 
   document.getElementById("addToolMenu").classList.add("hidden");
@@ -3180,4 +3181,12 @@ function resetDonuts() {
     // Reset visual (depends on your styling logic)
     donut.style.background = "#ccc"; // default color
   });
+}
+
+function resetForm() {
+  document.querySelectorAll("#toolDetailsSection input, #toolDetailsSection select, #toolDetailsSection textarea")
+    .forEach(el => {
+      if (el.type === "file") return;
+      el.value = "";
+    });
 }
