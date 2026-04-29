@@ -1608,7 +1608,7 @@ function openTool(index) {
     document.getElementById(`it_answer_${i}`).value = tool[`it_answer_${i}`] || "";
     document.getElementById(`it_owner_${i}`).value = tool[`it_owner_${i}`] || "";
     document.getElementById(`it_status_${i}`).value = tool[`it_status_${i}`] || "";
-    updateSignOffButtons(tool[`it_owner_${i}`], `it_signoff_${i}`);
+    updateSignOffButtons(tool[`it_owner_${i}`], `it_signOff_${i}`);
   }
 
   //Section 5 (Partner)
