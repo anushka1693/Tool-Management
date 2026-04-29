@@ -2443,9 +2443,9 @@ function loadITChecklist() {
       <td class="p-2 border">
   <div style="display:flex; gap:6px; align-items:center;">
     
-    <input id="it_owner_${index}" type="text" placeholder="Owner" class="owner-input border rounded p-1 w-20">
+    <input id="it_owner_${index}" type="text" placeholder="Owner" class="owner-input border rounded p-1 w-20" disabled>
 
-<button 
+<button id="it_signOff_${index}" 
   onclick="signOffRow(this, '${item.question.replace(/'/g, "")}')"
   class="bg-green-600 text-white px-2 py-1 rounded text-xs">
   Sign Off
