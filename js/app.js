@@ -3179,13 +3179,15 @@ function resetDonuts() {
     donut.setAttribute("data-progress", 0);
 
     // Reset visual
-    donut.style.background = "#ccc";
+    const percent = 0;
+    let color = "#800000";
+    donut.style.background =
+      `conic-gradient(${color} ${percent}%, #e5e5e5 ${percent}%)`;
+    donut.style.color = "#800000";
 
     // ✅ Reset text inside donut
     donut.innerText = "0%"; 
-  });
-
-  
+  });  
 }
 
 function resetForm() {
