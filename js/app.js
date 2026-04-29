@@ -58,7 +58,8 @@ async function signOffRow(btn, question, index) {
     btn.classList.remove("signed");
     btn.innerText = "Sign Off";
     btn.title = "";
-
+    ownerInput.value = "";
+    btn.disabled = false;
     return;
   }
 
@@ -67,6 +68,8 @@ async function signOffRow(btn, question, index) {
   btn.innerText = "✔ Signed";
   btn.title = `Signed by: ${user}`;
   btn.disabled = true;
+
+  ownerInput.value = ${user};
 
   row.style.backgroundColor = "#e6fffa";
 
@@ -98,12 +101,12 @@ async function signOffRow(btn, question, index) {
     tool.signOffData = signOffData;
 
     // ✅ audit (you already have this)
-    addAuditLog({
-      step: getCurrentStepName(),
-      question,
-      action: "Signed Off",
-      value: user
-    });
+    // addAuditLog({
+    //   step: getCurrentStepName(),
+    //   question,
+    //   action: "Signed Off",
+    //   value: user
+    // });
 
   } catch (err) {
     console.error(err);
