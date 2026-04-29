@@ -67,7 +67,6 @@ async function signOffRow(btn, question, index) {
   btn.classList.add("signed");
   btn.innerText = "✔ Signed";
   btn.title = `Signed by: ${user}`;
-  btn.disabled = true;
 
   ownerInput.value = user;
 
@@ -2448,7 +2447,7 @@ function loadITChecklist() {
       <td class="p-2 border">
   <div style="display:flex; gap:6px; align-items:center;">
     
-    <input id="it_owner_${index}" type="text" placeholder="Owner" class="owner-input border rounded p-1 w-20" disabled>
+    <input id="it_owner_${index}" type="text" placeholder="Owner" class="owner-input border rounded p-1 w-30" disabled>
 
 <button id="it_signOff_${index}" 
   onclick="signOffRow(this, '${item.question.replace(/'/g, "")}', ${index})"
