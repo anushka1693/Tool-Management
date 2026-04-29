@@ -31,7 +31,7 @@ function addAuditEntry(question, action) {
 }
 
 // ================= SIGN OFF ROW =================
-async function signOffRow(btn, question) {
+async function signOffRow(btn, question, index) {
 
   if (currentToolIndex === null) {
     alert("No tool selected");
@@ -2446,7 +2446,7 @@ function loadITChecklist() {
     <input id="it_owner_${index}" type="text" placeholder="Owner" class="owner-input border rounded p-1 w-20" disabled>
 
 <button id="it_signOff_${index}" 
-  onclick="signOffRow(this, '${item.question.replace(/'/g, "")}')"
+  onclick="signOffRow(this, '${item.question.replace(/'/g, "")}', ${index})"
   class="bg-green-600 text-white px-2 py-1 rounded text-xs">
   Sign Off
 </button>
