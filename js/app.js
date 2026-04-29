@@ -49,6 +49,8 @@ async function signOffRow(btn, question, index) {
 
   const key = sectionId + "_row_" + rowIndex;
 
+  const ownerInput = document.getElementById("it_owner_"+index);
+
   const isSigned = btn.classList.contains("signed");
 
   if (isSigned) {
