@@ -68,7 +68,13 @@ async function signOffRow(btn, question, index) {
   btn.innerText = "✔ Signed";
   btn.title = `Signed by: ${user}`;
 
-  ownerInput.value = user;
+  const initials = user
+    .split(" ")
+    .map(n => n[0])
+    .join("")
+    .toUpperCase();
+  
+  ownerInput.value = initials;
 
   row.style.backgroundColor = "#e6fffa";
 
@@ -2447,7 +2453,7 @@ function loadITChecklist() {
       <td class="p-2 border">
   <div style="display:flex; gap:6px; align-items:center;">
     
-    <input id="it_owner_${index}" type="text" placeholder="Approved By" class="owner-input border rounded p-1 w-30" disabled>
+    <input id="it_owner_${index}" type="text" placeholder="Approved By" class="owner-input border rounded p-1 w-15" disabled>
 
 <button id="it_signOff_${index}" 
   onclick="signOffRow(this, '${item.question.replace(/'/g, "")}', ${index})"
