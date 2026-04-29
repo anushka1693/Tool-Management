@@ -2329,6 +2329,8 @@ function selectToolType(type) {
 
   selectedToolType = type;
 
+  resetDonuts();
+
   document.getElementById("addToolMenu").classList.add("hidden");
 
   const vendorSection = document.getElementById("section3");
@@ -3166,5 +3168,16 @@ function loadAllSignOffs() {
 
     });
 
+  });
+}
+
+function resetDonuts() {
+  const donuts = document.querySelectorAll(".donut");
+
+  donuts.forEach(donut => {
+    donut.setAttribute("data-progress", 0);
+
+    // Reset visual (depends on your styling logic)
+    donut.style.background = "#ccc"; // default color
   });
 }
