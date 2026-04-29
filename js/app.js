@@ -2329,6 +2329,7 @@ function selectToolType(type) {
 
   selectedToolType = type;
 
+  currentToolIndex = null;
   resetForm();
   resetDonuts();
 
