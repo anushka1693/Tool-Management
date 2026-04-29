@@ -69,7 +69,7 @@ async function signOffRow(btn, question, index) {
   btn.title = `Signed by: ${user}`;
   btn.disabled = true;
 
-  ownerInput.value = ${user};
+  ownerInput.value = ""+${user};
 
   row.style.backgroundColor = "#e6fffa";
 
