@@ -31,7 +31,7 @@ function addAuditEntry(question, action) {
 }
 
 // ================= SIGN OFF ROW =================
-async function signOffRow(btn, question, index) {
+async function signOffRow(btn, question) {
 
   if (currentToolIndex === null) {
     alert("No tool selected");
@@ -49,8 +49,6 @@ async function signOffRow(btn, question, index) {
 
   const key = sectionId + "_row_" + rowIndex;
 
-  const ownerInput = document.getElementById("it_owner_"+index);
-
   const isSigned = btn.classList.contains("signed");
 
   if (isSigned) {
@@ -58,8 +56,7 @@ async function signOffRow(btn, question, index) {
     btn.classList.remove("signed");
     btn.innerText = "Sign Off";
     btn.title = "";
-    ownerInput.value = "";
-    btn.disabled = false;
+
     return;
   }
 
@@ -67,14 +64,7 @@ async function signOffRow(btn, question, index) {
   btn.classList.add("signed");
   btn.innerText = "✔ Signed";
   btn.title = `Signed by: ${user}`;
-
-  const initials = user
-    .split(" ")
-    .map(n => n[0])
-    .join("")
-    .toUpperCase();
-  
-  ownerInput.value = initials;
+  btn.disabled = true;
 
   row.style.backgroundColor = "#e6fffa";
 
@@ -106,12 +96,12 @@ async function signOffRow(btn, question, index) {
     tool.signOffData = signOffData;
 
     // ✅ audit (you already have this)
-    // addAuditLog({
-    //   step: getCurrentStepName(),
-    //   question,
-    //   action: "Signed Off",
-    //   value: user
-    // });
+    addAuditLog({
+      step: getCurrentStepName(),
+      question,
+      action: "Signed Off",
+      value: user
+    });
 
   } catch (err) {
     console.error(err);
@@ -1604,12 +1594,77 @@ function openTool(index) {
   document.getElementById("dtClearance").value = tool.dtClearance || "";
 
   //Section 4 (IT Clearance)
-  for (let i = 0; i <= 17; i++) {
-    document.getElementById(`it_answer_${i}`).value = tool[`it_answer_${i}`] || "";
-    document.getElementById(`it_owner_${i}`).value = tool[`it_owner_${i}`] || "";
-    document.getElementById(`it_status_${i}`).value = tool[`it_status_${i}`] || "";
-    updateSignOffButtons(tool[`it_owner_${i}`], `it_signOff_${i}`);
-  }
+  document.getElementById("it_answer_0").value = tool.it_answer_0 || "";
+  document.getElementById("it_owner_0").value = tool.it_owner_0 || "";
+  document.getElementById("it_status_0").value = tool.it_status_0 || "";
+
+  document.getElementById("it_answer_1").value = tool.it_answer_1 || "";
+  document.getElementById("it_owner_1").value = tool.it_owner_1 || "";
+  document.getElementById("it_status_1").value = tool.it_status_1 || "";
+
+  document.getElementById("it_answer_2").value = tool.it_answer_2 || "";
+  document.getElementById("it_owner_2").value = tool.it_owner_2 || "";
+  document.getElementById("it_status_2").value = tool.it_status_2 || "";
+
+  document.getElementById("it_answer_3").value = tool.it_answer_3 || "";
+  document.getElementById("it_owner_3").value = tool.it_owner_3 || "";
+  document.getElementById("it_status_3").value = tool.it_status_3 || "";
+
+  document.getElementById("it_answer_4").value = tool.it_answer_4 || "";
+  document.getElementById("it_owner_4").value = tool.it_owner_4 || "";
+  document.getElementById("it_status_4").value = tool.it_status_4 || "";
+
+  document.getElementById("it_answer_5").value = tool.it_answer_5 || "";
+  document.getElementById("it_owner_5").value = tool.it_owner_5 || "";
+  document.getElementById("it_status_5").value = tool.it_status_5 || "";
+
+  document.getElementById("it_answer_6").value = tool.it_answer_6 || "";
+  document.getElementById("it_owner_6").value = tool.it_owner_6 || "";
+  document.getElementById("it_status_6").value = tool.it_status_6 || "";
+
+  document.getElementById("it_answer_7").value = tool.it_answer_7 || "";
+  document.getElementById("it_owner_7").value = tool.it_owner_7 || "";
+  document.getElementById("it_status_7").value = tool.it_status_7 || "";
+
+  document.getElementById("it_answer_8").value = tool.it_answer_8 || "";
+  document.getElementById("it_owner_8").value = tool.it_owner_8 || "";
+  document.getElementById("it_status_8").value = tool.it_status_8 || "";
+
+  document.getElementById("it_answer_9").value = tool.it_answer_9 || "";
+  document.getElementById("it_owner_9").value = tool.it_owner_9 || "";
+  document.getElementById("it_status_9").value = tool.it_status_9 || "";
+
+  document.getElementById("it_answer_10").value = tool.it_answer_10 || "";
+  document.getElementById("it_owner_10").value = tool.it_owner_10 || "";
+  document.getElementById("it_status_10").value = tool.it_status_10 || "";
+
+  document.getElementById("it_answer_11").value = tool.it_answer_11 || "";
+  document.getElementById("it_owner_11").value = tool.it_owner_11 || "";
+  document.getElementById("it_status_11").value = tool.it_status_11 || "";
+
+  document.getElementById("it_answer_12").value = tool.it_answer_12 || "";
+  document.getElementById("it_owner_12").value = tool.it_owner_12 || "";
+  document.getElementById("it_status_12").value = tool.it_status_12 || "";
+
+  document.getElementById("it_answer_13").value = tool.it_answer_13 || "";
+  document.getElementById("it_owner_13").value = tool.it_owner_13 || "";
+  document.getElementById("it_status_13").value = tool.it_status_13 || "";
+
+  document.getElementById("it_answer_14").value = tool.it_answer_14 || "";
+  document.getElementById("it_owner_14").value = tool.it_owner_14 || "";
+  document.getElementById("it_status_14").value = tool.it_status_14 || "";
+
+  document.getElementById("it_answer_15").value = tool.it_answer_15 || "";
+  document.getElementById("it_owner_15").value = tool.it_owner_15 || "";
+  document.getElementById("it_status_15").value = tool.it_status_15 || "";
+
+  document.getElementById("it_answer_16").value = tool.it_answer_16 || "";
+  document.getElementById("it_owner_16").value = tool.it_owner_16 || "";
+  document.getElementById("it_status_16").value = tool.it_status_16 || "";
+
+  document.getElementById("it_answer_17").value = tool.it_answer_17 || "";
+  document.getElementById("it_owner_17").value = tool.it_owner_17 || "";
+  document.getElementById("it_status_17").value = tool.it_status_17 || "";
 
   //Section 5 (Partner)
   document.getElementById("partnerName").value = tool.partnerName || "";  
@@ -1831,7 +1886,6 @@ function openTool(index) {
   //Section 12 (Rollout)
 
 
-  //Common methods
 
     // ✅ LOAD ALL FIELDS BACK INTO UI
   Object.keys(tool).forEach(key => {
@@ -2310,9 +2364,6 @@ function selectToolType(type) {
     if (vendorStep) vendorStep.style.display = "flex";
   }
 
-  currentToolIndex = null;
-  resetForm();
-  resetDonuts();
   addTool();
 }
 
@@ -2389,10 +2440,10 @@ function loadITChecklist() {
       <td class="p-2 border">
   <div style="display:flex; gap:6px; align-items:center;">
     
-    <input id="it_owner_${index}" type="text" placeholder="Approver" class="owner-input border rounded p-1 w-20" disabled>
+    <input id="it_owner_${index}" type="text" placeholder="Owner" class="owner-input border rounded p-1 w-20">
 
-<button id="it_signOff_${index}" 
-  onclick="signOffRow(this, '${item.question.replace(/'/g, "")}', ${index})"
+<button 
+  onclick="signOffRow(this, '${item.question.replace(/'/g, "")}')"
   class="bg-green-600 text-white px-2 py-1 rounded text-xs">
   Sign Off
 </button>
@@ -2639,22 +2690,7 @@ function renderDTChecklist() {
       <td class="p-2">${item.question}</td>
       <td class="p-2"><input type="text" id="dt_answer_${i}" placeholder="Answer" class="w-full border rounded p-1"></td>
       <td class="p-2"><input type="file" id="dt_file_${i}" class="w-full"></td>
-      
-      <td class="p-2 border">
-        <div style="display:flex; gap:6px; align-items:center;">
-          
-          <input id="dt_owner_${i}" type="text" placeholder="Approver" class="owner-input border rounded p-1 w-20" disabled>
-      
-          <button id="dt_signOff_${i}" 
-            onclick="signOffRow(this, '${i.question.replace(/'/g, "")}', ${i})"
-            class="bg-green-600 text-white px-2 py-1 rounded text-xs">
-            Sign Off
-          </button>
-          
-        </div>
-      </td>
-
-      
+      <td class="p-2"><input type="text" id="dt_owner_${i}" placeholder="Owner" class="w-full border rounded p-1"></td>
       <td class="p-2">
         <select id="dt_status_${i}" class="w-full border rounded p-1">
           <option value="">Select Status</option>
@@ -3131,38 +3167,4 @@ function loadAllSignOffs() {
     });
 
   });
-}
-
-function resetDonuts() {
-  const donuts = document.querySelectorAll(".donut");
-
-  donuts.forEach(donut => {
-    donut.setAttribute("data-progress", 0);
-
-    // Reset visual
-    const percent = 0;
-    let color = "#800000";
-    donut.style.background =
-      `conic-gradient(${color} ${percent}%, #e5e5e5 ${percent}%)`;
-    donut.style.color = "#800000";
-
-    // ✅ Reset text inside donut
-    donut.innerText = "0%"; 
-  });  
-}
-
-function resetForm() {
-  document.querySelectorAll("#toolDetailsSection input, #toolDetailsSection select, #toolDetailsSection textarea")
-    .forEach(el => {
-      if (el.type === "file") return;
-      el.value = "";
-    });
-}
-
-function updateSignOffButtons(owner,btnId) {
-  if (owner && owner.trim() !== "") {
-    const btn = document.getElementById(btnId);
-    btn.classList.add("signed");
-    btn.innerText = "✔ Signed";
-  }
 }
