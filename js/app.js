@@ -343,7 +343,7 @@ input.addEventListener("change", () => {
 // =======================
 
 const stepsList = [
-  "Tool Details","Demo","Vendor Questionnaire","IT Clearance",
+  "Tool Details","Demo","Vendor Questionnaires","IT Clearance",
   "Partner Approval","Pilot","DT Clearance", "AI Clearance", "Tool Memo",
   "QC Clearance","NDA / MSA / SOW","Rollout"
 ];
